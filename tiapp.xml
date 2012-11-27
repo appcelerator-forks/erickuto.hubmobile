@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:app xmlns:ti="http://ti.appcelerator.org">
+    <property name="acs-oauth-secret-production" type="string">f2FCW52WkQquWsCn3GdCd1e7FI5R5hTV</property>
+    <property name="acs-oauth-key-production" type="string">rd5Hd7F8tiTSbbm8SPFWsYrdHkLCJdqb</property>
+    <property name="acs-api-key-production" type="string">QulTUgI0KChPKOzIUQAlpgnobGNpfbn7</property>
+    <property name="acs-oauth-secret-development" type="string">XyJ0Cc4Ucrs16pYUTr4USTBj3bZaYOnM</property>
+    <property name="acs-oauth-key-development" type="string">Kio0GomyqJ9vFPbUEmiI5OOMK4FW3VR4</property>
+    <property name="acs-api-key-development" type="string">cBb4sPuQWd6vExxsZNKDDYXS311VLcvG</property>
+    <deployment-targets>
+        <target device="mobileweb">true</target>
+        <target device="iphone">false</target>
+        <target device="ipad">false</target>
+        <target device="android">true</target>
+        <target device="blackberry">false</target>
+    </deployment-targets>
+    <sdk-version>2.1.4.GA</sdk-version>
+    <id>com.ashoka.hubmobile</id>
+    <name>hubmobile</name>
+    <version>1.0</version>
+    <publisher>ekuto</publisher>
+    <url>http://hub.ashoka.org</url>
+    <description>not specified</description>
+    <copyright>2012 by ekuto</copyright>
+    <icon>appicon.png</icon>
+    <persistent-wifi>false</persistent-wifi>
+    <prerendered-icon>false</prerendered-icon>
+    <statusbar-style>default</statusbar-style>
+    <statusbar-hidden>false</statusbar-hidden>
+    <fullscreen>false</fullscreen>
+    <navbar-hidden>false</navbar-hidden>
+    <analytics>true</analytics>
+    <guid>569a0b6d-714d-413a-bfd6-47fef524b81d</guid>
+    <property name="ti.ui.defaultunit">system</property>
+    <iphone>
+        <orientations device="iphone">
+            <orientation>Ti.UI.PORTRAIT</orientation>
+        </orientations>
+        <orientations device="ipad">
+            <orientation>Ti.UI.PORTRAIT</orientation>
+            <orientation>Ti.UI.UPSIDE_PORTRAIT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_LEFT</orientation>
+            <orientation>Ti.UI.LANDSCAPE_RIGHT</orientation>
+        </orientations>
+    </iphone>
+    <android xmlns:android="http://schemas.android.com/apk/res/android"/>
+    <mobileweb>
+        <precache/>
+        <splash>
+            <enabled>true</enabled>
+            <inline-css-images>true</inline-css-images>
+        </splash>
+        <theme>default</theme>
+    </mobileweb>
+    <modules>
+        <module platform="commonjs" version="2.3.0">ti.cloud</module>
+    </modules>
+</ti:app>
