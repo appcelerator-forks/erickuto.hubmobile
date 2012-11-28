@@ -1,3 +1,4 @@
+
 var win = Ti.UI.createWindow({
 	backgroundColor:'white', 
 	layout:'vertical',
@@ -154,6 +155,7 @@ canvasData = [];
 canvasData.push(logoRow);
 canvasData.push(formRow);
 canvasData.push(infoRow);
+
 canvas.setData(canvasData);
 
 win.add(canvas);
@@ -163,13 +165,18 @@ exports.win = win;
 
 var loginReq = Titanium.Network.createHTTPClient();
 loginReq.onload = function()
-{
-	alert("Got into the onload");
+{	
 	var json = this.responseText;
 	var response = JSON.parse(json);
 	if (response.logged == true)
 	{
-		alert("Welcome " + response.name + ". Your email is: " + response.email);
+		username.blur();
+		password.blur();
+		Ti.App.fireEvent('grantEntrance', {
+			name:response.name,
+			email:response.email
+		});
+		win.close();
 	}
 	else
 	{
@@ -178,6 +185,7 @@ loginReq.onload = function()
 };
 loginBtn.addEventListener('click',function(e)
 {
+
 	if (username.value != '' && password.value != '')
 	{
 		loginReq.open("POST","http://50.17.229.217/ashokahub/authenticate.php");
@@ -193,4 +201,5 @@ loginBtn.addEventListener('click',function(e)
 		alert("Username/Password are required");
 	}
 });
+
 
