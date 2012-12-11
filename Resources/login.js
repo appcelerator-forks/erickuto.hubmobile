@@ -12,7 +12,7 @@ var win = Ti.UI.createWindow({
 //Page Wrapper. 
 var canvas = Ti.UI.createView({
 	width:'400',
-	height:'97%'
+	//height:'97%'
 })
 
 var logoImage = Ti.UI.createImageView({
@@ -46,7 +46,7 @@ var formRow = Ti.UI.createTableViewRow({
 });
 */
 var username = Titanium.UI.createTextField({
-	color:customTextColor,
+	//color:customTextColor,
 	top:150,
 	width:300,
 	height:70,
@@ -58,7 +58,10 @@ var username = Titanium.UI.createTextField({
 	hintText:'Enter your email address',
 	keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
 	returnKeyType:Titanium.UI.RETURNKEY_DEFAULT,
-	borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED
+	borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
+	borderColor:'#e0e0e0',
+	borderRadius:5,
+	borderWidth:1,
 });
 
 var password = Titanium.UI.createTextField({
@@ -74,7 +77,10 @@ var password = Titanium.UI.createTextField({
 	passwordMask:true,
 	keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
 	returnKeyType:Titanium.UI.RETURNKEY_DEFAULT,
-	borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED
+	borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
+	borderColor:'#e0e0e0',
+	borderRadius:5,
+	borderWidth:1,
 });
 
 var loginBtn = Titanium.UI.createButton({
@@ -91,7 +97,7 @@ var forgotLabel = Titanium.UI.createLabel({
 	height:50,
 	top:370,
 	font:{
-      fontSize:20,
+      fontSize:17,
       fontFamily: customFont
    },
    color:customTextColor,
@@ -102,7 +108,7 @@ var firstLabel = Titanium.UI.createLabel({
 	right:50,
 	height:50,
 	font:{
-      fontSize:20,
+      fontSize:17,
       fontFamily: customFont
    },
 	top:370,
@@ -259,6 +265,8 @@ infoRow.add(topicLabel);
 infoRow.add(missionLabel);
 canvas.add(infoRow);
 
+
+
 /*
 canvasData = [];
 
@@ -272,6 +280,30 @@ win.add(canvas);
 
 exports.win = win;
 
+exports.showLoginFail = function(){
+	borderBottom.top = 120;
+	username.borderColor = 'red';
+	username.borderRadius = 5;
+	username.borderWidth = 1;
+	password.borderColor = 'red';
+	password.borderRadius = 5;
+	password.borderWidth = 1;
+	
+	
+	canvas.add(Ti.UI.createLabel({
+		text:"Invalid email or password.",
+		top:130, 
+		left:50,
+		font:{
+	      fontSize:12,
+	      fontFamily: customFont
+	   },
+		color:'red'
+	}));
+
+borderBottom.top = 120;
+
+}
 
 var loginReq = Titanium.Network.createHTTPClient();
 loginReq.onload = function()
@@ -290,7 +322,9 @@ loginReq.onload = function()
 	}
 	else
 	{
-		alert(response.message);
+		username.blur();
+		password.blur();
+		Ti.App.fireEvent('denyEntrance');
 	}
 };
 loginBtn.addEventListener('click',function(e)

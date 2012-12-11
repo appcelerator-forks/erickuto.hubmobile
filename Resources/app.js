@@ -10,3 +10,8 @@ Ti.App.addEventListener('grantEntrance', function(event)
   	myApp.dashboard = require("dashboard");
   	myApp.dashboard.createDashboard(event.name, event.email);
 });
+
+Ti.App.addEventListener('denyEntrance', function(event)
+{
+	myApp.ui.showLoginFail();
+});
