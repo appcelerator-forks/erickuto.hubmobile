@@ -1,29 +1,43 @@
 
+var customFont = 'SpicyRice-Regular';
+var customBgColor = '#f9f9f9';
+var customTextColor = '#5e656a';
+var customTitleColor = '#0b395c';
+
 var win = Ti.UI.createWindow({
-	backgroundColor:'white', 
+	backgroundColor:customBgColor,
 	layout:'vertical',
 }); 
 
 //Page Wrapper. 
 var canvas = Ti.UI.createView({
-	backgroundColor:'yellow', 
 	width:'400',
-	height:'97%', 
+	height:'97%'
 })
 
 var logoImage = Ti.UI.createImageView({
 	image:'images/ashoka_logo.png', 
-	top:5,
-	width:400
+	top:25,
+	width:300
 });
 
+var logoCanvas = Ti.UI.createView({top:0, height:120, width:400});
+var borderBottom = Ti.UI.createView({
+    backgroundColor: '#e0e0e0',
+    width: 400,
+    top: 140,
+    height:2,
+});
+ 
+canvas.add(borderBottom);
+logoCanvas.add(logoImage);
 /*logo
 var logoRow = Ti.UI.createTableViewRow({
 	backgroundColor:'white', 
 	height: 'auto'
 });
 */
-canvas.add(logoImage);
+canvas.add(logoCanvas);
 
 /*Form row
 var formRow = Ti.UI.createTableViewRow({
@@ -32,22 +46,31 @@ var formRow = Ti.UI.createTableViewRow({
 });
 */
 var username = Titanium.UI.createTextField({
-	color:'#336699',
+	color:customTextColor,
 	top:150,
 	width:300,
 	height:70,
-	hintText:'Username',
+	font:{
+      fontSize:23,
+      fontColor:customTextColor,
+      fontFamily: customFont
+   },
+	hintText:'Enter your email address',
 	keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
 	returnKeyType:Titanium.UI.RETURNKEY_DEFAULT,
 	borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED
 });
 
 var password = Titanium.UI.createTextField({
-	color:'#336699',
+	color:customTextColor,
 	top:230,
 	width:300,
 	height:70,
-	hintText:'Password',
+	font:{
+      fontSize:23,
+      fontFamily: customFont
+   },
+	hintText:'Enter your Password',
 	passwordMask:true,
 	keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
 	returnKeyType:Titanium.UI.RETURNKEY_DEFAULT,
@@ -55,30 +78,53 @@ var password = Titanium.UI.createTextField({
 });
 
 var loginBtn = Titanium.UI.createButton({
-	title:'Login',
 	top:310,
-	left:200,
+	right:50,
 	width:100,
 	height:50,
 	borderRadius:1,
-	font:{fontFamily:'Arial',fontWeight:'bold',fontSize:14}
+	backgroundImage:'images/ashoka_login_btn.png',
 });
 
 var forgotLabel = Titanium.UI.createLabel({
-	left:10,
+	left:50,
 	height:50,
 	top:370,
+	font:{
+      fontSize:20,
+      fontFamily: customFont
+   },
+   color:customTextColor,
 	text: 'Forgot Password?'
 });
 
 var firstLabel = Titanium.UI.createLabel({
-	left:200,
+	right:50,
 	height:50,
+	font:{
+      fontSize:20,
+      fontFamily: customFont
+   },
 	top:370,
+	color:customTextColor,
 	text: 'First time login'
 });
 
+var barLabel = Titanium.UI.createLabel({
+	left:210,
+	height:50,
+	font:{
+      fontSize:20,
+      fontFamily: customFont
+   },
+	top:370,
+	color:customTextColor,
+	text: '|'
+});
+
+
 canvas.add(forgotLabel);
+canvas.add(barLabel);
 canvas.add(firstLabel);
 canvas.add(username);
 canvas.add(password);
@@ -87,64 +133,128 @@ canvas.add(loginBtn);
 //Information row
 var infoRow = Ti.UI.createView({
 	top:430, 
-	backgroundColor:'red', 
 	height:'300',
 });
 
-var topicLabel = Ti.UI.createLabel({
-	text: 'About Us',
-	top:10, 
+infoRow.add(Ti.UI.createLabel({
+	text: '\u2022',
+	top:87,
 	left:10,
-	font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20, color:'blue'}
-});
+	font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20, color:customTitleColor}
+}));
 
-var topicLabel = Ti.UI.createLabel({
+infoRow.add(Ti.UI.createLabel({
+	text: '\u2022',
+	top:117,
+	left:10,
+	font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20, color:customTitleColor}
+}));
+
+infoRow.add(Ti.UI.createLabel({
+	text: '\u2022',
+	top:147,
+	left:10,
+	font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20, color:customTitleColor}
+}));
+
+infoRow.add(Ti.UI.createLabel({
+	text: '\u2022',
+	top:177,
+	left:10,
+	font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20, color:customTitleColor}
+}));
+topicLabel = Ti.UI.createLabel({
 	text: 'About Us',
 	top:10, 
 	left:10,
-	font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20},
-	color:'blue'
+	font:{
+      fontSize:21,
+      fontWeight:'bold',
+      fontColor:customTitleColor,
+      fontFamily: customFont
+   },
+	color:customTitleColor
 });
 
 var missionLabel = Ti.UI.createLabel({
-	text: "AshokaHub enables entrepreneurs in Ashoka's global \nnetwork to:",
+	text: "AshokaHub enables entrepreneurs in Ashoka's global network to:",
 	top:40, 
 	left:10,
-	font:{fontFamily:'Arial',},
-	color:'black'
+	font:{
+      fontSize:18,
+      fontFamily: customFont
+   },
+	color:customTextColor
 });
 
 infoRow.add(Ti.UI.createLabel({
 	text: "Find one another easily",
 	top:90, 
 	left:20,
-	font:{fontFamily:'Arial',},
-	color:'black'
+	font:{
+      fontSize:17,
+      fontFamily: customFont
+   },
+	color:customTextColor
 }));
 
 infoRow.add(Ti.UI.createLabel({
 	text: "Contact one another easily",
 	top:120, 
 	left:20,
-	font:{fontFamily:'Arial',},
-	color:'black'
+	font:{
+      fontSize:17,
+      fontFamily: customFont
+   },
+	color:customTextColor
 }));
 
 infoRow.add(Ti.UI.createLabel({
 	text: "Share up to date information",
 	top:150, 
 	left:20,
-	font:{fontFamily:'Arial',},
-	color:'black'
+	font:{
+      fontSize:17,
+      fontFamily: customFont
+   },
+	color:customTextColor
 }));
 
 infoRow.add(Ti.UI.createLabel({
 	text: "Exchange knowledge, resources & opportunities",
 	top:180, 
 	left:20,
-	font:{fontFamily:'Arial',},
-	color:'black'
+	font:{
+      fontSize:17,
+      fontFamily: customFont
+   },
+	color:customTextColor
 }));
+
+infoRow.add(Titanium.UI.createLabel({
+	left:20,
+	height:50,
+	bottom:1,
+	font:{
+      fontSize:12,
+      fontFamily: customFont
+   },
+   color:customTextColor,
+	text: 'Copyright 2011 Ashoka'
+}));
+
+infoRow.add(Titanium.UI.createLabel({
+	right:20,
+	height:50,
+	bottom:1,
+	font:{
+      fontSize:12,
+      fontFamily: customFont
+   },
+   color:customTextColor,
+	text: 'hub.ashoka.org'
+}));
+
 infoRow.add(topicLabel);
 infoRow.add(missionLabel);
 canvas.add(infoRow);
