@@ -5,7 +5,7 @@ var win = Ti.UI.createWindow({
 }); 
 
 //Page Wrapper. 
-var canvas = Ti.UI.createTableView({
+var canvas = Ti.UI.createView({
 	backgroundColor:'yellow', 
 	width:'400',
 	height:'97%', 
@@ -13,30 +13,27 @@ var canvas = Ti.UI.createTableView({
 
 var logoImage = Ti.UI.createImageView({
 	image:'images/ashoka_logo.png', 
+	top:5,
 	width:400
 });
 
-//logo
+/*logo
 var logoRow = Ti.UI.createTableViewRow({
 	backgroundColor:'white', 
 	height: 'auto'
 });
+*/
+canvas.add(logoImage);
 
-logoRow.add(logoImage);
-
-//Form row
+/*Form row
 var formRow = Ti.UI.createTableViewRow({
 	backgroundColor:'red', 
 	height:'300',
 });
-
-var formView = Ti.UI.createView({
-	backgroundColor:'grey',
-	height:'280',
-});
+*/
 var username = Titanium.UI.createTextField({
 	color:'#336699',
-	top:10,
+	top:150,
 	width:300,
 	height:70,
 	hintText:'Username',
@@ -47,7 +44,7 @@ var username = Titanium.UI.createTextField({
 
 var password = Titanium.UI.createTextField({
 	color:'#336699',
-	top:90,
+	top:230,
 	width:300,
 	height:70,
 	hintText:'Password',
@@ -59,7 +56,7 @@ var password = Titanium.UI.createTextField({
 
 var loginBtn = Titanium.UI.createButton({
 	title:'Login',
-	top:170,
+	top:310,
 	left:200,
 	width:100,
 	height:50,
@@ -70,27 +67,27 @@ var loginBtn = Titanium.UI.createButton({
 var forgotLabel = Titanium.UI.createLabel({
 	left:10,
 	height:50,
-	top:230,
+	top:370,
 	text: 'Forgot Password?'
 });
 
 var firstLabel = Titanium.UI.createLabel({
 	left:200,
 	height:50,
-	top:230,
+	top:370,
 	text: 'First time login'
 });
 
-formView.add(forgotLabel);
-formView.add(firstLabel);
-formView.add(username);
-formView.add(password);
-formView.add(loginBtn);
-formRow.add(formView);
+canvas.add(forgotLabel);
+canvas.add(firstLabel);
+canvas.add(username);
+canvas.add(password);
+canvas.add(loginBtn);
 
 //Information row
-var infoRow = Ti.UI.createTableViewRow({
-	backgroundColor:'white', 
+var infoRow = Ti.UI.createView({
+	top:430, 
+	backgroundColor:'red', 
 	height:'300',
 });
 
@@ -150,6 +147,9 @@ infoRow.add(Ti.UI.createLabel({
 }));
 infoRow.add(topicLabel);
 infoRow.add(missionLabel);
+canvas.add(infoRow);
+
+/*
 canvasData = [];
 
 canvasData.push(logoRow);
@@ -157,7 +157,7 @@ canvasData.push(formRow);
 canvasData.push(infoRow);
 
 canvas.setData(canvasData);
-
+*/
 win.add(canvas);
 
 exports.win = win;
