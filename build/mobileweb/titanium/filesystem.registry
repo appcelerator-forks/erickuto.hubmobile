@@ -1,31 +1,46 @@
-<<<<<<< HEAD
-ts	1354207465000
-=======
-ts	1355247640000
->>>>>>> 01bf8000a73452649388d0fa51c280454464cc44
+ts	1355934302000
+ApplicationView.js	1993
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
 KS_nav_ui.png	1158
 KS_nav_views.png	1074
-app.js	399
+ProfileView.js	1989
+app.js	67
 appicon.png	19109
 apple-touch-icon-114x114-precomposed.png	15820
 apple-touch-icon-57x57-precomposed.png	6790
 apple-touch-icon-72x72-precomposed.png	8844
 apple-touch-icon-precomposed.png	6790
+common
+	controllers
+		LoginController.js	1393
+		StartupController.js	448
+	hub.js	961
+	views
+		DashBoardView.js	935
+		LoginView.js	5298
 dashboard.js	352
 favicon.ico	1068
 fonts
 	ss-symbolicons-block.ttf	141712
+hub.js	1070
 images
 	1_Login.jpg	183284
 	ashoka_banner.png	15141
 	ashoka_login_btn.png	10716
 	ashoka_logo.png	27467
 	ashoka_tree.png	12339
-login.js	6679
+ipad
+	ApplicationView.js	1941
+	ProfileView.js	1989
+ipod
+	ApplicationView.js	1941
+	ProfileView.js	1989
+login.js	6677
 mobileweb
+	ApplicationView.js	1993
+	ProfileView.js	1989
 	appicon.png	19109
 	apple_startup_images
 		Default-Landscape.jpg	36232
