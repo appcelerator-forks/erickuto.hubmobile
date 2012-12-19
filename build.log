@@ -1,28 +1,48 @@
 Logfile initialized
 [INFO] logfile = C:\Users\ekuto\titanium\hubmobile\build.log
-[DEBUG] C:\Users\ekuto\AppData\Roaming\Titanium\mobilesdk\win32\2.1.4.GA\android\builder.py simulator hubmobile C:\Users\ekuto\AppData\Local\Titanium Studio C:\Users\ekuto\titanium\hubmobile com.ashoka.hubmobile 5 WVGA854
+[DEBUG] C:\Users\ekuto\AppData\Roaming\Titanium\mobilesdk\win32\2.1.4.GA\android\builder.py simulator hubmobile C:\Users\ekuto\AppData\Local\Titanium Studio C:\Users\ekuto\titanium\hubmobile com.ashoka.hubmobile 1 WVGA854
 [INFO] Building hubmobile for Android ... one moment
 [INFO] Titanium SDK version: 2.1.4 (11/09/12 12:46 51f2c64)
 [DEBUG] Waiting for device to be ready ...
 [TRACE] adb devices returned 1 devices/emulators
 [TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[DEBUG] Device connected... (waited 10 seconds)
-[DEBUG] waited 10.051000 seconds on emulator to get ready
+[DEBUG] Device connected... (waited 5 seconds)
+[DEBUG] waited 5.033000 seconds on emulator to get ready
 [INFO] Waiting for the Android Emulator to become available
-[DEBUG] com.ashoka.hubmobile installed? False
+[DEBUG] com.ashoka.hubmobile installed? True
 [INFO] Fastdev server running, deploying in Fastdev mode
 [INFO] Copying CommonJS modules...
 [INFO] Copying project resources..
 [INFO] Detected change in tiapp.xml, or assets deleted. Forcing full re-build...
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\android\appicon.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\appicon.png
-[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\android\ApplicationView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\ApplicationView.js
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\android\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\default.png
-[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\android\ProfileView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\ProfileView.js
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\app.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\app.js
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\appicon.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\android\appicon.png
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\ApplicationView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\android\ApplicationView.js
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\android\default.png
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\ProfileView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\android\ProfileView.js
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\controllers\LoginController.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\controllers\LoginController.js
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\controllers\StartupController.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\controllers\StartupController.js
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\hub.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\hub.js
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\ipad\ApplicationView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\ipad\ApplicationView.js
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\ipad\ProfileView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\ipad\ProfileView.js
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\ipod\ApplicationView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\ipod\ApplicationView.js
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\ipod\ProfileView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\ipod\ProfileView.js
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\appicon.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\appicon.png
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\apple_startup_images\Default-Landscape.jpg => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\apple_startup_images\Default-Landscape.jpg
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\apple_startup_images\Default-Landscape.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\apple_startup_images\Default-Landscape.png
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\apple_startup_images\Default-Portrait.jpg => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\apple_startup_images\Default-Portrait.jpg
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\apple_startup_images\Default-Portrait.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\apple_startup_images\Default-Portrait.png
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\apple_startup_images\Default.jpg => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\apple_startup_images\Default.jpg
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\apple_startup_images\Default.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\apple_startup_images\Default.png
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\apple_startup_images\README => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\apple_startup_images\README
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\ApplicationView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\ApplicationView.js
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\ProfileView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\ProfileView.js
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\splash\appc.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\splash\appc.png
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\splash\README => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\splash\README
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\splash\splash.css => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\splash\splash.css
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\splash\splash.html => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\splash\splash.html
+[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\mobileweb\splash\titanium.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\mobileweb\splash\titanium.png
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\views\DashBoardView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\views\DashBoardView.js
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\views\LoginView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\views\LoginView.js
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\fonts\ss-symbolicons-block.ttf => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\fonts\ss-symbolicons-block.ttf
@@ -31,10 +51,6 @@ Logfile initialized
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\images\ashoka_login_btn.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\images\ashoka_login_btn.png
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\images\ashoka_logo.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\images\ashoka_logo.png
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\images\ashoka_tree.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\images\ashoka_tree.png
-[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\ipad\ApplicationView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\ipad\ApplicationView.js
-[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\ipad\ProfileView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\ipad\ProfileView.js
-[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\ipod\ApplicationView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\ipod\ApplicationView.js
-[TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\ipod\ProfileView.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\ipod\ProfileView.js
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\KS_nav_ui.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\KS_nav_ui.png
 [TRACE] COPYING CREATED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\KS_nav_views.png => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\KS_nav_views.png
 [TRACE] Generating Java Classes
@@ -49,6 +65,16 @@ Logfile initialized
 [TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\android\images\res-notlong-port-hdpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-notlong-port-hdpi\default_d44e27d97b.png
 [TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\android\images\res-notlong-port-ldpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-notlong-port-ldpi\default_d44e27d97b.png
 [TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\android\images\res-notlong-port-mdpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-notlong-port-mdpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\images\res-long-land-hdpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-long-land-hdpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\images\res-long-land-ldpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-long-land-ldpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\images\res-long-port-hdpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-long-port-hdpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\images\res-long-port-ldpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-long-port-ldpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\images\res-notlong-land-hdpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-notlong-land-hdpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\images\res-notlong-land-ldpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-notlong-land-ldpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\images\res-notlong-land-mdpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-notlong-land-mdpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\images\res-notlong-port-hdpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-notlong-port-hdpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\images\res-notlong-port-ldpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-notlong-port-ldpi\default_d44e27d97b.png
+[TRACE] COPYING FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\android\images\res-notlong-port-mdpi\default.png => C:\Users\ekuto\titanium\hubmobile\build\android\res\drawable-notlong-port-mdpi\default_d44e27d97b.png
 [DEBUG] app stylesheet => C:\Users\ekuto\titanium\hubmobile\build\android\gen\com\ashoka\hubmobile\ApplicationStylesheet.java
 [DEBUG] copying app icon: C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\appicon.png
 [DEBUG] generating theme.xml
@@ -84,8 +110,31 @@ Logfile initialized
 [INFO] Compiling Android Resources... This could take some time
 [DEBUG] Android classes.dex built
 [DEBUG] creating unsigned apk: C:\Users\ekuto\titanium\hubmobile\build\android\bin\app-unsigned.apk
+[DEBUG] from resource zip => assets/Resources/common/android/ApplicationView.js
+[DEBUG] from resource zip => assets/Resources/common/android/ProfileView.js
+[DEBUG] from resource zip => assets/Resources/common/android/appicon.png
+[DEBUG] from resource zip => assets/Resources/common/android/default.png
 [DEBUG] from resource zip => assets/Resources/common/controllers/LoginController.js
 [DEBUG] from resource zip => assets/Resources/common/controllers/StartupController.js
+[DEBUG] from resource zip => assets/Resources/common/ipad/ApplicationView.js
+[DEBUG] from resource zip => assets/Resources/common/ipad/ProfileView.js
+[DEBUG] from resource zip => assets/Resources/common/ipod/ApplicationView.js
+[DEBUG] from resource zip => assets/Resources/common/ipod/ProfileView.js
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/apple_startup_images/Default-Landscape.jpg
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/apple_startup_images/Default-Landscape.png
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/apple_startup_images/Default-Portrait.jpg
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/apple_startup_images/Default-Portrait.png
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/apple_startup_images/Default.jpg
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/apple_startup_images/Default.png
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/apple_startup_images/README
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/splash/README
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/splash/appc.png
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/splash/splash.css
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/splash/splash.html
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/splash/titanium.png
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/ApplicationView.js
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/ProfileView.js
+[DEBUG] from resource zip => assets/Resources/common/mobileweb/appicon.png
 [DEBUG] from resource zip => assets/Resources/common/views/DashBoardView.js
 [DEBUG] from resource zip => assets/Resources/common/views/LoginView.js
 [DEBUG] from resource zip => assets/Resources/common/hub.js
@@ -95,14 +144,8 @@ Logfile initialized
 [DEBUG] from resource zip => assets/Resources/images/ashoka_login_btn.png
 [DEBUG] from resource zip => assets/Resources/images/ashoka_logo.png
 [DEBUG] from resource zip => assets/Resources/images/ashoka_tree.png
-[DEBUG] from resource zip => assets/Resources/ipad/ApplicationView.js
-[DEBUG] from resource zip => assets/Resources/ipad/ProfileView.js
-[DEBUG] from resource zip => assets/Resources/ipod/ApplicationView.js
-[DEBUG] from resource zip => assets/Resources/ipod/ProfileView.js
-[DEBUG] from resource zip => assets/Resources/ApplicationView.js
 [DEBUG] from resource zip => assets/Resources/KS_nav_ui.png
 [DEBUG] from resource zip => assets/Resources/KS_nav_views.png
-[DEBUG] from resource zip => assets/Resources/ProfileView.js
 [DEBUG] from resource zip => assets/Resources/app.js
 [DEBUG] from resource zip => assets/Resources/appicon.png
 [DEBUG] from resource zip => assets/Resources/default.png
