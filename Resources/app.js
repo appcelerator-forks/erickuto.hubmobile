@@ -1,5 +1,5 @@
 Ti.include(
-	'hub.js'
+	'common/hub.js'
 );
 
 HUB.ui.StartupController.init();
