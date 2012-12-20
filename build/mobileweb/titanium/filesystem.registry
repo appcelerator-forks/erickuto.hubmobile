@@ -1,4 +1,4 @@
-ts	1356041506000
+ts	1356042549000
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
@@ -13,7 +13,6 @@ apple-touch-icon-precomposed.png	6790
 common
 	controllers
 		LoginController.js	1143
-	hub.js	977
 	mweb
 		ApplicationView.js	1600
 		ProfileView.js	1989
@@ -221,4 +220,4 @@ titanium
 	Ti.js	10886
 	package.json	675
 titanium.css	39469
-titanium.js	479113
+titanium.js	484454
