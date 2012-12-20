@@ -1,5 +1,3 @@
-var mainController = require("common/startupController");
-startupController = new mainController();
+troller = require("common/startupController");
 
-startupController.setLabel("Helloooo Nurse!");
-startupController.open();
+startupController = new mainController();
