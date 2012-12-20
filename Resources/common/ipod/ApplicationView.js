@@ -2,9 +2,6 @@ HUB.ui.ApplicationView = (function(){
 	
 	//Page Wrapper. 
 	
-	var contentWrapper = Ti.UI.createView({
-		    top: 145,
-		});
 	function buildApplicationWindow(){
 		var customFont = 'SpicyRice-Regular';
 		var customBgColor = '#f9f9f9';
@@ -29,10 +26,13 @@ HUB.ui.ApplicationView = (function(){
 		    top: 140,
 		    height:2,
 		});
-		
+	
+		win.contentWrapper = Ti.UI.createView({
+		    top: 145,
+		});	
 		canvas.add(borderBottom);
 		logoCanvas.add(logoImage);
-		canvas.add(contentWrapper);
+		canvas.add(win.contentWrapper);
 		/*logo
 		var logoRow = Ti.UI.createTableViewRow({
 			backgroundColor:'white', 
@@ -77,16 +77,16 @@ HUB.ui.ApplicationView = (function(){
 		return win;		
 	}
 	
-	function addContent(content){
-		contentWrapper.add(content);
+	function addContent(content, source_win){
+		source_win.contentWrapper.add(content);
 	}
 	return {
         buildMainWindow: function(){
             var mainWindow = buildApplicationWindow();
             return mainWindow;
         }, 
-        addContent: function(content){
-        	addContent(content);
+        addContent: function(content, source_win){
+        	addContent(content, source_win);
         }
     };
 	

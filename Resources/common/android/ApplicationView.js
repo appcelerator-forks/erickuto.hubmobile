@@ -18,7 +18,7 @@ HUB.ui.ApplicationView = (function(){
 		var canvas = Ti.UI.createView({});
 
 		var logoImage = Ti.UI.createImageView({
-			image:'../../images/ashoka_logo.png', 
+			image:'images/ashoka_logo.png', 
 			top:25,
 			width:300
 		});
