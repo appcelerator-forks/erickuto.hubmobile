@@ -1,5 +1,3 @@
-Ti.include(
-	'common/hub.js'
-);
+var mainController = require("common/startupController");
 
-HUB.ui.StartupController.init();
+startupController = new mainController();

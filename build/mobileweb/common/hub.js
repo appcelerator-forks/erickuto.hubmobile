@@ -22,14 +22,17 @@ var osname = Ti.Platform.osname,
 // iPhone makes use of the platform-specific navigation controller,
 // all other platforms follow a similar UI pattern
 if (osname === 'iphone') {
-	Ti.include('../ipod/ApplicationView.js', '../ipod/ProfileView.js');
+	Ti.include('ipod/ApplicationView.js');
+	Ti.include('ipod/ProfileView.js');
 }
 else if(osname === 'ipad'){
-	Ti.include('../ipad/ApplicationView.js', '../ipad/ApplicationView.js');
+	Ti.include('ipad/ApplicationView.js', 'ipad/ApplicationView.js');
 }
 else if (osname === 'mobileweb'){
-	Ti.include('../mobileweb/ApplicationView.js', '../mobileweb/ProfileView.js');
+	Ti.include('mobileweb/ApplicationView.js');
+	Ti.include('mobileweb/ProfileView.js');
 }
 else {
-	Ti.include('../android/ApplicationView.js', '../android/ProfileView.js');
+	Ti.include('android/ApplicationView.js');
+	Ti.include('android/ProfileView.js');
 }

@@ -1,13 +1,19 @@
 
-HUB.ui.LoginController = (function(){
-			
-    function grantEntrance(name, email){
+function LoginController(){
+
+	var loginView = require("common/views/LoginView");
+    liView = new loginView();
+    //liView.setEventListeners();
+    liView.open();
+    
+	/*
+    this.grantEntrance = function(name, email){
     	Ti.include("../views/DashBoardView.js");
     	var win = HUB.ui.DashBoardView.createWindow(name, email);
     	win.open();
-    }
+    };
     
-    function denyEntrance(w){
+    this.denyEntrance = function(w){
     	HUB.ui.LoginView.showLoginFail(w);
     }
     function handleLoginEvent(w){
@@ -41,29 +47,9 @@ HUB.ui.LoginController = (function(){
 		};
 		
     }
-    
-    function setEventListeners(w){	
-		
-        w.loginBtn.addEventListener('click',function(e)
-		{
-			if (w.username.value != '' && w.password.value != '')
-			{
-				handleLoginEvent(w);
-			}
-			else
-			{
-				alert("Username/Password are required");
-			}
-		});
-    }
-	
-		
-    return {
-        init: function(){
-            var win = HUB.ui.LoginView.createWindow();
-            setEventListeners(win);
-            win.open();
-        }
-    };
-})();
+	*/
 
+}
+
+//public exports
+module.exports = LoginController;

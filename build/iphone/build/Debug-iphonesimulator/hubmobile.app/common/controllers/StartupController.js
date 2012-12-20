@@ -1,1 +1,0 @@
-/Users/ekuto/titanium/hubmobile/Resources/common/controllers/StartupController.js
