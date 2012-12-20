@@ -1,4 +1,4 @@
-ts	1356042843000
+ts	1356045708000
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
@@ -12,9 +12,9 @@ apple-touch-icon-72x72-precomposed.png	8844
 apple-touch-icon-precomposed.png	6790
 common
 	controllers
-		LoginController.js	1143
+		LoginController.js	1086
 	mweb
-		ApplicationView.js	1600
+		ApplicationView.js	1726
 		ProfileView.js	1989
 		appicon.png	19109
 		apple_startup_images
@@ -31,10 +31,10 @@ common
 			splash.css	1276
 			splash.html	0
 			titanium.png	10902
-	startupController.js	181
+	startupController.js	180
 	views
 		DashBoardView.js	935
-		LoginView.js	5022
+		LoginView.js	5119
 		images
 			1_Login.jpg	183284
 			ashoka_banner.png	15141
@@ -42,7 +42,6 @@ common
 			ashoka_logo.png	27467
 			ashoka_tree.png	12339
 favicon.ico	1068
-hub.js	1070
 images
 	1_Login.jpg	183284
 	ashoka_banner.png	15141

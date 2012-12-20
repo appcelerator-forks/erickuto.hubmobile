@@ -4,7 +4,10 @@ function ApplicationView(){
 	var customBgColor = '#f9f9f9';
 	var customTextColor = '#5e656a';
 	var customTitleColor = '#0b395c';
-	
+	var app_width = Ti.Platform.displayCaps.platformWidth;
+	if (app_width > 500){
+		app_width = 500;
+	}
 	var win = Ti.UI.createWindow({
 		backgroundColor:customBgColor,
 		layout:'vertical',
@@ -26,6 +29,7 @@ function ApplicationView(){
 
 	var contentWrapper = Ti.UI.createView({
 	    top: 145,
+	    width: app_width,
 	});	
 	canvas.add(borderBottom);
 	logoCanvas.add(logoImage);

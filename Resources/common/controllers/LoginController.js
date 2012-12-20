@@ -3,7 +3,7 @@ function LoginController(){
 
 	var loginView = require("common/views/LoginView");
     liView = new loginView();
-    //liView.setEventListeners();
+    liView.setEventListeners();
     liView.open();
     
 	/*
@@ -16,14 +16,15 @@ function LoginController(){
     this.denyEntrance = function(w){
     	HUB.ui.LoginView.showLoginFail(w);
     }
-    function handleLoginEvent(w){
+    */
+    function handleLoginEvent(_username, _password){
     	var loginReq = Titanium.Network.createHTTPClient();
 		
 		loginReq.open("POST","http://50.17.229.217/ashokahub/authenticate.php");
 					
 		var params = {
-			username: w.username.value,
-			password: w.password.value
+			username: _username,
+			password: _password
 		};
 		loginReq.send(params);
 		
@@ -33,21 +34,17 @@ function LoginController(){
 			var response = JSON.parse(json);
 			if (response.logged == true)
 			{
-				w.username.blur();
-				w.password.blur();
 				grantEntrance(response.name,response.email);
 				w.close();
 			}
 			else
 			{
-				w.username.blur();
-				w.password.blur();
-				denyEntrance(w);
+				alert("Login Failed");
+				//denyEntrance(w);
 			}
 		};
 		
     }
-	*/
 
 }
 

@@ -10,6 +10,7 @@ function LoginView(){
 	
     var appWindow = require("common/mweb/ApplicationView");
     win = new appWindow();
+   
     
     var username = Titanium.UI.createTextField({
 		top:20,
@@ -58,7 +59,7 @@ function LoginView(){
 	});
 	
 	var forgotLabel = Titanium.UI.createLabel({
-		left:50,
+		left:10,
 		height:50,
 		top:240,
 		font:{
@@ -70,7 +71,7 @@ function LoginView(){
 	});
 	
 	var firstLabel = Titanium.UI.createLabel({
-		right:50,
+		right:10,
 		height:50,
 		font:{
 	      fontSize:17,
@@ -82,7 +83,7 @@ function LoginView(){
 	});
 	
 	var barLabel = Titanium.UI.createLabel({
-		left:260,
+		left:200,
 		height:50,
 		font:{
 	      fontSize:20,
@@ -94,6 +95,7 @@ function LoginView(){
 	});
 	
 	
+	win.addContent(forgotLabel);
 	win.addContent(username);
 	win.addContent(barLabel);
 	win.addContent(firstLabel);
@@ -233,11 +235,13 @@ function LoginView(){
 		
 	this.setEventListeners = function(){	
 		
-        w.loginBtn.addEventListener('click',function(e)
+        loginBtn.addEventListener('click',function(e)
 		{
-			if (w.username.value != '' && w.password.value != '')
+			username.blur();
+			password.blur();
+			if (username.value != '' && password.value != '')
 			{
-				handleLoginEvent(w);
+				handleLoginEvent(username.value, password.value);
 			}
 			else
 			{
