@@ -1,73 +1,54 @@
-ts	1355946828000
+ts	1356040378000
+Default-Landscape.jpg	36232
+Default-Portrait.jpg	28479
+Default.jpg	17184
 KS_nav_ui.png	1158
 KS_nav_views.png	1074
-app.js	69
+app.js	102
+appicon.png	19109
+apple-touch-icon-114x114-precomposed.png	15820
+apple-touch-icon-57x57-precomposed.png	6790
+apple-touch-icon-72x72-precomposed.png	8844
+apple-touch-icon-precomposed.png	6790
 common
-	android
-		ApplicationView.js	1941
-		ProfileView.js	1989
-		appicon.png	11039
-		default.png	16529
-		images
-			res-long-land-hdpi
-				default.png	102971
-			res-long-land-ldpi
-				default.png	34784
-			res-long-port-hdpi
-				default.png	125025
-			res-long-port-ldpi
-				default.png	47541
-			res-notlong-land-hdpi
-				default.png	102971
-			res-notlong-land-ldpi
-				default.png	37038
-			res-notlong-land-mdpi
-				default.png	53422
-			res-notlong-port-hdpi
-				default.png	125025
-			res-notlong-port-ldpi
-				default.png	30377
-			res-notlong-port-mdpi
-				default.png	53982
 	controllers
-		LoginController.js	1393
-		StartupController.js	448
-	hub.js	977
-	ipad
-		ApplicationView.js	1941
+		LoginController.js	1143
+	mweb
+		ApplicationView.js	1600
 		ProfileView.js	1989
-	ipod
-		ApplicationView.js	1941
-		ProfileView.js	1989
-	mobileweb
-		ApplicationView.js	1993
-		ProfileView.js	1989
-		appicon.png	19109
-		apple_startup_images
-			Default-Landscape.jpg	36232
-			Default-Landscape.png	513333
-			Default-Portrait.jpg	28479
-			Default-Portrait.png	76153
-			Default.jpg	17184
-			Default.png	110858
-			README	492
-		splash
-			README	2040
-			appc.png	11665
-			splash.css	1276
-			splash.html	0
-			titanium.png	10902
+	startupController.js	179
 	views
 		DashBoardView.js	935
-		LoginView.js	5298
-fonts
-	ss-symbolicons-block.ttf	141712
+		LoginView.js	5022
+		images
+			1_Login.jpg	183284
+			ashoka_banner.png	15141
+			ashoka_login_btn.png	10716
+			ashoka_logo.png	27467
+			ashoka_tree.png	12339
+favicon.ico	1068
 images
 	1_Login.jpg	183284
 	ashoka_banner.png	15141
 	ashoka_login_btn.png	10716
 	ashoka_logo.png	27467
 	ashoka_tree.png	12339
+mobileweb
+	appicon.png	19109
+	apple_startup_images
+		Default-Landscape.jpg	36232
+		Default-Landscape.png	513333
+		Default-Portrait.jpg	28479
+		Default-Portrait.png	76153
+		Default.jpg	17184
+		Default.png	110858
+		README	492
+	splash
+		README	2040
+		appc.png	11665
+		splash.css	1276
+		splash.html	0
+		titanium.png	10902
 themes
 	common.css	7260
 	default
@@ -222,5 +203,5 @@ titanium
 		_.js	1491
 	Ti.js	10886
 	package.json	675
-titanium.css	8077
+titanium.css	39469
 titanium.js	479113
