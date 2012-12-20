@@ -1,5 +1,5 @@
-Ti.include(
-	'common/hub.js'
-);
+var mainController = require("common/startupController");
+startupController = new mainController();
 
-HUB.ui.StartupController.init();
+startupController.setLabel("Helloooo Nurse!");
+startupController.open();
