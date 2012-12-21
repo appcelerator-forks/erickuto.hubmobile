@@ -2,24 +2,23 @@
  * Login UI
  */
 function LoginView(){
-	
-	var customFont = 'SpicyRice-Regular';
-	var customBgColor = '#f9f9f9';
-	var customTextColor = '#5e656a';
-	var customTitleColor = '#0b395c';
-	
+	var utilities = require("common/utilities");
+	util = new utilities();
+	var hsf = util.height_scale_factor;
+	var wsf = util.width_scale_factor;
+	var margin_offset = (util.app_width-350*wsf)/2;
     var appWindow = require("common/mweb/ApplicationView");
     win = new appWindow();
    
     
     var username = Titanium.UI.createTextField({
-		top:20,
-		width:300,
-		height:70,
+		top:20*hsf,
+		width:350*wsf,
+		height:60*wsf,
 		font:{
-	      fontSize:23,
-	      fontColor:customTextColor,
-	      fontFamily: customFont
+	      fontSize:20*hsf,
+	      fontColor:util.customTextColor,
+	      fontFamily: util.customFont
 	   },
 		hintText:'Enter your email address',
 		keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
@@ -31,13 +30,13 @@ function LoginView(){
 	});
 	
 	var password = Titanium.UI.createTextField({
-		color:customTextColor,
-		top:100,
-		width:300,
-		height:70,
+		color:util.customTextColor,
+		top:100*hsf,
+		width:350*wsf,
+		height:60*wsf,
 		font:{
-	      fontSize:23,
-	      fontFamily: customFont
+	      fontSize:20*hsf,
+	      fontFamily: util.customFont
 	   },
 		hintText:'Enter your Password',
 		passwordMask:true,
@@ -50,47 +49,47 @@ function LoginView(){
 	});
 	
 	var loginBtn = Titanium.UI.createButton({
-		top:180,
-		right:50,
-		width:100,
-		height:50,
+		top:180*hsf,
+		right:margin_offset,
+		width:100*wsf,
+		height:50*hsf,
 		borderRadius:1,
 		backgroundImage:'images/ashoka_login_btn.png',
 	});
 	
 	var forgotLabel = Titanium.UI.createLabel({
-		left:10,
-		height:50,
-		top:240,
+		left:margin_offset,
+		height:50*hsf,
+		top:240*hsf,
 		font:{
-	      fontSize:17,
-	      fontFamily: customFont
+	      fontSize:17*hsf,
+	      fontFamily: util.customFont
 	   },
-	   color:customTextColor,
+	   color:util.customTextColor,
 		text: 'Forgot Password?'
 	});
 	
 	var firstLabel = Titanium.UI.createLabel({
-		right:10,
-		height:50,
+		right:margin_offset,
+		height:50*hsf,
 		font:{
-	      fontSize:17,
-	      fontFamily: customFont
+	      fontSize:17*hsf,
+	      fontFamily: util.customFont
 	   },
-		top:240,
-		color:customTextColor,
+		top:240*hsf,
+		color:util.customTextColor,
 		text: 'First time login'
 	});
 	
 	var barLabel = Titanium.UI.createLabel({
-		left:200,
-		height:50,
+		left:margin_offset + 200*wsf,
+		height:50*hsf,
 		font:{
-	      fontSize:20,
-	      fontFamily: customFont
+	      fontSize:20*hsf,
+	      fontFamily: util.customFont
 	   },
-		top:240,
-		color:customTextColor,
+		top:240*hsf,
+		color:util.customTextColor,
 		text: '|'
 	});
 	
@@ -105,104 +104,104 @@ function LoginView(){
 	
 	//Information row
 	var infoRow = Ti.UI.createView({
-		top:290, 
-		height:'300',
+		top:290*hsf, 
+		height:300*hsf,
 	});
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
-		top:87,
+		top:87*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20, color:customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:util.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
-		top:117,
+		top:117*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20, color:customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:util.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
-		top:147,
+		top:147*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20, color:customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:util.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
-		top:177,
+		top:177*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20, color:customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:util.customTitleColor}
 	}));
 	topicLabel = Ti.UI.createLabel({
 		text: 'About Us',
-		top:10, 
+		top:10*hsf, 
 		left:10,
 		font:{
-	      fontSize:21,
+	      fontSize:21*hsf,
 	      fontWeight:'bold',
-	      fontColor:customTitleColor,
-	      fontFamily: customFont
+	      fontColor:util.customTitleColor,
+	      fontFamily: util.customFont
 	   },
-		color:customTitleColor
+		color:util.customTitleColor
 	});
 	
 	var missionLabel = Ti.UI.createLabel({
 		text: "AshokaHub enables entrepreneurs in Ashoka's global network to:",
-		top:40, 
+		top:40*hsf, 
 		left:10,
 		font:{
-	      fontSize:18,
-	      fontFamily: customFont
+	      fontSize:18*hsf,
+	      fontFamily: util.customFont
 	   },
-		color:customTextColor
+		color:util.customTextColor
 	});
 	infoRow.add(missionLabel);
 	infoRow.add(topicLabel);
 	infoRow.add(Ti.UI.createLabel({
 		text: "Find one another easily",
-		top:90, 
+		top:90*hsf, 
 		left:20,
 		font:{
-	      fontSize:17,
-	      fontFamily: customFont
+	      fontSize:17*hsf,
+	      fontFamily: util.customFont
 	   },
-		color:customTextColor
+		color:util.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: "Contact one another easily",
-		top:120, 
+		top:120*hsf, 
 		left:20,
 		font:{
-	      fontSize:17,
-	      fontFamily: customFont
+	      fontSize:17*hsf,
+	      fontFamily: util.customFont
 	   },
-		color:customTextColor
+		color:util.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: "Share up to date information",
-		top:150, 
+		top:150*hsf, 
 		left:20,
 		font:{
-	      fontSize:17,
-	      fontFamily: customFont
+	      fontSize:17*hsf,
+	      fontFamily: util.customFont
 	   },
-		color:customTextColor
+		color:util.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: "Exchange knowledge, resources & opportunities",
-		top:180, 
+		top:180*hsf, 
 		left:20,
 		font:{
-	      fontSize:17,
-	      fontFamily: customFont
+	      fontSize:17*hsf,
+	      fontFamily: util.customFont
 	   },
-		color:customTextColor
+		color:util.customTextColor
 	}));
     
     
@@ -221,10 +220,10 @@ function LoginView(){
 			Ti.UI.createLabel({
 				text:"Invalid email or password.",
 				top:2, 
-				left:50,
+				left:margin_offset,
 				font:{
-			      fontSize:12,
-			      fontFamily: customFont
+			      fontSize:12*hsf,
+			      fontFamily: util.customFont
 			   },
 				color:'red'
 			})

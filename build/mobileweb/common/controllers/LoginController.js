@@ -6,17 +6,26 @@ function LoginController(){
     liView.setEventListeners();
     liView.open();
     
-	/*
-    this.grantEntrance = function(name, email){
-    	Ti.include("../views/DashBoardView.js");
-    	var win = HUB.ui.DashBoardView.createWindow(name, email);
-    	win.open();
+	
+    function grantEntrance(name, email){
+    	var dashBoardView = require("common/views/DashBoardView");
+    	user = {};
+    	user.name = name;
+    	user.email = email;
+    	dbView = new dashBoardView(user);
+    	dbView.open();
+    	liView.close();
     };
     
-    this.denyEntrance = function(w){
-    	HUB.ui.LoginView.showLoginFail(w);
+    function denyEntrance(){
+    	liView.showLoginFail();
     }
-    */
+    
+   
+   	Ti.App.addEventListener('handleLogin', function(event)
+	{
+		handleLoginEvent(event.name, event.password);
+	});
     function handleLoginEvent(_username, _password){
     	var loginReq = Titanium.Network.createHTTPClient();
 		
@@ -35,12 +44,10 @@ function LoginController(){
 			if (response.logged == true)
 			{
 				grantEntrance(response.name,response.email);
-				w.close();
 			}
 			else
 			{
-				alert("Login Failed");
-				//denyEntrance(w);
+				denyEntrance();
 			}
 		};
 		

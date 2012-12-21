@@ -1,4 +1,4 @@
-ts	1356045708000
+ts	1356119285000
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
@@ -12,29 +12,25 @@ apple-touch-icon-72x72-precomposed.png	8844
 apple-touch-icon-precomposed.png	6790
 common
 	controllers
-		LoginController.js	1086
+		LoginController.js	1212
+	droid
+		ApplicationView.js	1775
+		ProfileView.js	1756
+	ios_pad
+		ApplicationView.js	1775
+		ProfileView.js	1756
+	ios_phone
+		ApplicationView.js	1775
+		ProfileView.js	1756
 	mweb
-		ApplicationView.js	1726
-		ProfileView.js	1989
+		ApplicationView.js	1691
+		ProfileView.js	1847
 		appicon.png	19109
-		apple_startup_images
-			Default-Landscape.jpg	36232
-			Default-Landscape.png	513333
-			Default-Portrait.jpg	28479
-			Default-Portrait.png	76153
-			Default.jpg	17184
-			Default.png	110858
-			README	492
-		splash
-			README	2040
-			appc.png	11665
-			splash.css	1276
-			splash.html	0
-			titanium.png	10902
 	startupController.js	180
+	utilities.js	783
 	views
-		DashBoardView.js	935
-		LoginView.js	5119
+		DashBoardView.js	751
+		LoginView.js	5595
 		images
 			1_Login.jpg	183284
 			ashoka_banner.png	15141
@@ -42,6 +38,7 @@ common
 			ashoka_logo.png	27467
 			ashoka_tree.png	12339
 favicon.ico	1068
+hub.js	1070
 images
 	1_Login.jpg	183284
 	ashoka_banner.png	15141
@@ -219,4 +216,4 @@ titanium
 	Ti.js	10886
 	package.json	675
 titanium.css	39469
-titanium.js	484454
+titanium.js	479113

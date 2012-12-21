@@ -1,35 +1,32 @@
 function ApplicationView(){
 	
-	var customFont = 'SpicyRice-Regular';
-	var customBgColor = '#f9f9f9';
-	var customTextColor = '#5e656a';
-	var customTitleColor = '#0b395c';
-	var app_width = Ti.Platform.displayCaps.platformWidth;
-	if (app_width > 500){
-		app_width = 500;
-	}
+	var utilities = require("common/utilities");
+	util = new utilities();
+	var hsf = util.height_scale_factor;
+	var wsf = util.width_scale_factor;
+	
 	var win = Ti.UI.createWindow({
-		backgroundColor:customBgColor,
+		backgroundColor: util.customBgColor,
 		layout:'vertical',
 	}); 
 	var canvas = Ti.UI.createView({});
 
 	var logoImage = Ti.UI.createImageView({
-		top:25,
-		width:300
+		top:15*hsf,
+		width:300*wsf
 	});
 	
-	addImage();
+	util.addImage(logoImage, "images/ashoka_logo.png");
 	var logoCanvas = Ti.UI.createView({top:0, height:120});
 	var borderBottom = Ti.UI.createView({
 	    backgroundColor: '#e0e0e0',
-	    top: 140,
-	    height:2,
+	    top: 140*hsf,
+	    height:2*hsf,
 	});
 
 	var contentWrapper = Ti.UI.createView({
-	    top: 145,
-	    width: app_width,
+	    top: 145*hsf,
+	    width: util.app_width,
 	});	
 	canvas.add(borderBottom);
 	logoCanvas.add(logoImage);
@@ -38,41 +35,31 @@ function ApplicationView(){
 	canvas.add(logoCanvas);
 	
 	canvas.add(Titanium.UI.createLabel({
-		left:20,
-		height:50,
+		left:20*wsf,
+		height:50*hsf,
 		bottom:1,
 		font:{
-	      fontSize:12,
-	      fontFamily: customFont
+	      fontSize:12*hsf,
+	      fontFamily: util.customFont
 	   },
-	   color:customTextColor,
-		text: 'Copyright 2011 Ashoka'
+	   color:util.customTextColor,
+		text: 'Copyright 2011 Ashoka ' + util.app_width + " height " + util.app_height,
 	}));
 	
 	canvas.add(Titanium.UI.createLabel({
-		right:20,
-		height:50,
+		right:20*wsf,
+		height:50*hsf,
 		bottom:1,
 		font:{
-	      fontSize:12,
-	      fontFamily: customFont
+	      fontSize:12*hsf,
+	      fontFamily: util.customFont
 	   },
-	   color:customTextColor,
-		text: 'hub.ashoka.org'
+	   color:util.customTextColor,
+		text: 'hub.ashoka.org ' + util.width_scale_factor + " height " + util.height_scale_factor,
 	}));
 
 	win.add(canvas);
 	
-	function addImage(){
-		var osname = Ti.Platform.osname;
-		if (osname === 'android') {
-			logoImage.image = "../../images/ashoka_logo.png";
-		}
-		else {
-			logoImage.image = "images/ashoka_logo.png";
-		}
-	
-	}
 	
 	this.open = function(){
 		win.open();

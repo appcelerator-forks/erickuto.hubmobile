@@ -1,14 +1,15 @@
 function ProfileView(){
 	
+	var utilities = require("common/utilities");
+	util = new utilities();
+	var hsf = util.height_scale_factor;
+	var wsf = util.width_scale_factor;
+	
 	var customFont = 'SpicyRice-Regular';
 	var customBgColor = '#f9f9f9';
 	var customTextColor = '#5e656a';
 	var customTitleColor = '#0b395c';
 	
-	var app_width = Ti.Platform.displayCaps.platformWidth;
-	if (app_width > 500){
-		app_width = 500;
-	}
 	var win = Ti.UI.createWindow({
 		backgroundColor:customBgColor,
 		layout:'vertical',
@@ -19,7 +20,7 @@ function ProfileView(){
 		top:25,
 		width:300
 	});
-	addImage();
+	util.addImage(logoImage, "images/ashoka_logo.png");
 	
 	var logoCanvas = Ti.UI.createView({top:0, height:120});
 	var borderBottom = Ti.UI.createView({
@@ -30,7 +31,7 @@ function ProfileView(){
 
 	var contentWrapper = Ti.UI.createView({
 	    top: 145,
-	    width:app_width
+	    width:util.app_width
 	});	
 	canvas.add(borderBottom);
 	logoCanvas.add(logoImage);
