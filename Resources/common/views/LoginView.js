@@ -208,19 +208,16 @@ function LoginView(){
     
     
 	win.addContent(infoRow);
-
-	this.open = function(){
-		win.open();
-	}
-	this.showLoginFail = function(win){
-		win.username.borderColor = 'red';
-		win.username.borderRadius = 5;
-		win.username.borderWidth = 1;
-		win.password.borderColor = 'red';
-		win.password.borderRadius = 5;
-		win.password.borderWidth = 1;
 	
-		HUB.ui.ApplicationView.addContent(
+	this.showLoginFail = function(){
+		username.borderColor = 'red';
+		username.borderRadius = 5;
+		username.borderWidth = 1;
+		password.borderColor = 'red';
+		password.borderRadius = 5;
+		password.borderWidth = 1;
+	
+		win.addContent(
 			Ti.UI.createLabel({
 				text:"Invalid email or password.",
 				top:2, 
@@ -230,7 +227,8 @@ function LoginView(){
 			      fontFamily: customFont
 			   },
 				color:'red'
-			}), win);
+			})
+			);
 		};
 		
 	this.setEventListeners = function(){	
@@ -241,13 +239,22 @@ function LoginView(){
 			password.blur();
 			if (username.value != '' && password.value != '')
 			{
-				handleLoginEvent(username.value, password.value);
+				Ti.App.fireEvent('handleLogin', {
+				name:username.value,
+				password:password.value
+				});
 			}
 			else
 			{
 				alert("Username/Password are required");
 			}
 		});
+   };
+   this.open = function(){
+		win.open();
+	}
+   this.close = function(){
+   		win.close();
    };
 }
 

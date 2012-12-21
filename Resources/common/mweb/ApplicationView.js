@@ -76,7 +76,10 @@ function ApplicationView(){
 	
 	this.open = function(){
 		win.open();
-	}
+	};
+	this.close = function(){
+		win.close();
+	};
 	this.addContent = function(_content){
 		contentWrapper.add(_content);
 	};

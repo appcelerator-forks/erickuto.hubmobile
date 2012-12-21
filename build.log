@@ -1,19 +1,17 @@
 Logfile initialized
 [INFO] logfile = C:\Users\ekuto\titanium\hubmobile\build.log
-[DEBUG] C:\Users\ekuto\AppData\Roaming\Titanium\mobilesdk\win32\2.1.4.GA\android\builder.py simulator hubmobile C:\Users\ekuto\AppData\Local\Titanium Studio C:\Users\ekuto\titanium\hubmobile com.ashoka.hubmobile 1 WVGA800
+[DEBUG] C:\Users\ekuto\AppData\Roaming\Titanium\mobilesdk\win32\2.1.4.GA\android\builder.py simulator hubmobile C:\Users\ekuto\AppData\Local\Titanium Studio C:\Users\ekuto\titanium\hubmobile com.ashoka.hubmobile 5 WVGA854
 [INFO] Building hubmobile for Android ... one moment
 [INFO] Titanium SDK version: 2.1.4 (11/09/12 12:46 51f2c64)
 [DEBUG] Waiting for device to be ready ...
 [TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[DEBUG] Device connected... (waited 10 seconds)
-[DEBUG] waited 10.050000 seconds on emulator to get ready
-[INFO] Waiting for the Android Emulator to become available
+[DEBUG] Device connected... (waited 0 seconds)
+[DEBUG] waited 0.016000 seconds on emulator to get ready
 [DEBUG] com.ashoka.hubmobile installed? True
 [INFO] Fastdev server running, deploying in Fastdev mode
 [INFO] Copying CommonJS modules...
 [INFO] Copying project resources..
+[TRACE] COPYING MODIFIED FILE: C:\Users\ekuto\titanium\hubmobile\Resources\common\controllers\LoginController.js => C:\Users\ekuto\titanium\hubmobile\build\android\bin\assets\Resources\common\controllers\LoginController.js
 [INFO] Tiapp.xml unchanged, skipping class generation
 [DEBUG] Processing Android resource drawables
 [DEBUG] found drawable-long-land-hdpi splash screen at C:\Users\ekuto\titanium\hubmobile\Resources\android\images\res-long-land-hdpi\default.png
