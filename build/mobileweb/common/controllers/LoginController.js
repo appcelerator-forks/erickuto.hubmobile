@@ -13,8 +13,10 @@ function LoginController(){
     	user.name = name;
     	user.email = email;
     	dbView = new dashBoardView(user);
-    	dbView.open();
     	liView.close();
+    	//Ti.UI.currentWindow.close();
+    	dbView.open();
+    	
     };
     
     function denyEntrance(){

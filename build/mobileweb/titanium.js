@@ -1,6 +1,6 @@
 /**
  * WARNING: this is generated code and will be lost if changes are made.
- * This generated source code is Copyright (c) 2010-2012 by Appcelerator, Inc. All Rights Reserved.
+ * This generated source code is Copyright (c) 2010-2013 by Appcelerator, Inc. All Rights Reserved.
  */
 
 var require = {

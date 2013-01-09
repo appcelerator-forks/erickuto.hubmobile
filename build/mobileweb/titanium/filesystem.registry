@@ -1,4 +1,4 @@
-ts	1356119285000
+ts	1357678638000
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
@@ -12,7 +12,7 @@ apple-touch-icon-72x72-precomposed.png	8844
 apple-touch-icon-precomposed.png	6790
 common
 	controllers
-		LoginController.js	1212
+		LoginController.js	1254
 	droid
 		ApplicationView.js	1775
 		ProfileView.js	1756
@@ -26,8 +26,8 @@ common
 		ApplicationView.js	1691
 		ProfileView.js	1847
 		appicon.png	19109
-	startupController.js	180
-	utilities.js	783
+	startupController.js	293
+	utilities.js	840
 	views
 		DashBoardView.js	751
 		LoginView.js	5595

@@ -5,7 +5,7 @@ reporting an issue to help us understand your environment, build settings
 and aid in debugging. Please attach this log to any issue that you report.
 ================================================================================
 
-Starting build at 12/21/12 14:52
+Starting build at 01/08/13 14:29
 
 Build details:
 
@@ -18,13 +18,12 @@ Build details:
 Script arguments:
    /Users/ekuto/Library/Application Support/Titanium/mobilesdk/osx/2.1.4.GA/iphone/builder.py
    simulator
-   5.0
+   6.0
    /Users/ekuto/titanium/hubmobile
    com.ashoka.hubmobile
    hubmobile
    universal
-   ipad
-   
+   iphone
 
 Building from: /Users/ekuto/Library/Application Support/Titanium/mobilesdk/osx/2.1.4.GA/iphone
 Platform: Darwin Kernel Version 11.4.2: Thu Aug 23 16:26:45 PDT 2012; root:xnu-1699.32.7~1/RELEASE_I386
@@ -78,3 +77,15 @@ Generated the following stylecode code:
 	</dict>
 </plist>
 Finishing build
+
+Exception detected in script:
+Traceback (most recent call last):
+  File "/Users/ekuto/Library/Application Support/Titanium/mobilesdk/osx/2.1.4.GA/iphone/builder.py", line 1428, in main
+    os.waitpid(sim.pid,0)
+  File "/Users/ekuto/Library/Application Support/Titanium/mobilesdk/osx/2.1.4.GA/iphone/builder.py", line 1362, in handler
+    kill_simulator()
+  File "/Users/ekuto/Library/Application Support/Titanium/mobilesdk/osx/2.1.4.GA/iphone/builder.py", line 77, in kill_simulator
+    run.run(['/usr/bin/killall',"iPhone Simulator"],True)
+  File "/Users/ekuto/Library/Application Support/Titanium/mobilesdk/osx/2.1.4.GA/iphone/run.py", line 8, in run
+    sys.stdout.flush()
+IOError: [Errno 32] Broken pipe
