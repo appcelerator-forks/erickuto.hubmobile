@@ -1,4 +1,4 @@
-function ApplicationView(){
+function CommonLoginView(){
 	
 	var utilities = require("common/utilities");
 	util = new utilities();
@@ -9,6 +9,7 @@ function ApplicationView(){
 		backgroundColor: util.customBgColor,
 		layout:'vertical',
 	}); 
+	
 	var canvas = Ti.UI.createView({});
 
 	var logoImage = Ti.UI.createImageView({
@@ -70,8 +71,10 @@ function ApplicationView(){
 	this.addContent = function(_content){
 		contentWrapper.add(_content);
 	};
+
+	CommonLoginView.prototype.appwin = win; 
 }
 
-module.exports = ApplicationView;
+module.exports = CommonLoginView;
 
 
