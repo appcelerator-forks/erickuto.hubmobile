@@ -5,7 +5,7 @@ reporting an issue to help us understand your environment, build settings
 and aid in debugging. Please attach this log to any issue that you report.
 ================================================================================
 
-Starting build at 01/10/13 09:57
+Starting build at 01/10/13 12:03
 
 Build details:
 
@@ -23,7 +23,7 @@ Script arguments:
    com.ashoka.hubmobile
    hubmobile
    universal
-   ipad
+   iphone
 
 Building from: /Users/ekuto/Library/Application Support/Titanium/mobilesdk/osx/2.1.4.GA/iphone
 Platform: Darwin Kernel Version 11.4.2: Thu Aug 23 16:26:45 PDT 2012; root:xnu-1699.32.7~1/RELEASE_I386

@@ -1,27 +1,17 @@
+/*
+ * Login UI
+ */
 function LoginView(){
-	
-	var utilities = require("ui/common/utilities");
-	var util = new utilities();
+	var utilities = require("common/utilities");
+	util = new utilities();
 	var hsf = util.height_scale_factor;
 	var wsf = util.width_scale_factor;
 	var margin_offset = (util.app_width-350*wsf)/2;
-	
-	var appWindow = require("ui/common/CommonLoginView");
+    var appWindow = require("common/mweb/ApplicationView");
     win = new appWindow();
-
-	var errorPane = Ti.UI.createLabel({
-				text:"",
-				top:1, 
-				left:margin_offset,
-				font:{
-			      fontSize:12*hsf,
-			      fontFamily: util.customFont
-			   },
-				color:'red'
-		});
-			
-	win.addContent(errorPane);
-	var username = Titanium.UI.createTextField({
+   
+    
+    var username = Titanium.UI.createTextField({
 		top:20*hsf,
 		width:350*wsf,
 		height:60*wsf,
@@ -64,25 +54,9 @@ function LoginView(){
 		width:100*wsf,
 		height:50*hsf,
 		borderRadius:1,
-		backgroundImage:util.imagePath('ashoka_login_btn.png'),
+		backgroundImage:'images/ashoka_login_btn.png',
 	});
 	
-	loginBtn.addEventListener('click',function(e)
-		{
-			username.blur();
-			password.blur();
-			if (username.value != '' && password.value != '')
-			{
-				Ti.App.fireEvent('handleLogin', {
-				name:username.value,
-				password:password.value
-				});
-			}
-			else
-			{
-				alert("Username/Password are required");
-			}
-		});
 	var forgotLabel = Titanium.UI.createLabel({
 		left:margin_offset,
 		height:50*hsf,
@@ -95,10 +69,6 @@ function LoginView(){
 		text: 'Forgot Password?'
 	});
 	
-	forgotLabel.addEventListener('click',function(e){
-		handleForgotEvent();
-		});
-		
 	var firstLabel = Titanium.UI.createLabel({
 		right:margin_offset,
 		height:50*hsf,
@@ -110,9 +80,6 @@ function LoginView(){
 		color:util.customTextColor,
 		text: 'First time login'
 	});
-	firstLabel.addEventListener('click',function(e){
-		handleFirstEvent();
-		});
 	
 	var barLabel = Titanium.UI.createLabel({
 		left:margin_offset + 200*wsf,
@@ -240,82 +207,55 @@ function LoginView(){
     
     
 	win.addContent(infoRow);
-		
-	function grantEntrance(name, email){
-    	/*var dashBoardView = require("common/views/DashBoardView");
-    	user = {};
-    	user.name = name;
-    	user.email = email;
-    	dbView = new dashBoardView(user);
-    	liView.close();
-    	//Ti.UI.currentWindow.close();
-    	dbView.open();
-    	*/
-    	var newWindow = Ti.UI.createWindow({
-			title:'You are now logged in',
-			backgroundColor: 'Green',
-			layout:'vertical',
-		}); 
-    	openWindow(newWindow);
-    };
-    
-    function handleFirstEvent(){
-    	FirstTimeView = require('ui/common/FirstTimeView');
-    	firstTimeView = new FirstTimeView();
-    	openWindow(firstTimeView);
-    }
-    
-    function openWindow(_window){
-    	Ti.App.globalWindow = _window;
-		Ti.App.fireEvent('openWindow',{});
-    }
-    function handleForgotEvent(){
-    	ForgotView = require('ui/common/ForgotView');
-    	forgotView = new ForgotView();
-    	openWindow(forgotView);
-    }
-    
-    function denyEntrance(){
-    	username.borderColor = 'red';
+	
+	this.showLoginFail = function(){
+		username.borderColor = 'red';
 		username.borderRadius = 5;
 		username.borderWidth = 1;
 		password.borderColor = 'red';
 		password.borderRadius = 5;
 		password.borderWidth = 1;
 	
-		errorPane.text = "Invalid email or password.";
-    }
-    
-	Ti.App.addEventListener('handleLogin', function(event)
-	{
-		handleLoginEvent(event.name, event.password);
-	});
-    function handleLoginEvent(_username, _password){
-    	var loginReq = Titanium.Network.createHTTPClient();
-		
-		loginReq.open("POST","http://50.17.229.217/ashokahub/authenticate.php");
-					
-		var params = {
-			username: _username,
-			password: _password
+		win.addContent(
+			Ti.UI.createLabel({
+				text:"Invalid email or password.",
+				top:2, 
+				left:margin_offset,
+				font:{
+			      fontSize:12*hsf,
+			      fontFamily: util.customFont
+			   },
+				color:'red'
+			})
+			);
 		};
-		loginReq.send(params);
 		
-		loginReq.onload = function()
-		{	
-			var json = this.responseText;
-			var response = JSON.parse(json);
-			if (response.logged == true)
+	this.setEventListeners = function(){	
+		
+        loginBtn.addEventListener('click',function(e)
+		{
+			username.blur();
+			password.blur();
+			if (username.value != '' && password.value != '')
 			{
-				grantEntrance(response.name,response.email);
+				Ti.App.fireEvent('handleLogin', {
+				name:username.value,
+				password:password.value
+				});
 			}
 			else
 			{
-				denyEntrance();
+				alert("Username/Password are required");
 			}
-		};
-    }
-	
-	return win.appwin;
-}	
+		});
+   };
+   this.open = function(){
+		win.open();
+	}
+   this.close = function(){
+   		win.close();
+   };
+}
+
+//Publically accessible methods
 module.exports = LoginView;

@@ -9,24 +9,18 @@ else {
 			height = Ti.Platform.displayCaps.platformHeight,
 			width = Ti.Platform.displayCaps.platformWidth;
 	
-		//considering tablet to have one dimension over 900px
-		var isTablet = osname === 'ipad' || (osname === 'android' && (width > 899 || height > 899));
-	
 		var Window;
-		if (isTablet) {
-			Window = require('ui/tablet/ApplicationWindow');
+
+		if (osname === 'android') {
+			Window = require('ui/handheld/android/ApplicationWindow');
+		}
+		else if (osname === 'mobileweb') {
+			Window = require('ui/handheld/mobileweb/ApplicationWindow');
 		}
 		else {
-			if (osname === 'android') {
-				Window = require('ui/handheld/android/ApplicationWindow');
-			}
-			else if (osname === 'mobileweb') {
-				Window = require('ui/handheld/mobileweb/ApplicationWindow');
-			}
-			else {
-				Window = require('ui/handheld/ios/ApplicationWindow');
-			}
+			Window = require('ui/handheld/ios/ApplicationWindow');
 		}
+
 		var mainWindow = new Window();
 		mainWindow.openMainWindow();
 		
@@ -36,3 +30,4 @@ else {
 		});
 	})();
 }
+

@@ -1,6 +1,6 @@
 function LoginView(){
 	
-	var utilities = require("common/utilities");
+	var utilities = require("ui/common/utilities");
 	var util = new utilities();
 	var hsf = util.height_scale_factor;
 	var wsf = util.width_scale_factor;
@@ -9,7 +9,18 @@ function LoginView(){
 	var appWindow = require("ui/common/CommonLoginView");
     win = new appWindow();
 
-
+	var errorPane = Ti.UI.createLabel({
+				text:"",
+				top:1, 
+				left:margin_offset,
+				font:{
+			      fontSize:12*hsf,
+			      fontFamily: util.customFont
+			   },
+				color:'red'
+		});
+			
+	win.addContent(errorPane);
 	var username = Titanium.UI.createTextField({
 		top:20*hsf,
 		width:350*wsf,
@@ -53,13 +64,25 @@ function LoginView(){
 		width:100*wsf,
 		height:50*hsf,
 		borderRadius:1,
-		backgroundImage:'images/ashoka_login_btn.png',
+		backgroundImage:util.imagePath('ashoka_login_btn.png'),
 	});
 	
-	loginBtn.addEventListener('click',function(e){
-		handleLoginEvent("username.value","password.value");
+	loginBtn.addEventListener('click',function(e)
+		{
+			username.blur();
+			password.blur();
+			if (username.value != '' && password.value != '')
+			{
+				Ti.App.fireEvent('handleLogin', {
+				name:username.value,
+				password:password.value
+				});
+			}
+			else
+			{
+				alert("Username/Password are required");
+			}
 		});
-		
 	var forgotLabel = Titanium.UI.createLabel({
 		left:margin_offset,
 		height:50*hsf,
@@ -217,28 +240,6 @@ function LoginView(){
     
     
 	win.addContent(infoRow);
-	
-	function showLoginFail(){
-		username.borderColor = 'red';
-		username.borderRadius = 5;
-		username.borderWidth = 1;
-		password.borderColor = 'red';
-		password.borderRadius = 5;
-		password.borderWidth = 1;
-	
-		win.addContent(
-			Ti.UI.createLabel({
-				text:"Invalid email or password.",
-				top:2, 
-				left:margin_offset,
-				font:{
-			      fontSize:12*hsf,
-			      fontFamily: util.customFont
-			   },
-				color:'red'
-			})
-			);
-		};
 		
 	function grantEntrance(name, email){
     	/*var dashBoardView = require("common/views/DashBoardView");
@@ -255,37 +256,42 @@ function LoginView(){
 			backgroundColor: 'Green',
 			layout:'vertical',
 		}); 
-    	Ti.App.fireEvent('openWindow',{
-    		_win:newWindow
-    	});
+    	openWindow(newWindow);
     };
     
     function handleFirstEvent(){
     	FirstTimeView = require('ui/common/FirstTimeView');
-    	var firstTimeView = new FirstTimeView();
-    	Ti.App.fireEvent('openWindow',{
-    		_win:firstTimeView
-    	});
+    	firstTimeView = new FirstTimeView();
+    	openWindow(firstTimeView);
     }
     
+    function openWindow(_window){
+    	Ti.App.globalWindow = _window;
+		Ti.App.fireEvent('openWindow',{});
+    }
     function handleForgotEvent(){
-    	var newWindow = Ti.UI.createWindow({
-			title:'Forgot password?',
-			backgroundColor: 'Orange',
-			layout:'vertical',
-		}); 
-    	Ti.App.fireEvent('openWindow',{
-    		_win:newWindow
-    	});
+    	ForgotView = require('ui/common/ForgotView');
+    	forgotView = new ForgotView();
+    	openWindow(forgotView);
     }
     
     function denyEntrance(){
-    	showLoginFail();
+    	username.borderColor = 'red';
+		username.borderRadius = 5;
+		username.borderWidth = 1;
+		password.borderColor = 'red';
+		password.borderRadius = 5;
+		password.borderWidth = 1;
+	
+		errorPane.text = "Invalid email or password.";
     }
     
-
+	Ti.App.addEventListener('handleLogin', function(event)
+	{
+		handleLoginEvent(event.name, event.password);
+	});
     function handleLoginEvent(_username, _password){
-    	/*var loginReq = Titanium.Network.createHTTPClient();
+    	var loginReq = Titanium.Network.createHTTPClient();
 		
 		loginReq.open("POST","http://50.17.229.217/ashokahub/authenticate.php");
 					
@@ -308,9 +314,6 @@ function LoginView(){
 				denyEntrance();
 			}
 		};
-		*/
-		//denyEntrance();
-		grantEntrance(_username, _password);
     }
 	
 	return win.appwin;

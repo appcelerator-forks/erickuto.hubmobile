@@ -1,6 +1,6 @@
 function CommonLoginView(){
 	
-	var utilities = require("ui/common/utilities");
+	var utilities = require("common/utilities");
 	util = new utilities();
 	var hsf = util.height_scale_factor;
 	var wsf = util.width_scale_factor;
@@ -14,10 +14,10 @@ function CommonLoginView(){
 
 	var logoImage = Ti.UI.createImageView({
 		top:15*hsf,
-		width:300*wsf, 
-		image:util.imagePath("ashoka_logo.png")
+		width:300*wsf
 	});
-	//logoImage.image = '../../ashoka_logo.png';
+	
+	util.addImage(logoImage, "images/ashoka_logo.png");
 	var logoCanvas = Ti.UI.createView({top:0, height:120});
 	var borderBottom = Ti.UI.createView({
 	    backgroundColor: '#e0e0e0',
@@ -70,11 +70,9 @@ function CommonLoginView(){
 	};
 	this.addContent = function(_content){
 		contentWrapper.add(_content);
-
 	};
 
 	CommonLoginView.prototype.appwin = win; 
-	
 }
 
 module.exports = CommonLoginView;

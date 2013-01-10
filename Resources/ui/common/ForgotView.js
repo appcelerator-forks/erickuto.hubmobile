@@ -8,21 +8,8 @@ function FirstTimeView(){
 	
 	var appWindow = require("ui/common/CommonLoginView");
     win = new appWindow();
-
-
-	var instructionsLabel = Titanium.UI.createLabel({
-		left:margin_offset,
-		height:50*hsf,
-		top:20*hsf,
-		font:{
-	      fontSize:17*hsf,
-	      fontFamily: util.customFont
-	   },
-	   color:util.customTextColor,
-		text: 'Please enter your email address so we can verify you are on AshokaHub'
-	});
 	
-	var username = Titanium.UI.createTextField({
+	var email = Titanium.UI.createTextField({
 		top:100*hsf,
 		width:350*wsf,
 		height:60*wsf,
@@ -41,22 +28,21 @@ function FirstTimeView(){
 	});
 	
 	
-	var loginBtn = Titanium.UI.createButton({
-		top:180*hsf,
+	var recoverBtn = Titanium.UI.createButton({
+		top:190*hsf,
 		right:margin_offset,
-		width:100*wsf,
-		height:50*hsf,
+		width:180*wsf,
+		height:100*hsf,
 		borderRadius:1,
-		backgroundImage:util.imagePath("ashoka_login_btn.png"),
+		backgroundImage:util.imagePath("recover_password_btn.png"),
 	});
 	
-	loginBtn.addEventListener('click',function(e){
-		handleLoginEvent("username.value","password.value");
+	recoverBtn.addEventListener('click',function(e){
+		handleForgotEvent();
 		});
 		
-	win.addContent(username);
-	win.addContent(loginBtn);
-	win.addContent(instructionsLabel);
+	win.addContent(email);
+	win.addContent(recoverBtn);
 	thisWindow = win.appwin;
 
 	return thisWindow;
