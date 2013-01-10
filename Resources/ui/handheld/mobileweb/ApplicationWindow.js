@@ -1,7 +1,7 @@
 //Application Window Component Constructor
 function ApplicationWindow() {
 	
-	var utilities = require("common/utilities");
+	var utilities = require("ui/common/utilities");
 	var util = new utilities();
 	var hsf = util.height_scale_factor;
 	var wsf = util.width_scale_factor;
@@ -30,9 +30,9 @@ function ApplicationWindow() {
 	});
 	self.add(navGroup);
 
-	this.openNewWindow = function(_win){
-		navGroup.open(_win);
-	}
+	this.openNewWindow = function(){
+		navGroup.open(Ti.App.globalWindow);
+		}
 	this.openMainWindow = function(){
 		self.open();
 		}

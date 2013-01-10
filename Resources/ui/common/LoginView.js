@@ -1,6 +1,6 @@
 function LoginView(){
 	
-	var utilities = require("common/utilities");
+	var utilities = require("ui/common/utilities");
 	var util = new utilities();
 	var hsf = util.height_scale_factor;
 	var wsf = util.width_scale_factor;
@@ -53,7 +53,7 @@ function LoginView(){
 		width:100*wsf,
 		height:50*hsf,
 		borderRadius:1,
-		backgroundImage:'images/ashoka_login_btn.png',
+		backgroundImage:util.imagePath('ashoka_login_btn.png'),
 	});
 	
 	loginBtn.addEventListener('click',function(e){
@@ -255,28 +255,26 @@ function LoginView(){
 			backgroundColor: 'Green',
 			layout:'vertical',
 		}); 
-    	Ti.App.fireEvent('openWindow',{
-    		_win:newWindow
-    	});
+    	openWindow(newWindow);
     };
     
     function handleFirstEvent(){
     	FirstTimeView = require('ui/common/FirstTimeView');
-    	var firstTimeView = new FirstTimeView();
-    	Ti.App.fireEvent('openWindow',{
-    		_win:firstTimeView
-    	});
+    	firstTimeView = new FirstTimeView();
+    	openWindow(firstTimeView);
     }
     
+    function openWindow(_window){
+    	Ti.App.globalWindow = _window;
+		Ti.App.fireEvent('openWindow',{});
+    }
     function handleForgotEvent(){
     	var newWindow = Ti.UI.createWindow({
 			title:'Forgot password?',
 			backgroundColor: 'Orange',
 			layout:'vertical',
 		}); 
-    	Ti.App.fireEvent('openWindow',{
-    		_win:newWindow
-    	});
+    	openWindow(newWindow);
     }
     
     function denyEntrance(){

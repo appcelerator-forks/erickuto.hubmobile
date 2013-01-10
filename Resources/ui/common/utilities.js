@@ -23,14 +23,19 @@ function Utilities(){
 	}
 	this.height_scale_factor = this.app_height/800.0;
 	this.width_scale_factor = this.app_width/500
-	this.addImage = function(_imageView, _path){
+	this.imagePath = function(_path){
+		image_path = "";
+		
 		if (osname === 'android') {
-			_imageView.image = "../../" + _path;
+			image_path = "../../images/" + _path;
 		}
 		else {
-			_imageView.image = _path;
+			image_path = "images/" + _path;
 		}
+		
+		return image_path;
 	};
+	
 	
 }
 
