@@ -241,7 +241,7 @@ function LoginView(){
     
 	win.addContent(infoRow);
 		
-	function grantEntrance(name, email){
+	function grantEntrance(){
     	/*var dashBoardView = require("common/views/DashBoardView");
     	user = {};
     	user.name = name;
@@ -291,29 +291,15 @@ function LoginView(){
 		handleLoginEvent(event.name, event.password);
 	});
     function handleLoginEvent(_username, _password){
-    	var loginReq = Titanium.Network.createHTTPClient();
-		
-		loginReq.open("POST","http://50.17.229.217/ashokahub/authenticate.php");
-					
-		var params = {
-			username: _username,
-			password: _password
-		};
-		loginReq.send(params);
-		
-		loginReq.onload = function()
-		{	
-			var json = this.responseText;
-			var response = JSON.parse(json);
-			if (response.logged == true)
-			{
-				grantEntrance(response.name,response.email);
-			}
-			else
-			{
-				denyEntrance();
-			}
-		};
+    	AuthClient = require('services/Authentication');
+    	var isAuthenticated = new AuthClient(_username, _password);
+    	
+    	if (isAuthenticated){
+    		grantEntrance();
+    	}
+    	else{
+    		denyEntrance();
+    	}
     }
 	
 	return win.appwin;

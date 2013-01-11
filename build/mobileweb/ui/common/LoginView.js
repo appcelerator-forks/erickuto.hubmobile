@@ -293,10 +293,10 @@ function LoginView(){
     function handleLoginEvent(_username, _password){
     	var loginReq = Titanium.Network.createHTTPClient();
 		
-		loginReq.open("POST","http://50.17.229.217/ashokahub/authenticate.php");
+		loginReq.open("POST","http://localhost:3000/api/mobile/tokens.json");
 					
 		var params = {
-			username: _username,
+			email: _username,
 			password: _password
 		};
 		loginReq.send(params);
@@ -305,7 +305,8 @@ function LoginView(){
 		{	
 			var json = this.responseText;
 			var response = JSON.parse(json);
-			if (response.logged == true)
+			Ti.API.info(response);
+			if (response.logged == 'True')
 			{
 				grantEntrance(response.name,response.email);
 			}

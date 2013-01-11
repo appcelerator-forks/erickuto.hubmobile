@@ -31,12 +31,13 @@ function LoginController(){
     function handleLoginEvent(_username, _password){
     	var loginReq = Titanium.Network.createHTTPClient();
 		
-		loginReq.open("POST","http://50.17.229.217/ashokahub/authenticate.php");
+		loginReq.open("POST","http://greenhub-staging.herokuapp.com/api/mobile/tokens.json");
 					
 		var params = {
-			username: _username,
+			email: _username,
 			password: _password
 		};
+		Ti.API.info(params);
 		loginReq.send(params);
 		
 		loginReq.onload = function()

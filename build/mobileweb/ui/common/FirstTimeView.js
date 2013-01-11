@@ -58,7 +58,7 @@ function FirstTimeView(){
 	win.addContent(loginBtn);
 	win.addContent(instructionsLabel);
 	thisWindow = win.appwin;
-
+	Ti.API.info("Like a v");
 	return thisWindow;
 }	
 module.exports = FirstTimeView;
