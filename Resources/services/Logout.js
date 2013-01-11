@@ -1,5 +1,5 @@
 
-authenticateUser = function(o, _username, _password, tries){
+logoutUser = function(o, _username, _password, tries){
 	var loginReq = Titanium.Network.createHTTPClient();
 	var url = Ti.App.getRemoteURL("api/mobile/tokens.json");
 	Ti.API.info("url is: " + url);
@@ -50,4 +50,4 @@ authenticateUser = function(o, _username, _password, tries){
 	loginReq.send(params);
 	
 }
-module.exports = authenticateUser;
+module.exports = logoutUser;

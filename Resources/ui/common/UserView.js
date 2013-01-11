@@ -1,4 +1,4 @@
-function CommonLoginView(){
+function userView(){
 	
 	var utilities = require("ui/common/utilities");
 	util = new utilities();
@@ -11,29 +11,26 @@ function CommonLoginView(){
 	}); 
 	
 	var canvas = Ti.UI.createView({});
-
-	var logoImage = Ti.UI.createImageView({
-		top:15*hsf,
-		width:300*wsf, 
-		image:util.imagePath("ashoka_logo.png")
-	});
-	//logoImage.image = '../../ashoka_logo.png';
-	var logoCanvas = Ti.UI.createView({top:0, height:120});
-	var borderBottom = Ti.UI.createView({
-	    backgroundColor: '#e0e0e0',
-	    top: 140*hsf,
-	    height:2*hsf,
-	});
-
+	
+	win.titleImage = util.imagePath("ashoka_logo_navbar.png");
 	var contentWrapper = Ti.UI.createView({
-	    top: 145*hsf,
+	    top: 5*hsf,
 	    width: util.app_width,
 	});	
-	canvas.add(borderBottom);
-	logoCanvas.add(logoImage);
+	var logoutButton = Ti.UI.createButton({title:'Sign out'});
+	
+	logoutButton.addEventListener('click', function()
+	{	
+		//Ti.App.fireEvent('logout');
+		Ti.App.globalWindow = win;
+		Ti.App.fireEvent('closeWindow',{});
+	});
+	
+	var helpButton = Ti.UI.createButton({title:'Help'});
+	win.leftNavButton = logoutButton;
+	win.rightNavButton = helpButton;
+	
 	canvas.add(contentWrapper);
-
-	canvas.add(logoCanvas);
 	
 	canvas.add(Titanium.UI.createLabel({
 		left:20*wsf,
@@ -73,10 +70,10 @@ function CommonLoginView(){
 
 	};
 
-	CommonLoginView.prototype.appwin = win; 
+	userView.prototype.appwin = win; 
 	
 }
 
-module.exports = CommonLoginView;
+module.exports = userView;
 
 

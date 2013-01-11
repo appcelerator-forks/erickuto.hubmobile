@@ -21,12 +21,22 @@ else {
 			Window = require('ui/handheld/ios/ApplicationWindow');
 		}
 
+		Settings = require("services/Settings");
+		
 		var mainWindow = new Window();
 		mainWindow.openMainWindow();
 		
 		Ti.App.addEventListener('openWindow', function(event)
 		{
-			mainWindow.openNewWindow(event._win);
+			mainWindow.openNewWindow();
+		});
+		Ti.App.addEventListener('closeWindow', function(event)
+		{
+			mainWindow.closeWindow();
+		});
+		Ti.App.addEventListener('logout', function(event)
+		{
+			
 		});
 	})();
 }

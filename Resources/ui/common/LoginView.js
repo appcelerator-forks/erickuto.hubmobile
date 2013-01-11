@@ -241,7 +241,7 @@ function LoginView(){
     
 	win.addContent(infoRow);
 		
-	function grantEntrance(){
+	function grantEntrance(_authtoken){
     	/*var dashBoardView = require("common/views/DashBoardView");
     	user = {};
     	user.name = name;
@@ -251,12 +251,9 @@ function LoginView(){
     	//Ti.UI.currentWindow.close();
     	dbView.open();
     	*/
-    	var newWindow = Ti.UI.createWindow({
-			title:'You are now logged in',
-			backgroundColor: 'Green',
-			layout:'vertical',
-		}); 
-    	openWindow(newWindow);
+    	DashboardView = require('ui/common/DashboardView');
+    	dashboardView = new DashboardView(_authtoken);
+    	openWindow(dashboardView);
     };
     
     function handleFirstEvent(){
@@ -292,14 +289,16 @@ function LoginView(){
 	});
     function handleLoginEvent(_username, _password){
     	AuthClient = require('services/Authentication');
-    	var isAuthenticated = new AuthClient(_username, _password);
+    	var isAuthenticated = new AuthClient({
+    		start: function() {Ti.API.info("Fetching..")},
+    		error: function() {
+    			errorPane.text = "Error:There was a problem connecting to Ashoka Hub.";},
+    		failure: function() { denyEntrance()},
+    		success: function(_authtoken){
+    			grantEntrance(_authtoken);
+    		}
+    	}, _username, _password);
     	
-    	if (isAuthenticated){
-    		grantEntrance();
-    	}
-    	else{
-    		denyEntrance();
-    	}
     }
 	
 	return win.appwin;

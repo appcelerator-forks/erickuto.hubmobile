@@ -13,18 +13,6 @@ function ApplicationWindow() {
 	LoginView = require('ui/common/LoginView');
 	var loginView = new LoginView();
 	
-	//declare module dependencies
-	/*var rss = require('services/rss'),
-		MainView = require('ui/common/MainView'),
-		ProfileView = require('ui/common/ProfileView');
-*/
-	
-	//create detail view container
-	//var detailContainerWindow = Ti.UI.createWindow();
-	//detailContainerWindow.add(detailView);
-
-	//create Mobile Web specific NavGroup UI
-	
 	var navGroup = Ti.UI.iPhone.createNavigationGroup({
 		window:loginView
 	});
@@ -33,26 +21,11 @@ function ApplicationWindow() {
 	this.openNewWindow = function(){
 		navGroup.open(Ti.App.globalWindow);
 	}
+	this.closeWindow = function(){
+		navGroup.close(Ti.App.globalWindow);
+	}
 	this.openMainWindow = function(){
 		self.open();
 		}
-	//add behavior for master view
-	/*masterView.addEventListener('itemSelected', function(e) {
-		detailView.showArticle(e.link);
-		navGroup.open(detailContainerWindow);
-	});
-	
-	function refreshRSS() {
-		rss.loadRssFeed({
-			success: function(data) {
-	    		masterView.refreshRssTable(data);
-	    	}
-		});
-	}
-	*/
-	// load initial rss feed
-	//refreshRSS();
-	
-	//return self;
 };
 module.exports = ApplicationWindow;
