@@ -12,10 +12,30 @@ var selectedRadio = Titanium.UI.createButton({
 	width:40,
 	height:40,
 	borderRadius:1,
-	action:'select',
+	action:'unselect',
 	activity:'all',
 	backgroundImage:util.imagePath('radio_selected.png'),
 });
+
+var radioAction = function(e){
+	var action = e.source.action;
+	var activity = e.source.activity; 
+	
+	Ti.API.info(action + "ing " + activity);
+	
+	if (action === 'unselect'){
+		if (activity === 'all'){
+			activity = 'select';
+		}
+		else{
+			activity = 'all';
+		}
+	}
+	
+	selectActivity(activity);
+};
+
+selectedRadio.addEventListener('click', radioAction);
 
 var staticView = Ti.UI.createView({
 	top:0,
@@ -27,10 +47,12 @@ var unselectedRadio = Titanium.UI.createButton({
 	width:40,
 	height:40,
 	borderRadius:1,
-	action:'unselect',
-	activity: 'selected',
+	action:'select',
+	activity: 'select',
 	backgroundImage:util.imagePath('radio_unselected.png'),
 });
+
+unselectedRadio.addEventListener('click', radioAction);
 
 var createMenuRow = function(item) {
 	var tablerow = Ti.UI.createTableViewRow({
@@ -86,15 +108,20 @@ var addRowView = function(_view) {
 function selectActivity(_activity){
 	/*staticView.remove(selectedRadio);
 	staticView.remove(unselectedRadio);*/
+
 	if(_activity === "all"){
 		selectedRadio.top = all_activity_offset;
 		unselectedRadio.top = select_activity_offset;
+		selectedRadio.activity = "all";
+		unselectedRadio.activity = "select";
 	}
 	else{
 		selectedRadio.top = select_activity_offset;
 		unselectedRadio.top = all_activity_offset;
+		selectedRadio.activity = "select";
+		unselectedRadio.activity = "all";
 	}
-	Ti.API.info("passed through here." + selectedRadio.top + " , " + unselectedRadio.top);
+	Ti.API.info("Choosing.. " + _activity);
 	staticView.add(selectedRadio);
 	staticView.add(unselectedRadio);
 }
