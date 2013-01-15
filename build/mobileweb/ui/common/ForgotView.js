@@ -32,7 +32,7 @@ function FirstTimeView(){
 		top:190*hsf,
 		right:margin_offset,
 		width:180*wsf,
-		height:100*hsf,
+		height:40*hsf,
 		borderRadius:1,
 		backgroundImage:util.imagePath("recover_password_btn.png"),
 	});

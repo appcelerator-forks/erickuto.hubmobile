@@ -241,7 +241,7 @@ function LoginView(){
     
 	win.addContent(infoRow);
 		
-	function grantEntrance(name, email){
+	function grantEntrance(_authtoken){
     	/*var dashBoardView = require("common/views/DashBoardView");
     	user = {};
     	user.name = name;
@@ -251,12 +251,9 @@ function LoginView(){
     	//Ti.UI.currentWindow.close();
     	dbView.open();
     	*/
-    	var newWindow = Ti.UI.createWindow({
-			title:'You are now logged in',
-			backgroundColor: 'Green',
-			layout:'vertical',
-		}); 
-    	openWindow(newWindow);
+    	DashboardView = require('ui/common/DashboardView');
+    	dashboardView = new DashboardView(_authtoken);
+    	openWindow(dashboardView);
     };
     
     function handleFirstEvent(){
@@ -291,30 +288,17 @@ function LoginView(){
 		handleLoginEvent(event.name, event.password);
 	});
     function handleLoginEvent(_username, _password){
-    	var loginReq = Titanium.Network.createHTTPClient();
-		
-		loginReq.open("POST","http://localhost:3000/api/mobile/tokens.json");
-					
-		var params = {
-			email: _username,
-			password: _password
-		};
-		loginReq.send(params);
-		
-		loginReq.onload = function()
-		{	
-			var json = this.responseText;
-			var response = JSON.parse(json);
-			Ti.API.info(response);
-			if (response.logged == 'True')
-			{
-				grantEntrance(response.name,response.email);
-			}
-			else
-			{
-				denyEntrance();
-			}
-		};
+    	AuthClient = require('services/Authentication');
+    	var isAuthenticated = new AuthClient({
+    		start: function() {Ti.API.info("Fetching..")},
+    		error: function() {
+    			errorPane.text = "Error:There was a problem connecting to Ashoka Hub.";},
+    		failure: function() { denyEntrance()},
+    		success: function(_authtoken){
+    			grantEntrance(_authtoken);
+    		}
+    	}, _username, _password);
+    	
     }
 	
 	return win.appwin;

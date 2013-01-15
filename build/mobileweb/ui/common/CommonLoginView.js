@@ -44,7 +44,7 @@ function CommonLoginView(){
 	      fontFamily: util.customFont
 	   },
 	   color:util.customTextColor,
-		text: 'Copyright 2011 Ashoka ' + util.app_width + " height " + util.app_height,
+		text: 'Copyright 2011 Ashoka ',
 	}));
 	
 	canvas.add(Titanium.UI.createLabel({
@@ -56,7 +56,7 @@ function CommonLoginView(){
 	      fontFamily: util.customFont
 	   },
 	   color:util.customTextColor,
-		text: 'hub.ashoka.org ' + util.width_scale_factor + " height " + util.height_scale_factor,
+		text: 'hub.ashoka.org ',
 	}));
 
 	win.add(canvas);

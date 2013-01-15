@@ -10,11 +10,12 @@ function ApplicationWindow() {
 	var self = Ti.UI.createWindow({
 		backgroundColor:util.customBgColor,
 	});
-	LoginView = require('ui/common/LoginView');
-	var loginView = new LoginView();
-	
+	//LoginView = require('ui/common/LoginView');
+	//var loginView = new LoginView();
+	ExploreView = require('ui/common/ExploreView');
+    exploreView = new ExploreView();
 	var navGroup = Ti.UI.iPhone.createNavigationGroup({
-		window:loginView
+		window:exploreView//loginView
 	});
 	self.add(navGroup);
 

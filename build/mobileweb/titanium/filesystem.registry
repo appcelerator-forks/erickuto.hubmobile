@@ -1,10 +1,10 @@
-ts	1357842964000
+ts	1358179104000
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
 KS_nav_ui.png	1158
 KS_nav_views.png	1074
-app.js	894
+app.js	1092
 appicon.png	19109
 apple-touch-icon-114x114-precomposed.png	15820
 apple-touch-icon-57x57-precomposed.png	6790
@@ -15,11 +15,22 @@ controllers
 favicon.ico	1068
 images
 	1_Login.jpg	183284
+	activity.png	5182
 	ashoka_banner.png	15141
 	ashoka_login_btn.png	10716
 	ashoka_logo.png	27467
+	ashoka_logo_navbar.png	22736
 	ashoka_tree.png	12339
+	events.png	4996
+	inbox.png	5090
+	needs.png	5072
+	offers.png	5413
+	people.png	4788
+	profile.png	5142
 	recover_password_btn.png	19030
+	search.png	5372
+	search_button.png	17371
+	settings.png	6135
 mobileweb
 	appicon.png	19109
 	apple_startup_images
@@ -62,6 +73,10 @@ old_commons
 			ashoka_login_btn.png	10716
 			ashoka_logo.png	27467
 			ashoka_tree.png	12339
+services
+	Authentication.js	1169
+	Logout.js	1157
+	Settings.js	107
 themes
 	common.css	7260
 	default
@@ -220,17 +235,20 @@ titanium.css	39469
 titanium.js	479113
 ui
 	common
-		CommonLoginView.js	1782
+		CommonLoginView.js	1668
+		DashboardView.js	1894
 		DetailView.js	349
-		FirstTimeView.js	1581
-		ForgotView.js	1195
-		LoginView.js	7211
+		ExploreView.js	2618
+		FirstTimeView.js	1555
+		ForgotView.js	1194
+		LoginView.js	7109
 		MasterView.js	1290
+		UserView.js	1664
 		utilities.js	884
 	handheld
 		android
 			ApplicationWindow.js	1237
 		ios
-			ApplicationWindow.js	1436
+			ApplicationWindow.js	900
 		mobileweb
 			ApplicationWindow.js	1440
