@@ -12,14 +12,17 @@ function userView(){
 	
 	var canvas = Ti.UI.createView({});
 	
-	win.titleImage = util.imagePath("ashoka_user_view_logo.png");
-	win.barColor = 'd0ddef';
+	win.titleImage = util.imagePath("ashoka_logo_navbar.png");
+	win.barColor = '#d0ddef';
 	
 	var contentWrapper = Ti.UI.createView({
-	    top: 5*hsf,
 	    width: util.app_width,
 	});	
-	var logoutButton = Ti.UI.createButton({title:'Sign out'});
+	var logoutButton = Ti.UI.createButtonBar({
+		labels: [{title:'Sign Out', image:util.imagePath("back_nav_btn.png")}],
+		backgroundColor: '#d0ddef',
+		width:60,
+		});
 	
 	logoutButton.addEventListener('click', function()
 	{	
@@ -28,36 +31,18 @@ function userView(){
 		Ti.App.fireEvent('closeWindow',{});
 	});
 	
-	var helpButton = Ti.UI.createButton({title:'Help'});
+	var helpButton = Ti.UI.createButtonBar({
+		//backgroundImage: util.imagePath("home_nav_btn.png"),
+		labels: [{title:' Help', image:util.imagePath("help_nav_btn.png")}],
+		backgroundColor: '#d0ddef',
+		width:60,
+		});
+	
 	win.leftNavButton = logoutButton;
 	win.rightNavButton = helpButton;
 	
 	canvas.add(contentWrapper);
 	
-	canvas.add(Titanium.UI.createLabel({
-		left:20*wsf,
-		height:50*hsf,
-		bottom:1,
-		font:{
-	      fontSize:12*hsf,
-	      fontFamily: util.customFont
-	   },
-	   color:util.customTextColor,
-		text: 'Copyright 2011 Ashoka ',
-	}));
-	
-	canvas.add(Titanium.UI.createLabel({
-		right:20*wsf,
-		height:50*hsf,
-		bottom:1,
-		font:{
-	      fontSize:12*hsf,
-	      fontFamily: util.customFont
-	   },
-	   color:util.customTextColor,
-		text: 'hub.ashoka.org ',
-	}));
-
 	win.add(canvas);
 	
 	

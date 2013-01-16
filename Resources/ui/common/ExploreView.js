@@ -5,6 +5,7 @@ var wsf = util.width_scale_factor;
 var margin_offset = (util.app_width-350*wsf)/2;
 var all_activity_offset = 0; 
 var select_activity_offset = 30; 
+var user = Ti.App.user; 
 
 var selectedRadio = Titanium.UI.createButton({
 	top:0, 
@@ -31,7 +32,6 @@ var radioAction = function(e){
 			activity = 'all';
 		}
 	}
-	
 	selectActivity(activity);
 };
 
@@ -55,15 +55,17 @@ var unselectedRadio = Titanium.UI.createButton({
 unselectedRadio.addEventListener('click', radioAction);
 
 var createMenuRow = function(item) {
-	var tablerow = Ti.UI.createTableViewRow({
+	var category = item.split(" ")[0].toLowerCase();
+	var selectedSize = user.getSelectedSize(category);
+	var tableRow = Ti.UI.createTableViewRow({
 		className: 'itemRow',
+		category: category,
 		hasChild: true, 
 		
 	});
 
 	var titleView = Ti.UI.createView({
 		backgroundColor: 'e5eaf0',
-		top: 5, 
 		bottom: 5,
 		height: 40,
 		width: (util.app_width - 10),
@@ -73,22 +75,44 @@ var createMenuRow = function(item) {
 		borderColor:'#e0e0e0',
 		borderRadius:5,
 		borderWidth:1,
+		layout:'horizontal'
 	});
 	
 	var titleLabel = Ti.UI.createLabel({
 		text: item,
+		width: 'auto',
 		color: '#5e656a',
 		left: 5,
+		top: 10,
 		font: {
 			fontSize: 16
 		},
 		
 	});
 
-	titleView.add(titleLabel);
-	tablerow.add(titleView);
+	var sizeText = "";
+	if (selectedSize > 0){
+		sizeText = "(" + selectedSize + ")";
+	}
+	var sizeLabel = Ti.UI.createLabel({
+		text: sizeText, 
+		color: '#5e656a',
+		width: 'auto',
+		left: 5,
+		top: 10,
+		font: {
+			fontSize: 16
+		},
+	});
 	
-	return tablerow;
+	tableRow.sizeLabel = sizeLabel; 
+	titleView.add(titleLabel);
+	titleView.add(sizeLabel);
+	tableRow.add(titleView);
+	tableRow.addEventListener('click', function(e) {
+		tableRow.fireEvent('filterExploration', { category: category });
+	});
+	return tableRow;
 };
 
 var addRowView = function(_view) {
@@ -202,11 +226,7 @@ function ExploreView(_authToken){
 	});
 
 	self.add(table);
-	
-	table.addEventListener('click', function(e) {
-		self.fireEvent('itemSelected', { link: e.row.link });
-	});
-	
+
 	var data = [];
 	data.push("People");
 	data.push("Communities");
@@ -223,6 +243,30 @@ function ExploreView(_authToken){
 	}
 	rows.push(addRowView(searchBtn));
 	table.setData(rows);
+	Ti.API.info("How many rows? " + table.data[0].rows.length);
+	var updateSizes = function(){
+		var updateRows = table.data[0].rows;
+		for (var i = 1; i < updateRows.length-1; i++){
+			Ti.API.info(updateRows[i].sizeLabel.text);
+			var newSize = "";
+			var rowSize = user.getSelectedSize(updateRows[i].category);
+			
+			if (rowSize > 0){
+				newSize = "(" + rowSize + ")";
+			}
+			updateRows[i].sizeLabel.text = newSize; 
+			
+		}
+	};
+	Ti.App.addEventListener('updateSizes', function(){
+			updateSizes();
+			win.close();
+		});
+	updateSizes();
+	win.topLeftButton.addEventListener('click', function()
+	{	
+		win.close();
+	});
 	win.addContent(self);
 	thisWindow = win.appwin;
 	return thisWindow;

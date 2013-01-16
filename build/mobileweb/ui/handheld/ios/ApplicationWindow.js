@@ -19,6 +19,15 @@ function ApplicationWindow() {
 	});
 	self.add(navGroup);
 
+	exploreView.addEventListener('filterExploration', function(e){
+		var category = e.category; 
+		SelectorView = require("ui/common/SelectorView");
+		var selectorView = new SelectorView(category); 
+		
+		Ti.App.globalWindow = selectorView;
+		Ti.App.fireEvent('openWindow',{});
+	});
+	
 	this.openNewWindow = function(){
 		navGroup.open(Ti.App.globalWindow);
 	}

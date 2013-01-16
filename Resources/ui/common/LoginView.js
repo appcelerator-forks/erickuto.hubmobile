@@ -83,6 +83,7 @@ function LoginView(){
 				alert("Username/Password are required");
 			}
 		});
+		
 	var forgotLabel = Titanium.UI.createLabel({
 		left:margin_offset,
 		height:50*hsf,

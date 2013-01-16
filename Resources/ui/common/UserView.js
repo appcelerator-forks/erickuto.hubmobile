@@ -18,19 +18,19 @@ function userView(){
 	var contentWrapper = Ti.UI.createView({
 	    width: util.app_width,
 	});	
-	var logoutButton = Ti.UI.createButtonBar({
+	var topLeftButton = Ti.UI.createButtonBar({
 		labels: [{title:'Sign Out', image:util.imagePath("back_nav_btn.png")}],
 		backgroundColor: '#d0ddef',
 		width:60,
 		});
 	
-	logoutButton.addEventListener('click', function()
+	/*topLeftButton.addEventListener('click', function()
 	{	
 		//Ti.App.fireEvent('logout');
 		Ti.App.globalWindow = win;
 		Ti.App.fireEvent('closeWindow',{});
 	});
-	
+	*/
 	var helpButton = Ti.UI.createButtonBar({
 		//backgroundImage: util.imagePath("home_nav_btn.png"),
 		labels: [{title:' Help', image:util.imagePath("help_nav_btn.png")}],
@@ -38,7 +38,7 @@ function userView(){
 		width:60,
 		});
 	
-	win.leftNavButton = logoutButton;
+	win.leftNavButton = topLeftButton;
 	win.rightNavButton = helpButton;
 	
 	canvas.add(contentWrapper);
@@ -50,15 +50,15 @@ function userView(){
 		win.open();
 	};
 	this.close = function(){
-		win.close();
+		Ti.App.globalWindow = win;
+		Ti.App.fireEvent('closeWindow',{});
 	};
 	this.addContent = function(_content){
 		contentWrapper.add(_content);
-
 	};
-
-	userView.prototype.appwin = win; 
+	this.topLeftButton = topLeftButton; 
 	
+	userView.prototype.appwin = win; 
 }
 
 module.exports = userView;

@@ -8,7 +8,7 @@ else {
 		var osname = Ti.Platform.osname,
 			height = Ti.Platform.displayCaps.platformHeight,
 			width = Ti.Platform.displayCaps.platformWidth;
-	
+		
 		var Window;
 
 		if (osname === 'android') {
@@ -22,6 +22,8 @@ else {
 		}
 
 		Settings = require("services/Settings");
+		User = require("services/User");
+		var user = new User();
 		
 		var mainWindow = new Window();
 		mainWindow.openMainWindow();
