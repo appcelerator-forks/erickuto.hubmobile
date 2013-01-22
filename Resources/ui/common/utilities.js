@@ -15,12 +15,13 @@ function Utilities(){
 	this.app_width = aw;
 	this.app_height = ah;
 	
+	/*
 	if (this.app_width > 500){
 		this.app_width = 500;
 	}
 	if (this.app_height > 800){
 		this.app_height = 800;
-	}
+	}*/
 	this.height_scale_factor = this.app_height/800.0;
 	this.width_scale_factor = this.app_width/500
 	this.imagePath = function(_path){

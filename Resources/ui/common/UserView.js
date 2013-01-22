@@ -24,13 +24,12 @@ function userView(){
 		width:60,
 		});
 	
-	/*topLeftButton.addEventListener('click', function()
+	topLeftButton.addEventListener('click', function()
 	{	
-		//Ti.App.fireEvent('logout');
 		Ti.App.globalWindow = win;
 		Ti.App.fireEvent('closeWindow',{});
 	});
-	*/
+	
 	var helpButton = Ti.UI.createButtonBar({
 		//backgroundImage: util.imagePath("home_nav_btn.png"),
 		labels: [{title:' Help', image:util.imagePath("help_nav_btn.png")}],
@@ -56,7 +55,11 @@ function userView(){
 	this.addContent = function(_content){
 		contentWrapper.add(_content);
 	};
-	this.topLeftButton = topLeftButton; 
+	this.addOnCloseEvent = function(_action){
+		win.addEventListener('close', function(){
+			Ti.App.fireEvent(_action);
+		});
+	} 
 	
 	userView.prototype.appwin = win; 
 }

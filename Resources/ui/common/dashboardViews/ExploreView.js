@@ -7,6 +7,8 @@ var all_activity_offset = 0;
 var select_activity_offset = 30; 
 var user = Ti.App.user; 
 
+Exploration = require("services/Exploration");
+var explorer = new Exploration();
 var selectedRadio = Titanium.UI.createButton({
 	top:0, 
 	left:0,
@@ -21,9 +23,7 @@ var selectedRadio = Titanium.UI.createButton({
 var radioAction = function(e){
 	var action = e.source.action;
 	var activity = e.source.activity; 
-	
-	Ti.API.info(action + "ing " + activity);
-	
+		
 	if (action === 'unselect'){
 		if (activity === 'all'){
 			activity = 'select';
@@ -145,7 +145,6 @@ function selectActivity(_activity){
 		selectedRadio.activity = "select";
 		unselectedRadio.activity = "all";
 	}
-	Ti.API.info("Choosing.. " + _activity);
 	staticView.add(selectedRadio);
 	staticView.add(unselectedRadio);
 }
@@ -156,6 +155,14 @@ function ExploreView(_authToken){
 
 	var self = Ti.UI.createView({
 		backgroundColor:util.customBgColor,
+	});
+	
+	self.addEventListener('filterExploration', function(e){
+		SelectorView = require("ui/common/dashboardViews/SelectorView");
+		var selectorView = new SelectorView(e.category, explorer); 
+		
+		Ti.App.globalWindow = selectorView;
+		Ti.App.fireEvent('openWindow',{});
 	});
 	
 	var nonScrollView = Ti.UI.createView({
@@ -243,11 +250,9 @@ function ExploreView(_authToken){
 	}
 	rows.push(addRowView(searchBtn));
 	table.setData(rows);
-	Ti.API.info("How many rows? " + table.data[0].rows.length);
 	var updateSizes = function(){
 		var updateRows = table.data[0].rows;
 		for (var i = 1; i < updateRows.length-1; i++){
-			Ti.API.info(updateRows[i].sizeLabel.text);
 			var newSize = "";
 			var rowSize = user.getSelectedSize(updateRows[i].category);
 			
@@ -263,10 +268,7 @@ function ExploreView(_authToken){
 			win.close();
 		});
 	updateSizes();
-	win.topLeftButton.addEventListener('click', function()
-	{	
-		win.close();
-	});
+
 	win.addContent(self);
 	thisWindow = win.appwin;
 	return thisWindow;

@@ -10,15 +10,13 @@ function ApplicationWindow() {
 	var self = Ti.UI.createWindow({
 		backgroundColor:util.customBgColor,
 	});
-	//LoginView = require('ui/common/LoginView');
-	//var loginView = new LoginView();
-	ExploreView = require('ui/common/ExploreView');
+	
+	LoginView = require('ui/common/LoginView');
+	var loginView = new LoginView();
+	
+	/*ExploreView = require('ui/common/ExploreView');
     exploreView = new ExploreView();
-	var navGroup = Ti.UI.iPhone.createNavigationGroup({
-		window:exploreView//loginView
-	});
-	self.add(navGroup);
-
+	
 	exploreView.addEventListener('filterExploration', function(e){
 		var category = e.category; 
 		SelectorView = require("ui/common/SelectorView");
@@ -26,7 +24,12 @@ function ApplicationWindow() {
 		
 		Ti.App.globalWindow = selectorView;
 		Ti.App.fireEvent('openWindow',{});
+	});*/
+	
+	var navGroup = Ti.UI.iPhone.createNavigationGroup({
+		window:loginView
 	});
+	self.add(navGroup);
 	
 	this.openNewWindow = function(){
 		navGroup.open(Ti.App.globalWindow);

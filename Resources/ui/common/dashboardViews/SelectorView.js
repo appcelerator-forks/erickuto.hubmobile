@@ -1,10 +1,9 @@
-function SelectorView(_category) {
+function SelectorView(_category, _explorer) {
 	var appWindow = require("ui/common/UserView");
     win = new appWindow();
-    Exploration = require("services/Exploration");
-    explorer = new Exploration();
+    
     var choices = [];
-    explorer.getChoices(_category, choices); 
+    _explorer.getChoices(_category, choices); 
     var self = Ti.UI.createView();
     
     var user = Ti.App.user; 
@@ -25,12 +24,8 @@ function SelectorView(_category) {
 		self.add(title);
     }
 	
-	Ti.API.info(communities.length + " communities");
 	win.addContent(self);
-	win.topLeftButton.addEventListener('click', function()
-	{	
-		Ti.App.fireEvent('updateSizes');
-	});
+	win.addOnCloseEvent('updateSizes');
 	thisWindow = win.appwin;
 	return thisWindow;
 }

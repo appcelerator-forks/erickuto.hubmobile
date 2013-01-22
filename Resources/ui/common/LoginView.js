@@ -31,6 +31,7 @@ function LoginView(){
 	      fontFamily: util.customFont
 	   },
 		hintText:'Enter your email address',
+		value:'ekkuto@gmail.com',
 		keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
 		returnKeyType:Titanium.UI.RETURNKEY_DEFAULT,
 		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
@@ -50,6 +51,7 @@ function LoginView(){
 	   },
 		hintText:'Enter your Password',
 		passwordMask:true,
+		value:'v=O6tazfzj',
 		keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
 		returnKeyType:Titanium.UI.RETURNKEY_DEFAULT,
 		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
@@ -301,7 +303,6 @@ function LoginView(){
     	}, _username, _password);
     	
     }
-	
 	return win.appwin;
 }	
 module.exports = LoginView;
