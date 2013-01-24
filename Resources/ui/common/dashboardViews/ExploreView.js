@@ -158,13 +158,20 @@ function ExploreView(_authToken){
 	});
 	
 	self.addEventListener('filterExploration', function(e){
-		SelectorView = require("ui/common/dashboardViews/SelectorView");
+		SelectorView = require("ui/common/dashboardViews/exploreViews/SelectorView");
 		var selectorView = new SelectorView(e.category, explorer); 
 		
 		Ti.App.globalWindow = selectorView;
 		Ti.App.fireEvent('openWindow',{});
 	});
 	
+	self.addEventListener('searchResults', function(e){
+		SearchView = require("ui/common/dashboardViews/exploreViews/SearchView");
+		var searchView = new SearchView; 
+		
+		Ti.App.globalWindow = searchView;
+		Ti.App.fireEvent('openWindow',{});
+	});
 	var nonScrollView = Ti.UI.createView({
 	});
 	var searchBar = Ti.UI.createSearchBar({
@@ -219,6 +226,9 @@ function ExploreView(_authToken){
 		backgroundImage:util.imagePath('search_button.png'),
 	});
 	
+	searchBtn.addEventListener('click', function(e) {
+		searchBtn.fireEvent('searchResults');
+	});
 	staticView.add(allActivities);
 	staticView.add(filterBy);
 	staticView.add(selectActivities);

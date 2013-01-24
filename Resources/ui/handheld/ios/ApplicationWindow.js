@@ -11,8 +11,13 @@ function ApplicationWindow() {
 		backgroundColor:util.customBgColor,
 	});
 	
+	/*
 	LoginView = require('ui/common/LoginView');
-	var loginView = new LoginView();
+	var loginView = new LoginView();*/
+	
+	SearchView = require("ui/common/dashboardViews/exploreViews/SearchView");
+	var searchView = new SearchView; 
+
 	
 	/*ExploreView = require('ui/common/ExploreView');
     exploreView = new ExploreView();
@@ -27,7 +32,7 @@ function ApplicationWindow() {
 	});*/
 	
 	var navGroup = Ti.UI.iPhone.createNavigationGroup({
-		window:loginView
+		window:searchView
 	});
 	self.add(navGroup);
 	
