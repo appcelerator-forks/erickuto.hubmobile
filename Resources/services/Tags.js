@@ -4,9 +4,14 @@ fetchTags = function(o){
 
 	
 	Connection = require('services/Connection');
+		getParams = [];
+		getParams.push({
+			"key0":"auth_token", 
+			"value0":hubAPI.user.getAuthToken()
+			});
+
     	var response = new Connection({
     		start: function() {
-    			Ti.API.info("Connecting.."); 
     			if (o.start) { o.start(); }
     			},
     			
@@ -23,7 +28,7 @@ fetchTags = function(o){
 						if (o.failure){o.failure()}
 					}
     			}
-    	}, "tags",[], "GET", tries);
+    	}, "tags", [], "GET", tries, getParams);
 	
 }
 module.exports = fetchTags;

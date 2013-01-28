@@ -20,7 +20,11 @@ authenticateUser = function(o, _username, _password){
     		success: function(_response){
     			if (_response.logged === 'true')
 					{
-						if (o.success){o.success(_response.token);}
+						if (o.success){
+							//Add Authentication token to user. 
+							hubAPI.user.setAuthToken(_response.token);
+							o.success();
+							}
 					}
 					else{
 						if (o.failure){o.failure()}

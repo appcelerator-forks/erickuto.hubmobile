@@ -1,13 +1,8 @@
-var utilities = require("ui/common/utilities");
-var util = new utilities();
-var hsf = util.height_scale_factor;
-var wsf = util.width_scale_factor;
-var appWidth = util.app_width; 
-var iconWidth = appWidth/5; 
-var margin_offset = (util.app_width-350*wsf)/2;
+var iconWidth = hubAPI.app_width/5; 
+var margin_offset = (hubAPI.app_width-350*hubAPI.wsf)/2;
 var all_activity_offset = 0; 
 var select_activity_offset = 30; 
-var user = Ti.App.user; 
+var user = hubAPI.user; 
 var selectedIconColor = '275378'; 
 var unselectedIconColor = 'f1f2f6'; 
 
@@ -16,7 +11,7 @@ var icons = [];
 var titleLabel = Ti.UI.createLabel({
 		top:3,
 		text: "", 
-		color: util.customTextColor,
+		color: hubAPI.customTextColor,
 		height: 20,
 		font: {
 			fontWeight: 'bold',
@@ -24,6 +19,7 @@ var titleLabel = Ti.UI.createLabel({
 		},
 		left: 5,
 	})
+	
 var loadResults = function(_category){
 	//Change the icons
 	for (var i = 0; i < icons.length; i++){
@@ -33,7 +29,7 @@ var loadResults = function(_category){
 			//Change the background of the icon
 			icons[i].children[0].backgroundColor = selectedIconColor; 
 			//Change the image of the icon
-			icons[i].children[0].children[0].image = util.imagePath('search_' + _category + '_selected.png');
+			icons[i].children[0].children[0].image = hubAPI.imagePath('search_' + _category + '_selected.png');
 			//Change the color of the background of the ticker
 			icons[i].children[1].backgroundColor = unselectedIconColor; 
 			//Change the color of the text of the ticker
@@ -47,7 +43,7 @@ var loadResults = function(_category){
 			//Change the background of the icon
 			icons[i].children[0].backgroundColor = unselectedIconColor; 
 			//Change the image of the icon
-			icons[i].children[0].children[0].image = util.imagePath('search_' + icons[i].category + '_unselected.png');
+			icons[i].children[0].children[0].image = hubAPI.imagePath('search_' + icons[i].category + '_unselected.png');
 			//Change the color of the background of the ticker
 			icons[i].children[1].backgroundColor = selectedIconColor; 
 			//Change the color of the text of the ticker
@@ -57,7 +53,7 @@ var loadResults = function(_category){
 
 		}
 	}
-	Ti.API.info("Switching to " + _category);
+
 	//Change the title
 	
 	//Change the results
@@ -96,7 +92,7 @@ var createSearchIcon = function(_status, _iconName, _amount){
 	});
 	
 	var imageView = Ti.UI.createImageView({
-		image: util.imagePath(imageName),
+		image: hubAPI.imagePath(imageName),
 		height: 30, 
 		width: 30, 
 		left: 7,
@@ -143,7 +139,7 @@ var createMenuRow = function(item) {
 		backgroundColor: 'e5eaf0',
 		bottom: 5,
 		height: 40,
-		width: (util.app_width - 10),
+		width: (hubAPI.app_width - 10),
 		right: 5, 
 		left: 5,
 		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
@@ -210,7 +206,7 @@ function SearchView(_authToken){
     win = new appWindow();
 
 	var self = Ti.UI.createView({
-		backgroundColor:util.customBgColor,
+		backgroundColor:hubAPI.customBgColor,
 		layout: 'vertical'
 	});
 
@@ -223,7 +219,7 @@ function SearchView(_authToken){
 	var iconsView = Ti.UI.createView({
 		top:0,
 		height: 50, 
-		backgroundColor: util.customBgColor, 
+		backgroundColor: hubAPI.customBgColor, 
 		layout:'horizontal'
 	});
 	
@@ -257,7 +253,7 @@ function SearchView(_authToken){
 	sortView.add(Ti.UI.createLabel({
 		top:3,
 		text: "Sort by:", 
-		color: util.customTextColor,
+		color: hubAPI.customTextColor,
 		height: 30,
 		font: {
 			fontWeight: 'bold',
@@ -283,7 +279,7 @@ function SearchView(_authToken){
 	sortView.add(Ti.UI.createLabel({
 		top:3,
 		text: " | ", 
-		color: util.customTextColor,
+		color: hubAPI.customTextColor,
 		height: 30,
 		font: {
 			fontWeight: 'bold',
@@ -295,7 +291,7 @@ function SearchView(_authToken){
 	var mostFollowed = Ti.UI.createLabel({
 		top:3,
 		text: "Most Followed", 
-		color: util.customTextColor,
+		color: hubAPI.customTextColor,
 		height: 30,
 		font: {
 			fontSize: 16,
@@ -313,7 +309,7 @@ function SearchView(_authToken){
 	var table = Ti.UI.createTableView({
 		top:0,
 		separatorColor: 'transparent',
-		backgroundColor:util.customBgColor,
+		backgroundColor:hubAPI.customBgColor,
 	});
 
 	self.add(table);

@@ -6,13 +6,13 @@ function SelectorView(_category, _explorer) {
     _explorer.getChoices(_category, choices); 
     var self = Ti.UI.createView();
     
-    var user = Ti.App.user; 
+    var user = hubAPI.user; 
 	var selection = user.getSelectedOptions(_category);
 	
     if (choices.length > 0){
     	MultiChoice = require("ui/common/tableViewMultiSelectRows");
     	
-    	var multiChoice = new MultiChoice(choices, selection);
+    	var multiChoice = new MultiChoice(choices, selection, _category);
     	
     	self.add(multiChoice);
     }

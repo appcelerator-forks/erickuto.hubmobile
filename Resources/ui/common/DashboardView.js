@@ -7,7 +7,7 @@ function openPage(_page){
 	Ti.App.fireEvent('openWindow',{});
 }
 
-function FirstTimeView(_authToken){
+function DashboardView(){
 	
 	var utilities = require("ui/common/utilities");
 	var util = new utilities();
@@ -123,4 +123,4 @@ function FirstTimeView(_authToken){
 	thisWindow = win.appwin;
 	return thisWindow;
 }	
-module.exports = FirstTimeView;
+module.exports = DashboardView;

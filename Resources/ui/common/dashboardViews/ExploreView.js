@@ -1,11 +1,9 @@
-var utilities = require("ui/common/utilities");
-var util = new utilities();
-var hsf = util.height_scale_factor;
-var wsf = util.width_scale_factor;
-var margin_offset = (util.app_width-350*wsf)/2;
+var hsf = hubAPI.hsf;
+var wsf = hubAPI.wsf;
+var margin_offset = (hubAPI.app_width-350*wsf)/2;
 var all_activity_offset = 0; 
 var select_activity_offset = 30; 
-var user = Ti.App.user; 
+var user = hubAPI.user; 
 
 Exploration = require("services/Exploration");
 var explorer = new Exploration();
@@ -17,7 +15,7 @@ var selectedRadio = Titanium.UI.createButton({
 	borderRadius:1,
 	action:'unselect',
 	activity:'all',
-	backgroundImage:util.imagePath('radio_selected.png'),
+	backgroundImage:hubAPI.imagePath('radio_selected.png'),
 });
 
 var radioAction = function(e){
@@ -49,7 +47,7 @@ var unselectedRadio = Titanium.UI.createButton({
 	borderRadius:1,
 	action:'select',
 	activity: 'select',
-	backgroundImage:util.imagePath('radio_unselected.png'),
+	backgroundImage:hubAPI.imagePath('radio_unselected.png'),
 });
 
 unselectedRadio.addEventListener('click', radioAction);
@@ -68,7 +66,7 @@ var createMenuRow = function(item) {
 		backgroundColor: 'e5eaf0',
 		bottom: 5,
 		height: 40,
-		width: (util.app_width - 10),
+		width: (hubAPI.app_width - 10),
 		right: 5, 
 		left: 5,
 		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
@@ -154,7 +152,7 @@ function ExploreView(_authToken){
     win = new appWindow();
 
 	var self = Ti.UI.createView({
-		backgroundColor:util.customBgColor,
+		backgroundColor:hubAPI.customBgColor,
 	});
 	
 	self.addEventListener('filterExploration', function(e){
@@ -186,7 +184,7 @@ function ExploreView(_authToken){
 	var allActivities = Ti.UI.createLabel({
 		top:5,
 		text: "All Activity", 
-		color: util.customTextColor,
+		color: hubAPI.customTextColor,
 		height: 30,
 		font: {
 			fontSize: 18
@@ -197,7 +195,7 @@ function ExploreView(_authToken){
 	var selectActivities = Ti.UI.createLabel({
 		top:35,
 		text: "Activity I follow", 
-		color: util.customTextColor,
+		color: hubAPI.customTextColor,
 		height: 30,
 		font: {
 			fontSize: 18
@@ -208,7 +206,7 @@ function ExploreView(_authToken){
 	var filterBy = Ti.UI.createLabel({
 		top:75,
 		text: "Filter by:", 
-		color: util.customTextColor,
+		color: hubAPI.customTextColor,
 		height: 30,
 		font: {
 			fontWeight: 'bold',
@@ -223,7 +221,7 @@ function ExploreView(_authToken){
 		height:75*hsf,
 		right:10,
 		borderRadius:1,
-		backgroundImage:util.imagePath('search_button.png'),
+		backgroundImage:hubAPI.imagePath('search_button.png'),
 	});
 	
 	searchBtn.addEventListener('click', function(e) {
@@ -239,7 +237,7 @@ function ExploreView(_authToken){
 	var table = Ti.UI.createTableView({
 		top:50,
 		separatorColor: 'transparent',
-		backgroundColor:util.customBgColor,
+		backgroundColor:hubAPI.customBgColor,
 	});
 
 	self.add(table);
@@ -248,8 +246,9 @@ function ExploreView(_authToken){
 	data.push("People");
 	data.push("Communities");
 	data.push("Groups");
-	data.push("Countries of Work");
-	data.push("Cities of Work");
+	data.push("Regions");
+	data.push("Countries");
+	data.push("Cities States and Provinces");
 	data.push("Fields of Work");
 	data.push("Target Populations");
 	data.push("Free Tags");

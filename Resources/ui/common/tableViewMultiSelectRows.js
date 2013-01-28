@@ -1,6 +1,6 @@
-var createMenuRow = function(item) {
+var createMenuRow = function(item, className) {
 	var tableRow = Ti.UI.createTableViewRow({
-		className: 'itemRow',
+		className: className,
 		category: item.split(" ")[0].toLowerCase(),
 		backgroundColor: '#e5eaf0',
 		width: (util.app_width - 10),
@@ -25,20 +25,23 @@ var createMenuRow = function(item) {
 };
 
 function selectTableRow(table_data, index){
-		table_data[0].rows[index].backgroundColor = '#7b90ad';
+		table_row = table_data[0].rows[index];
+		table_row.backgroundColor = '#7b90ad';
+		
 }
 
 function unSelectTableRow(table_data, index){
-		table_data[0].rows[index].backgroundColor = '#e5eaf0';
+		table_row = table_data[0].rows[index];
+		table_row.backgroundColor = '#e5eaf0';
 }
-function tableViewMultiSelectRows(params,arr)
+function tableViewMultiSelectRows(params,arr,className)
 {
 	rows = []; 
     var table = Ti.UI.createTableView({
 		top: 50,
 	});
     for (var i = 0; i < params.length; i++){
-    	rows.push(createMenuRow(params[i]));
+    	rows.push(createMenuRow(params[i], className));
     }
     
    	table.setData(rows);
@@ -63,11 +66,17 @@ function tableViewMultiSelectRows(params,arr)
     
     table.addEventListener('onrowselect', function(e){
     	selectTableRow(table.data, e.index);
+    	if (e.rowData.className === "communities"){
+			hubAPI.user.clearGroupOptions();
+		}
     	//Ti.API.info("Selected " + e.index + e.rowData.selected);
     });
 
 	table.addEventListener('onrowunselect', function(e){
     	unSelectTableRow(table.data, e.index);
+    	if (e.rowData.className === "communities"){
+			hubAPI.user.clearGroupOptions();
+		}
     	//Ti.API.info("Unselected " + e.index);
     });
     return table;

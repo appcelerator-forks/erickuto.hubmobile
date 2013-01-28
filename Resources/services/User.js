@@ -2,11 +2,14 @@ var first_name = "Eric";
 var last_name = "Kuto"; 
 var followed_people = [];
 var followed_population = [];
-var followed_countries = [1,3]; 
+var followed_regions = []; 
 var followed_groups = [];
-var followed_communities = [1,2,3];
+var followed_communities = [];
+var followed_countries = []; 
 var followed_fields = [];
 var followed_free_tags = [];
+var followed_cities = []; 
+var authToken = null; 
 
 function getArray(category){
 	switch (category){
@@ -22,15 +25,29 @@ function getArray(category){
 			return followed_fields;
 		case "free":
 			return followed_free_tags;
+		case "regions":
+			return followed_regions;
 		case "countries":
 			return followed_countries;
+		case "cities":
+			return followed_cities;
 		default: 
 			return [];
 	}
 }
 userFunction = function(){
 	this.getSelectedOptions = function(category){
-		return getArray(category)
+		return getArray(category);
+	}
+	this.clearGroupOptions = function(){
+		followed_groups = [];
+		Ti.API.info("Group size is " + followed_groups.length);
+	}
+	this.setAuthToken = function(_authToken){
+		authToken = _authToken; 
+	}
+	this.getAuthToken = function(){
+		return authToken;
 	}
 	this.getSelectedSize = function(category){
 		return getArray(category).length;
