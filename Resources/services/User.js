@@ -41,7 +41,12 @@ userFunction = function(){
 	}
 	this.clearGroupOptions = function(){
 		followed_groups = [];
-		Ti.API.info("Group size is " + followed_groups.length);
+	}
+	this.clearCountriesOptions = function(){
+		followed_countries = []; 
+	}
+	this.clearSubLocationsOptions = function(){
+		followed_cities = []; 
 	}
 	this.setAuthToken = function(_authToken){
 		authToken = _authToken; 

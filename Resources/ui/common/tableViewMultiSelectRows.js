@@ -24,6 +24,20 @@ var createMenuRow = function(item, className) {
 	return tableRow;
 };
 
+function clearData(_className){
+	switch(_className){ 
+		case "communities": 
+			return hubAPI.user.clearGroupOptions();
+		case "regions": 
+			hubAPI.user.clearSubLocationsOptions();
+			return hubAPI.user.clearCountriesOptions();
+		case "countries":
+			return hubAPI.user.clearSubLocationsOptions();
+		default: 
+			return; 
+		}
+
+}
 function selectTableRow(table_data, index){
 		table_row = table_data[0].rows[index];
 		table_row.backgroundColor = '#7b90ad';
@@ -66,18 +80,13 @@ function tableViewMultiSelectRows(params,arr,className)
     
     table.addEventListener('onrowselect', function(e){
     	selectTableRow(table.data, e.index);
-    	if (e.rowData.className === "communities"){
-			hubAPI.user.clearGroupOptions();
-		}
-    	//Ti.API.info("Selected " + e.index + e.rowData.selected);
+    	clearData(e.rowData.className);
+		
     });
 
 	table.addEventListener('onrowunselect', function(e){
     	unSelectTableRow(table.data, e.index);
-    	if (e.rowData.className === "communities"){
-			hubAPI.user.clearGroupOptions();
-		}
-    	//Ti.API.info("Unselected " + e.index);
+    	clearData(e.rowData.className);
     });
     return table;
 }

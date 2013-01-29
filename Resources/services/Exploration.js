@@ -75,9 +75,13 @@ function getCities(choices){
 		indexRegion = userRegions[i]; 
 		for (j = 0; j < userCountries.length; j++){
 			indexCountry = userCountries[j]; 
+			Ti.API.info("Finding Cities in " + regions[indexRegion].countries[indexCountry].name);
 			subLocations = regions[indexRegion].countries[indexCountry].subLocations; 
-			for (k = 0; k < subLocations.length; k++){
-				choices.push(subLocations[i]);
+			Ti.API.info(subLocations);
+			if (subLocations){
+				for (k = 0; k < subLocations.length; k++){
+					choices.push(subLocations[i]);
+				}	
 			}
 		}
 	}
