@@ -10,9 +10,6 @@ function ApplicationWindow() {
 	LoginView = require('ui/common/LoginView');
 	var loginView = new LoginView();
 	
-	/*SearchView = require("ui/common/dashboardViews/exploreViews/SearchView");
-	var searchView = new SearchView; */
-	
 	var navGroup = Ti.UI.iPhone.createNavigationGroup({
 		window:loginView
 	});

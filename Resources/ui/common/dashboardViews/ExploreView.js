@@ -158,7 +158,6 @@ function ExploreView(_authToken){
 	self.addEventListener('filterExploration', function(e){
 		SelectorView = require("ui/common/dashboardViews/exploreViews/SelectorView");
 		var selectorView = new SelectorView(e.category, explorer); 
-		
 		Ti.App.globalWindow = selectorView;
 		Ti.App.fireEvent('openWindow',{});
 	});
@@ -172,11 +171,34 @@ function ExploreView(_authToken){
 	});
 	var nonScrollView = Ti.UI.createView({
 	});
+	var searchBarHolder = Ti.UI.createView({
+		top:0, 
+		height: 40,
+		width: 350,
+		layout:"horizontal"
+	});
+	
 	var searchBar = Ti.UI.createSearchBar({
-		top:0,
-		hintText:"Explore Hub",
-		barColor: '#f6f6f6',
-		//width:350*wsf,
+			top:0,
+			left: 3, 
+			hintText:"Enter Free Tags",
+			barColor: '#f6f6f6',
+			width: 270,
+			//showCancel:true,
+			//width:350*wsf,
+		});
+	var cancelButton = Titanium.UI.createButton({
+			top:10,
+			borderRadius:1,
+			width: 60, 
+			height: 25,
+			right:3,
+			title: "Cancel",
+		});
+	searchBarHolder.add(searchBar);
+	searchBarHolder.add(cancelButton);
+	cancelButton.addEventListener('click', function(e){
+		searchBar.blur();
 	});
 	nonScrollView.add(searchBar);
 	self.add(nonScrollView);

@@ -36,7 +36,6 @@ function clearData(_className){
 		default: 
 			return; 
 		}
-
 }
 function selectTableRow(table_data, index){
 		table_row = table_data[0].rows[index];

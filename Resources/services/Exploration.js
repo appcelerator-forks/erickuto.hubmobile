@@ -6,6 +6,7 @@ var regions = [];
 var fieldsOfWork = []; 
 var people = []; 
 var groups = []; 
+var freeTags = []; 
 
 var tagClient = new TagClient({
 	start: function() {Ti.API.info("Fetching tags..")},
@@ -37,12 +38,21 @@ var tagClient = new TagClient({
 		for (i = 0; i < _tags.userTypes.length; i++){
 			people.push(_tags.userTypes[i]);
 		}
+		for (i = 0; i < _tags.freeTags.length; i++){
+			freeTags.push(_tags.freeTags[i]);
+		}
 	}
 });
 
 function getCommunities(choices){
 	for (i = 0; i < communities.length; i++){
 		choices.push(communities[i]);
+	}
+}
+
+function getFreeTags(choices){
+	for (i = 0; i < freeTags.length; i++){
+		choices.push(freeTags[i]);
 	}
 }
 
@@ -134,6 +144,9 @@ function Exploration(){
 		}
 		else if (_category == "cities"){
 			return getCities(choices);	
+		}
+		else if (_category == "free"){
+			return getFreeTags(choices);
 		}
 		else{
 			choices = [];

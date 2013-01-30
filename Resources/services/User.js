@@ -35,6 +35,7 @@ function getArray(category){
 			return [];
 	}
 }
+
 userFunction = function(){
 	this.getSelectedOptions = function(category){
 		return getArray(category);
