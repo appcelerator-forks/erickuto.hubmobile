@@ -109,8 +109,8 @@ function createTag(tagText){
 			fontSize: 18,
 		},
 		width: 'auto',
-		color: "black", 
-		height: 30, 
+		color: "black",
+		height: 30,
 	});
 	ttlWidth = tagTextLabel.toImage().width; 
 	

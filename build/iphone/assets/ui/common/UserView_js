@@ -13,65 +13,69 @@ function userView(){
 	var canvas = Ti.UI.createView({});
 	
 	win.titleImage = util.imagePath("ashoka_logo_navbar.png");
+	win.barColor = '#d0ddef';
+	
 	var contentWrapper = Ti.UI.createView({
-	    top: 5*hsf,
 	    width: util.app_width,
 	});	
-	var logoutButton = Ti.UI.createButton({title:'Sign out'});
+	var topLeftButton = Ti.UI.createButtonBar({
+		labels: [{title:'Sign Out', image:util.imagePath("back_nav_btn.png")}],
+		backgroundColor: '#d0ddef',
+		width:60,
+		});
 	
-	logoutButton.addEventListener('click', function()
+	topLeftButton.addEventListener('click', function()
 	{	
-		//Ti.App.fireEvent('logout');
 		Ti.App.globalWindow = win;
 		Ti.App.fireEvent('closeWindow',{});
 	});
 	
-	var helpButton = Ti.UI.createButton({title:'Help'});
-	win.leftNavButton = logoutButton;
+	var helpButton = Ti.UI.createButtonBar({
+		//backgroundImage: util.imagePath("home_nav_btn.png"),
+		labels: [{title:' Help', image:util.imagePath("help_nav_btn.png")}],
+		backgroundColor: '#d0ddef',
+		width:60,
+		});
+	
+	win.leftNavButton = topLeftButton;
 	win.rightNavButton = helpButton;
 	
 	canvas.add(contentWrapper);
 	
-	canvas.add(Ti.UI.createLabel({
-		left:20*wsf,
-		height:50*hsf,
-		bottom:1,
-		font:{
-	      fontSize:12*hsf,
-	      fontFamily: util.customFont
-	   },
-	   color:util.customTextColor,
-		text: 'Copyright 2011 Ashoka ',
-	}));
-	
-	canvas.add(Ti.UI.createLabel({
-		right:20*wsf,
-		height:50*hsf,
-		bottom:1,
-		font:{
-	      fontSize:12*hsf,
-	      fontFamily: util.customFont
-	   },
-	   color:util.customTextColor,
-		text: 'hub.ashoka.org ',
-	}));
-
 	win.add(canvas);
-	
 	
 	this.open = function(){
 		win.open();
 	};
 	this.close = function(){
-		win.close();
+		Ti.App.globalWindow = win;
+		Ti.App.fireEvent('closeWindow',{});
 	};
 	this.addContent = function(_content){
 		contentWrapper.add(_content);
-
 	};
-
-	userView.prototype.appwin = win; 
+	this.addOnCloseEvent = function(_action){
+		win.addEventListener('close', function(){
+			Ti.App.fireEvent(_action);
+		});
+	} 
+	this.clearCanvas = function(){
+		for (i = 0; i < contentWrapper.length; i++){
+			contentWrapper.remove(contentWrapper.children[i]);
+		}
+	}
+	/*hubAPI.startActivityIndicator = function(){
+		canvas.remove(canvas.children[0]);
+		canvas.add(hubAPI.indicatorView);
+		Ti.API.info("Started Activity.. ");
+	}
 	
+	hubAPI.stopActivityIndicator = function(){
+		canvas.remove(canvas.children[0]); 
+		canvas.add(contentWrapper);
+		Ti.API.info("Stopped Activity.. ");
+	}*/
+	userView.prototype.appwin = win; 
 }
 
 module.exports = userView;

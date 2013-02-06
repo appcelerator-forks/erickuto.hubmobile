@@ -1,10 +1,10 @@
-ts	1358287665000
+ts	1359669443000
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
 KS_nav_ui.png	1158
 KS_nav_views.png	1074
-app.js	1153
+app.js	1703
 appicon.png	19109
 apple-touch-icon-114x114-precomposed.png	15820
 apple-touch-icon-57x57-precomposed.png	6790
@@ -23,6 +23,7 @@ images
 	ashoka_logo_navbar.png	10931
 	ashoka_tree.png	12339
 	back_nav_btn.png	2713
+	delete.png	766
 	events.png	4996
 	help_nav_btn.png	2910
 	inbox.png	5090
@@ -35,7 +36,26 @@ images
 	recover_password_btn.png	19030
 	search.png	5372
 	search_button.png	17371
+	search_events_selected.png	498
+	search_events_unselected.png	1781
+	search_ideas_selected.png	437
+	search_ideas_unselected.png	1749
+	search_needs_selected.png	435
+	search_needs_unselected.png	2016
+	search_offers_selected.png	317
+	search_offers_unselected.png	1259
+	search_people_selected.png	316
+	search_people_unselected.png	990
 	settings.png	6135
+	spinner
+		0.jpg	1403
+		1.jpg	1435
+		2.jpg	1374
+		3.jpg	1408
+		4.jpg	1389
+		5.jpg	1405
+		6.jpg	1407
+		7.jpg	1406
 mobileweb
 	appicon.png	19109
 	apple_startup_images
@@ -79,11 +99,13 @@ old_commons
 			ashoka_logo.png	27467
 			ashoka_tree.png	12339
 services
-	Authentication.js	1169
-	Exploration.js	493
+	Authentication.js	790
+	Connection.js	1212
+	Exploration.js	4063
 	Logout.js	1157
 	Settings.js	107
-	User.js	313
+	Tags.js	669
+	User.js	1391
 themes
 	common.css	7260
 	default
@@ -242,22 +264,34 @@ titanium.css	39469
 titanium.js	479113
 ui
 	common
-		CommonLoginView.js	1668
-		DashboardView.js	1894
+		CommonLoginView.js	1913
+		DashboardView.js	2937
 		DetailView.js	349
-		ExploreView.js	4743
 		FirstTimeView.js	1555
 		ForgotView.js	1194
-		LoginView.js	7112
+		LoginView.js	6820
 		MasterView.js	1290
-		SelectorView.js	760
-		UserView.js	1447
-		tableViewMultiSelectRows.js	1798
-		utilities.js	884
+		UserView.js	2069
+		dashboardViews
+			ActivityView.js	777
+			EventsView.js	771
+			ExploreView.js	6899
+			InboxView.js	768
+			NeedsView.js	768
+			OffersView.js	771
+			PeopleView.js	771
+			ProfileView.js	774
+			SettingsView.js	777
+			exploreViews
+				AutoCompleteView.js	5251
+				SearchView.js	7179
+				SelectorView.js	1659
+		tableViewMultiSelectRows.js	2281
+		utilities.js	1866
 	handheld
 		android
 			ApplicationWindow.js	1237
 		ios
-			ApplicationWindow.js	1181
+			ApplicationWindow.js	609
 		mobileweb
 			ApplicationWindow.js	1440

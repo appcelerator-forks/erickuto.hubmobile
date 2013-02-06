@@ -30,7 +30,7 @@ authenticateUser = function(o, _username, _password){
 						if (o.failure){o.failure()}
 					}
     			}
-    	}, "tokens", params, "POST", tries);
+    	}, "mobile/tokens", params, "POST", tries);
 	
 }
 module.exports = authenticateUser;

@@ -1,4 +1,13 @@
-function FirstTimeView(_authToken){
+function openPage(_page){
+	var pageURL = 'ui/common/dashboardViews/' + _page;
+	PageView = require(pageURL);
+    pageView = new PageView();
+	
+	Ti.App.globalWindow = pageView;
+	Ti.App.fireEvent('openWindow',{});
+}
+
+function DashboardView(){
 	
 	var utilities = require("ui/common/utilities");
 	var util = new utilities();
@@ -16,11 +25,21 @@ function FirstTimeView(_authToken){
 		image:util.imagePath("search.png")
 	});
 	
+	searchImage.addEventListener('click', function(){
+		Exploration = require("services/Exploration");
+		hubAPI.explorer = new Exploration();
+		openPage("ExploreView");
+	});
+
 	var offersImage = Ti.UI.createImageView({
 		top:205*hsf,
 		width:100*wsf, 
 		left:10*wsf, 
 		image:util.imagePath("offers.png")
+	});
+	
+	offersImage.addEventListener('click', function(){
+		openPage("OffersView");
 	});
 	
 	var peopleImage = Ti.UI.createImageView({
@@ -30,11 +49,18 @@ function FirstTimeView(_authToken){
 		image:util.imagePath("people.png")
 	});
 	
+	peopleImage.addEventListener('click', function(){
+		openPage("PeopleView");
+	});
+	
 	var profileImage = Ti.UI.createImageView({
 		top:5*hsf,
 		width:100*wsf,
 		left:180*wsf, 
 		image:util.imagePath("profile.png")
+	});
+	profileImage.addEventListener('click', function(){
+		openPage("ProfileView");
 	});
 	
 	var needsImage = Ti.UI.createImageView({
@@ -43,12 +69,18 @@ function FirstTimeView(_authToken){
 		left:180*wsf, 
 		image:util.imagePath("needs.png")
 	});
+	needsImage.addEventListener('click', function(){
+		openPage("NeedsView");
+	});
 	
 	var inboxImage = Ti.UI.createImageView({
 		top:405*hsf,
 		width:100*wsf, 
 		left:180*wsf, 
 		image:util.imagePath("inbox.png")
+	});
+	inboxImage.addEventListener('click', function(){
+		openPage("InboxView");
 	});
 	
 	var activityImage = Ti.UI.createImageView({
@@ -57,12 +89,18 @@ function FirstTimeView(_authToken){
 		left:350*wsf, 
 		image:util.imagePath("activity.png")
 	});
+	activityImage.addEventListener('click', function(){
+		openPage("ActivityView");
+	});
 	
 	var eventsImage = Ti.UI.createImageView({
 		top:205*hsf,
 		width:100*wsf, 
 		left:350*wsf, 
 		image:util.imagePath("events.png")
+	});
+	eventsImage.addEventListener('click', function(){
+		openPage("EventsView");
 	});
 	
 	var settingsImage = Ti.UI.createImageView({
@@ -71,6 +109,10 @@ function FirstTimeView(_authToken){
 		left:350*wsf, 
 		image:util.imagePath("settings.png")
 	});
+	settingsImage.addEventListener('click', function(){
+		openPage("SettingsView");
+	});
+	
 	win.addContent(searchImage);
 	win.addContent(offersImage);
 	win.addContent(peopleImage);
@@ -83,4 +125,4 @@ function FirstTimeView(_authToken){
 	thisWindow = win.appwin;
 	return thisWindow;
 }	
-module.exports = FirstTimeView;
+module.exports = DashboardView;

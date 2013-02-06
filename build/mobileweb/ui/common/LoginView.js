@@ -1,10 +1,8 @@
 function LoginView(){
-	
-	var utilities = require("ui/common/utilities");
-	var util = new utilities();
-	var hsf = util.height_scale_factor;
-	var wsf = util.width_scale_factor;
-	var margin_offset = (util.app_width-350*wsf)/2;
+
+	var hsf = hubAPI.hsf;
+	var wsf = hubAPI.wsf;
+	var margin_offset = (hubAPI.app_width-350*wsf)/2;
 	
 	var appWindow = require("ui/common/CommonLoginView");
     win = new appWindow();
@@ -15,7 +13,7 @@ function LoginView(){
 				left:margin_offset,
 				font:{
 			      fontSize:12*hsf,
-			      fontFamily: util.customFont
+			      fontFamily: hubAPI.customFont
 			   },
 				color:'red'
 		});
@@ -27,10 +25,11 @@ function LoginView(){
 		height:60*wsf,
 		font:{
 	      fontSize:20*hsf,
-	      fontColor:util.customTextColor,
-	      fontFamily: util.customFont
+	      fontColor:hubAPI.customTextColor,
+	      fontFamily: hubAPI.customFont
 	   },
 		hintText:'Enter your email address',
+		value:'ekkuto@gmail.com',
 		keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
 		returnKeyType:Titanium.UI.RETURNKEY_DEFAULT,
 		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
@@ -40,16 +39,17 @@ function LoginView(){
 	});
 	
 	var password = Titanium.UI.createTextField({
-		color:util.customTextColor,
+		color:hubAPI.customTextColor,
 		top:100*hsf,
 		width:350*wsf,
 		height:60*wsf,
 		font:{
 	      fontSize:20*hsf,
-	      fontFamily: util.customFont
+	      fontFamily: hubAPI.customFont
 	   },
 		hintText:'Enter your Password',
 		passwordMask:true,
+		value:'v=O6tazfzj',
 		keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
 		returnKeyType:Titanium.UI.RETURNKEY_DEFAULT,
 		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
@@ -64,7 +64,7 @@ function LoginView(){
 		width:100*wsf,
 		height:50*hsf,
 		borderRadius:1,
-		backgroundImage:util.imagePath('ashoka_login_btn.png'),
+		backgroundImage:hubAPI.imagePath('ashoka_login_btn.png'),
 	});
 	
 	loginBtn.addEventListener('click',function(e)
@@ -90,9 +90,9 @@ function LoginView(){
 		top:240*hsf,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: util.customFont
+	      fontFamily: hubAPI.customFont
 	   },
-	   color:util.customTextColor,
+	   color:hubAPI.customTextColor,
 		text: 'Forgot Password?'
 	});
 	
@@ -105,10 +105,10 @@ function LoginView(){
 		height:50*hsf,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: util.customFont
+	      fontFamily: hubAPI.customFont
 	   },
 		top:240*hsf,
-		color:util.customTextColor,
+		color:hubAPI.customTextColor,
 		text: 'First time login'
 	});
 	firstLabel.addEventListener('click',function(e){
@@ -120,10 +120,10 @@ function LoginView(){
 		height:50*hsf,
 		font:{
 	      fontSize:20*hsf,
-	      fontFamily: util.customFont
+	      fontFamily: hubAPI.customFont
 	   },
 		top:240*hsf,
-		color:util.customTextColor,
+		color:hubAPI.customTextColor,
 		text: '|'
 	});
 	
@@ -146,28 +146,28 @@ function LoginView(){
 		text: '\u2022',
 		top:87*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
 		top:117*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
 		top:147*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
 		top:177*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.customTitleColor}
 	}));
 	topicLabel = Ti.UI.createLabel({
 		text: 'About Us',
@@ -176,10 +176,10 @@ function LoginView(){
 		font:{
 	      fontSize:21*hsf,
 	      fontWeight:'bold',
-	      fontColor:util.customTitleColor,
-	      fontFamily: util.customFont
+	      fontColor:hubAPI.customTitleColor,
+	      fontFamily: hubAPI.customFont
 	   },
-		color:util.customTitleColor
+		color:hubAPI.customTitleColor
 	});
 	
 	var missionLabel = Ti.UI.createLabel({
@@ -188,9 +188,9 @@ function LoginView(){
 		left:10,
 		font:{
 	      fontSize:18*hsf,
-	      fontFamily: util.customFont
+	      fontFamily: hubAPI.customFont
 	   },
-		color:util.customTextColor
+		color:hubAPI.customTextColor
 	});
 	infoRow.add(missionLabel);
 	infoRow.add(topicLabel);
@@ -200,9 +200,9 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: util.customFont
+	      fontFamily: hubAPI.customFont
 	   },
-		color:util.customTextColor
+		color:hubAPI.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
@@ -211,9 +211,9 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: util.customFont
+	      fontFamily: hubAPI.customFont
 	   },
-		color:util.customTextColor
+		color:hubAPI.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
@@ -222,9 +222,9 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: util.customFont
+	      fontFamily: hubAPI.customFont
 	   },
-		color:util.customTextColor
+		color:hubAPI.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
@@ -233,27 +233,18 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: util.customFont
+	      fontFamily: hubAPI.customFont
 	   },
-		color:util.customTextColor
+		color:hubAPI.customTextColor
 	}));
     
     
     
 	win.addContent(infoRow);
 		
-	function grantEntrance(_authtoken){
-    	/*var dashBoardView = require("common/views/DashBoardView");
-    	user = {};
-    	user.name = name;
-    	user.email = email;
-    	dbView = new dashBoardView(user);
-    	liView.close();
-    	//Ti.UI.currentWindow.close();
-    	dbView.open();
-    	*/
+	function grantEntrance(){
     	DashboardView = require('ui/common/DashboardView');
-    	dashboardView = new DashboardView(_authtoken);
+    	dashboardView = new DashboardView();
     	openWindow(dashboardView);
     };
     
@@ -295,13 +286,12 @@ function LoginView(){
     		error: function() {
     			errorPane.text = "Error:There was a problem connecting to Ashoka Hub.";},
     		failure: function() { denyEntrance()},
-    		success: function(_authtoken){
-    			grantEntrance(_authtoken);
+    		success: function(){
+    			grantEntrance();
     		}
     	}, _username, _password);
     	
     }
-	
 	return win.appwin;
 }	
 module.exports = LoginView;

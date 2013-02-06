@@ -18,15 +18,14 @@ function userView(){
 	var contentWrapper = Ti.UI.createView({
 	    width: util.app_width,
 	});	
-	var logoutButton = Ti.UI.createButtonBar({
+	var topLeftButton = Ti.UI.createButtonBar({
 		labels: [{title:'Sign Out', image:util.imagePath("back_nav_btn.png")}],
 		backgroundColor: '#d0ddef',
 		width:60,
 		});
 	
-	logoutButton.addEventListener('click', function()
+	topLeftButton.addEventListener('click', function()
 	{	
-		//Ti.App.fireEvent('logout');
 		Ti.App.globalWindow = win;
 		Ti.App.fireEvent('closeWindow',{});
 	});
@@ -38,7 +37,7 @@ function userView(){
 		width:60,
 		});
 	
-	win.leftNavButton = logoutButton;
+	win.leftNavButton = topLeftButton;
 	win.rightNavButton = helpButton;
 	
 	canvas.add(contentWrapper);
@@ -50,15 +49,34 @@ function userView(){
 		win.open();
 	};
 	this.close = function(){
-		win.close();
+		Ti.App.globalWindow = win;
+		Ti.App.fireEvent('closeWindow',{});
 	};
 	this.addContent = function(_content){
 		contentWrapper.add(_content);
-
 	};
-
-	userView.prototype.appwin = win; 
+	this.addOnCloseEvent = function(_action){
+		win.addEventListener('close', function(){
+			Ti.App.fireEvent(_action);
+		});
+	} 
+	this.clearCanvas = function(){
+		for (i = 0; i < contentWrapper.length; i++){
+			contentWrapper.remove(contentWrapper.children[i]);
+		}
+	}
+	/*hubAPI.startActivityIndicator = function(){
+		canvas.remove(canvas.children[0]);
+		canvas.add(hubAPI.indicatorView);
+		Ti.API.info("Started Activity.. ");
+	}
 	
+	hubAPI.stopActivityIndicator = function(){
+		canvas.remove(canvas.children[0]); 
+		canvas.add(contentWrapper);
+		Ti.API.info("Stopped Activity.. ");
+	}*/
+	userView.prototype.appwin = win; 
 }
 
 module.exports = userView;

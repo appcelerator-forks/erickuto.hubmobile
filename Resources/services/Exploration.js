@@ -7,10 +7,13 @@ var fieldsOfWork = [];
 var people = []; 
 var groups = []; 
 var freeTags = []; 
+var isReady = false; 
 
-var tagClient = new TagClient({
-	start: function() {Ti.API.info("Fetching tags..")},
-	error: function() {Ti.API.info("Error:There was a problem connecting to Ashoka Hub.");},
+Ti.App.addEventListener("Explore", function(){
+	var tagClient = new TagClient({
+	
+	start: function() { },
+	error: function() { },
 
 	success: function(_tags){
 		for (i = 0; i < _tags.communities.length; i++){
@@ -41,8 +44,11 @@ var tagClient = new TagClient({
 		for (i = 0; i < _tags.freeTags.length; i++){
 			freeTags.push(_tags.freeTags[i]);
 		}
+		isReady = true; 
+		Ti.App.fireEvent('openExplorerPage'); 
 	}
 });
+})
 
 function getCommunities(choices){
 	for (i = 0; i < communities.length; i++){
@@ -85,13 +91,14 @@ function getCities(choices){
 		indexRegion = userRegions[i]; 
 		for (j = 0; j < userCountries.length; j++){
 			indexCountry = userCountries[j]; 
-			Ti.API.info("Finding Cities in " + regions[indexRegion].countries[indexCountry].name);
-			subLocations = regions[indexRegion].countries[indexCountry].subLocations; 
-			Ti.API.info(subLocations);
-			if (subLocations){
-				for (k = 0; k < subLocations.length; k++){
-					choices.push(subLocations[i]);
-				}	
+			
+			if (regions[indexRegion] && regions[indexRegion].countries[indexCountry]){
+				subLocations = regions[indexRegion].countries[indexCountry].subLocations; 
+				if (subLocations){
+					for (k = 0; k < subLocations.length; k++){
+						choices.push(subLocations[i]);
+					}	
+				}
 			}
 		}
 	}
@@ -152,7 +159,9 @@ function Exploration(){
 			choices = [];
 		}
 	};
-
+	this.isReady = function(){
+		return isReady; 
+	}
 }
 
 module.exports = Exploration; 

@@ -16,6 +16,7 @@ function ApplicationWindow() {
 	self.add(navGroup);
 	
 	this.openNewWindow = function(){
+		
 		navGroup.open(Ti.App.globalWindow);
 	}
 	this.closeWindow = function(){

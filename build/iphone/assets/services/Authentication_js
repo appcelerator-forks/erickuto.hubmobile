@@ -1,53 +1,36 @@
 
-authenticateUser = function(o, _username, _password, tries){
-	var loginReq = Ti.Network.createHTTPClient();
-	var url = Ti.App.getRemoteURL("api/mobile/tokens.json");
-	Ti.API.info("url is: " + url);
-	tries = tries || 0; 			
+authenticateUser = function(o, _username, _password){
+	var tries = 3; 	
 	var params = {
 		email: _username,
 		password: _password
 	};
-	Ti.API.info(" user " + _username + " password " + _password);
 	
-	loginReq.open("POST",url);
-	loginReq.onload = function(e)
-	{	
-		var json = this.responseText;
-		
-		if (loginReq === null || json === null){
-			if (tries < 3){
-				tries++;
-				Ti.API.info("trying .. " + tries);
-				authenticateUser(o, _username, _password, tries);
-				return;
-			}
-			else{
-				alert('Error connecting to internet. Please make sure you have a connection and try restarting Hub');
-				if (o.error){ o.error();}
-				return;
-			}
-		}
-		
-		var response = JSON.parse(json);
-		Ti.API.info(response);
-	
-		if (response.logged === 'true')
-		{
-			if (o.success){o.success(response.token);}
-		}
-		else{
-			if (o.failure){o.failure()}
-		}
-		
-	};
-	
-	loginReq.onerror = function(e){
-		if (o.error) {o.error();}
-	};
-	
-	if (o.start) { o.start(); }
-	loginReq.send(params);
+	Connection = require('services/Connection');
+    	var response = new Connection({
+    		start: function() {
+    			Ti.API.info("Connecting.."); 
+    			if (o.start) { o.start(); }
+    			},
+    			
+    		error: function() {
+    			if (o.error) { o.error(); }
+    			},
+    		
+    		success: function(_response){
+    			if (_response.logged === 'true')
+					{
+						if (o.success){
+							//Add Authentication token to user. 
+							hubAPI.user.setAuthToken(_response.token);
+							o.success();
+							}
+					}
+					else{
+						if (o.failure){o.failure()}
+					}
+    			}
+    	}, "mobile/tokens", params, "POST", tries);
 	
 }
 module.exports = authenticateUser;

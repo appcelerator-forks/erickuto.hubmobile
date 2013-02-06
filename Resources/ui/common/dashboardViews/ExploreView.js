@@ -5,8 +5,6 @@ var all_activity_offset = 0;
 var select_activity_offset = 30; 
 var user = hubAPI.user; 
 
-Exploration = require("services/Exploration");
-var explorer = new Exploration();
 var selectedRadio = Titanium.UI.createButton({
 	top:0, 
 	left:0,
@@ -37,6 +35,7 @@ selectedRadio.addEventListener('click', radioAction);
 
 var staticView = Ti.UI.createView({
 	top:0,
+	height: 110, 
 });
 	
 var unselectedRadio = Titanium.UI.createButton({
@@ -146,18 +145,17 @@ function selectActivity(_activity){
 	staticView.add(selectedRadio);
 	staticView.add(unselectedRadio);
 }
-function ExploreView(_authToken){
-
-	var appWindow = require("ui/common/UserView");
-    win = new appWindow();
-
+function buildExploreWindow(){
 	var self = Ti.UI.createView({
+		top: 0, 
 		backgroundColor:hubAPI.customBgColor,
+		width: '100%',
+		layout: "vertical", 
 	});
 	
 	self.addEventListener('filterExploration', function(e){
 		SelectorView = require("ui/common/dashboardViews/exploreViews/SelectorView");
-		var selectorView = new SelectorView(e.category, explorer); 
+		var selectorView = new SelectorView(e.category, hubAPI.explorer); 
 		Ti.App.globalWindow = selectorView;
 		Ti.App.fireEvent('openWindow',{});
 	});
@@ -169,7 +167,11 @@ function ExploreView(_authToken){
 		Ti.App.globalWindow = searchView;
 		Ti.App.fireEvent('openWindow',{});
 	});
+	
 	var nonScrollView = Ti.UI.createView({
+		top: 0, 
+		layout: "vertical", 
+		height: 50, 
 	});
 	var searchBarHolder = Ti.UI.createView({
 		top:0, 
@@ -178,29 +180,38 @@ function ExploreView(_authToken){
 		layout:"horizontal"
 	});
 	
+	var searchBarHolder = Ti.UI.createView({
+		top:0, 
+		left: 5,
+		height: 40,
+		width: 350,
+		layout:"horizontal"
+	});
 	var searchBar = Ti.UI.createSearchBar({
-			top:0,
-			left: 3, 
-			hintText:"Enter Free Tags",
-			barColor: '#f6f6f6',
-			width: 270,
-			//showCancel:true,
-			//width:350*wsf,
-		});
+		top:0,
+		left: 0, 
+		hintText:"Enter Free Tags",
+		barColor: '#f6f6f6',
+		width: 260,
+		value: "", 
+		//showCancel:true,
+		//width:350*wsf,
+	});
 	var cancelButton = Titanium.UI.createButton({
-			top:10,
+			top:8,
 			borderRadius:1,
-			width: 60, 
+			width: 50, 
 			height: 25,
 			right:3,
 			title: "Cancel",
+			font: {fontSize: 12, }
 		});
 	searchBarHolder.add(searchBar);
 	searchBarHolder.add(cancelButton);
+	nonScrollView.add(searchBarHolder);
 	cancelButton.addEventListener('click', function(e){
 		searchBar.blur();
 	});
-	nonScrollView.add(searchBar);
 	self.add(nonScrollView);
 	
 	var allActivities = Ti.UI.createLabel({
@@ -257,12 +268,10 @@ function ExploreView(_authToken){
 	var views = [];
 	
 	var table = Ti.UI.createTableView({
-		top:50,
+		top:0,
 		separatorColor: 'transparent',
 		backgroundColor:hubAPI.customBgColor,
 	});
-
-	self.add(table);
 
 	var data = [];
 	data.push("People");
@@ -299,9 +308,36 @@ function ExploreView(_authToken){
 			win.close();
 		});
 	updateSizes();
+	self.add(table);
+	return self; 	
+}
+function ExploreView(_authToken){
 
-	win.addContent(self);
+	var appWindow = require("ui/common/UserView");
+    win = new appWindow();
+
+	if (!hubAPI.explorer.isReady())
+	{
+		win.clearCanvas(); 
+		displayView = Ti.UI.createView(); 
+		Ti.App.fireEvent("Explore");
+		hubAPI.indicate('Explore', displayView);
+		win.addContent(displayView);
+	}
+	else{
+		win.clearCanvas(); 
+		self = buildExploreWindow(); 
+		win.addContent(self);
+	}
+	Ti.App.addEventListener('openExplorerPage', function(){
+		win.clearCanvas(); 
+		Ti.App.fireEvent("stopIndicator");
+		self = buildExploreWindow(); 
+		win.addContent(self);
+	});
+
 	thisWindow = win.appwin;
 	return thisWindow;
+	
 	}	
 module.exports = ExploreView;

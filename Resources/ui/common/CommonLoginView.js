@@ -29,10 +29,9 @@ function CommonLoginView(){
 	    top: 145*hsf,
 	    width: util.app_width,
 	});	
+	canvas.add(contentWrapper);
 	canvas.add(borderBottom);
 	logoCanvas.add(logoImage);
-	canvas.add(contentWrapper);
-
 	canvas.add(logoCanvas);
 	
 	canvas.add(Titanium.UI.createLabel({
@@ -70,8 +69,17 @@ function CommonLoginView(){
 	};
 	this.addContent = function(_content){
 		contentWrapper.add(_content);
-
 	};
+
+	hubAPI.startActivityIndicator = function(){
+		canvas.remove(canvas.children[0]);
+		canvas.add(hubAPI.indicatorView);
+	}
+	
+	hubAPI.stopActivityIndicator = function(){
+		canvas.remove(canvas.children[0]); 
+		canvas.add(contentWrapper);
+	}
 
 	CommonLoginView.prototype.appwin = win; 
 	

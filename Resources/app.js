@@ -5,10 +5,8 @@ else {
 	
 	var hubAPI = {};
 	
-	hubAPI.sayHello = function(){
-		Ti.API.info("Niaje Niache!");
-		
-	}; 
+	hubAPI.startActivityIndicator = null; 
+	hubAPI.stopActivityIndicator = null; 
 	
 	// This is a single context application with multiple windows in a stack
 	(function() {

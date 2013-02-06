@@ -44,7 +44,6 @@ function userView(){
 	
 	win.add(canvas);
 	
-	
 	this.open = function(){
 		win.open();
 	};
@@ -60,7 +59,22 @@ function userView(){
 			Ti.App.fireEvent(_action);
 		});
 	} 
+	this.clearCanvas = function(){
+		for (i = 0; i < contentWrapper.children.length; i++){
+			contentWrapper.remove(contentWrapper.children[i]);
+		}
+	}
+	/*hubAPI.startActivityIndicator = function(){
+		canvas.remove(canvas.children[0]);
+		canvas.add(hubAPI.indicatorView);
+		Ti.API.info("Started Activity.. ");
+	}
 	
+	hubAPI.stopActivityIndicator = function(){
+		canvas.remove(canvas.children[0]); 
+		canvas.add(contentWrapper);
+		Ti.API.info("Stopped Activity.. ");
+	}*/
 	userView.prototype.appwin = win; 
 }
 
