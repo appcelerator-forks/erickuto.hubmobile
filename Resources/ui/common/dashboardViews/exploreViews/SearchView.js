@@ -6,12 +6,13 @@ var user = hubAPI.user;
 var selectedIconColor = '275378'; 
 var unselectedIconColor = 'f1f2f6'; 
 var explorer = null; 
+
 var icons = []; 
 
-var self = Ti.UI.createView({
-		backgroundColor:hubAPI.customBgColor,
-		layout: 'vertical', 
-		table: null
+var table = Ti.UI.createTableView({
+		top:0,
+		separatorColor: 'transparent',
+		backgroundColor: hubAPI.customBgColor,
 	});
 	
 var titleLabel = Ti.UI.createLabel({
@@ -24,8 +25,7 @@ var titleLabel = Ti.UI.createLabel({
 			fontSize: 18,
 		},
 		left: 5,
-	})
-	
+});
 var loadResults = function(_category){
 	//Change the icons
 	for (var i = 0; i < icons.length; i++){
@@ -62,15 +62,19 @@ var loadResults = function(_category){
 	
 	//Change the results
 	//Start the activity indicator
-	
+	displayView = Ti.UI.createView(); 
+	hubAPI.indicate('Results', displayView);
+	var tdata = [];
+	tdata.push(addRowView(displayView));
+	table.setData(tdata);
 	//Call the method for fetching functions. 
-	if (_category == "people"){
+	if (_category === "people"){
 		hubAPI.fetchResults("users");
 	}
 	else{
 		hubAPI.fetchResults(_category);
 	}
-	 
+	Ti.App.fireEvent("Results");
 	
 	//Fetch the returned results 
 	Ti.App.addEventListener('showFetchResults', function (){
@@ -240,13 +244,15 @@ var addRowView = function(_view) {
 	
 	return tablerow;
 };
-//Master View Component Constructor
 
-function SearchView(_authToken){
-
-	var appWindow = require("ui/common/UserView");
-    win = new appWindow();
-
+function buildSearchView(){
+	
+	var self = Ti.UI.createView({
+		backgroundColor:hubAPI.customBgColor,
+		layout: 'vertical', 
+		table: null
+	});
+		
 	var nonScrollView = Ti.UI.createView({
 		top: 3,
 		height: 140, 
@@ -261,9 +267,9 @@ function SearchView(_authToken){
 	});
 	
 	var iconNames = ['people', 'offers', 'needs', 'events', 'ideas'];
-	
+	icons = []; 
 	for (var i = 0; i < iconNames.length; i++){
-		icons.push(createSearchIcon('unselected', iconNames[i], Math.floor(Math.random() * 101)));
+		icons.push(createSearchIcon('unselected', iconNames[i], hubAPI.searchResults.getCounts(iconNames[i])));
 		iconsView.add(icons[i]);
 	}
 	
@@ -340,18 +346,40 @@ function SearchView(_authToken){
 	
 	nonScrollView.add(iconsView, sortView, titleView);
 	var views = [];
-	
-	var table = Ti.UI.createTableView({
-		top:0,
-		separatorColor: 'transparent',
-		backgroundColor: hubAPI.customBgColor,
-	});
 
-	self.add(table);
+	self.add(table); 
+	loadResults("people");
+	return(self);
+}
+
+//Master View Component Constructor
+
+function SearchView(_authToken){
+
+	var appWindow = require("ui/common/UserView");
+    win = new appWindow();
+
+	if (!hubAPI.searchResults.isReady()){
+		//Wait on Results. 
+		win.clearCanvas(); 
+		displayView = Ti.UI.createView(); 
+		hubAPI.indicate('Results', displayView);
+		win.addContent(displayView);
+	}
+	else{
+		win.clearCanvas(); 
+		self = buildSearchView(); 
+		win.addContent(self);
+	}
 	
-	loadResults('people');
+	Ti.App.addEventListener("showSearchPage", function(){
+		win.clearCanvas(); 
+		Ti.API.info("Showing results page. ");
+		Ti.App.fireEvent("stopIndicator");
+		self = buildSearchView(); 
+		win.addContent(self);
+	})
 	
-	win.addContent(self);
 	thisWindow = win.appwin;
 	return thisWindow;
 	}	

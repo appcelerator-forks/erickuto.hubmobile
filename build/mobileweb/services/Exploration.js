@@ -9,7 +9,8 @@ var groups = [];
 var freeTags = []; 
 var isReady = false; 
 
-var tagClient = new TagClient({
+Ti.App.addEventListener("Explore", function(){
+	var tagClient = new TagClient({
 	
 	start: function() { },
 	error: function() { },
@@ -47,6 +48,7 @@ var tagClient = new TagClient({
 		Ti.App.fireEvent('openExplorerPage'); 
 	}
 });
+})
 
 function getCommunities(choices){
 	for (i = 0; i < communities.length; i++){
@@ -89,13 +91,14 @@ function getCities(choices){
 		indexRegion = userRegions[i]; 
 		for (j = 0; j < userCountries.length; j++){
 			indexCountry = userCountries[j]; 
-			Ti.API.info("Finding Cities in " + regions[indexRegion].countries[indexCountry].name);
-			subLocations = regions[indexRegion].countries[indexCountry].subLocations; 
-			Ti.API.info(subLocations);
-			if (subLocations){
-				for (k = 0; k < subLocations.length; k++){
-					choices.push(subLocations[i]);
-				}	
+			
+			if (regions[indexRegion] && regions[indexRegion].countries[indexCountry]){
+				subLocations = regions[indexRegion].countries[indexCountry].subLocations; 
+				if (subLocations){
+					for (k = 0; k < subLocations.length; k++){
+						choices.push(subLocations[i]);
+					}	
+				}
 			}
 		}
 	}

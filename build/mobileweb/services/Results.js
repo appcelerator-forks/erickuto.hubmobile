@@ -14,8 +14,7 @@ fetchTags = function(o, _category, params){
     			},
     		
     		success: function(_response){
-				if (o.success){
-					o.success(_response);}
+				if (o.success){o.success(_response);}
     			}
     	}, _category , [], "GET", tries, params);
 	

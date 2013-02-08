@@ -40,6 +40,35 @@ userFunction = function(){
 	this.getSelectedOptions = function(category){
 		return getArray(category);
 	}
+	this.getAll = function(_allFollowed){
+		var data = ["people","communities","groups","regions","countries","cities","fields","target","free"];
+		
+		var resultIndex = 0; 
+		for (var k = 0; k < data.length; k++){
+			
+			thisArray = getArray(data[k]);
+
+			if (thisArray.length > 0){
+				var options = [];
+				hubAPI.explorer.getChoices(data[k], options); 
+				for (var j = 0; j < thisArray.length; j++){
+					var resultArray = {}
+					keyText = "key"+resultIndex;
+					valueText = "value"+resultIndex;
+					resultArray[keyText] = data[k]; 
+					
+					if (data[k] === "free"){
+						resultArray[valueText] = thisArray[j];
+					}
+					else{
+						resultArray[valueText] = options[thisArray[j]]; 
+					}
+					_allFollowed.push(resultArray);
+					resultIndex++; 
+				}
+			}
+		}
+	}
 	this.clearGroupOptions = function(){
 		followed_groups = [];
 	}

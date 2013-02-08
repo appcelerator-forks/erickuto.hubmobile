@@ -161,9 +161,14 @@ function buildExploreWindow(){
 	});
 	
 	self.addEventListener('searchResults', function(e){
+		//Search For the counts. 
+		hubAPI.fetchResults("activities/count", "most_recent");
+		Ti.App.fireEvent("Results");
+		if (hubAPI.searchResults.isReady()){
+			hubAPI.searchResults.changeReadyState(false);
+		}
 		SearchView = require("ui/common/dashboardViews/exploreViews/SearchView");
 		var searchView = new SearchView; 
-		
 		Ti.App.globalWindow = searchView;
 		Ti.App.fireEvent('openWindow',{});
 	});

@@ -28,7 +28,7 @@ fetchTags = function(o){
 						if (o.failure){o.failure()}
 					}
     			}
-    	}, "tags", [], "GET", tries, getParams);
+    	}, "mobile/tags", [], "GET", tries, getParams);
 	
 }
 module.exports = fetchTags;

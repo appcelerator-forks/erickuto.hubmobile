@@ -1,4 +1,4 @@
-ts	1359669443000
+ts	1360265258000
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
@@ -34,6 +34,7 @@ images
 	radio_selected.png	3692
 	radio_unselected.png	2099
 	recover_password_btn.png	19030
+	reload.jpeg	6976
 	search.png	5372
 	search_button.png	17371
 	search_events_selected.png	498
@@ -99,13 +100,15 @@ old_commons
 			ashoka_logo.png	27467
 			ashoka_tree.png	12339
 services
-	Authentication.js	790
-	Connection.js	1212
-	Exploration.js	4063
+	Authentication.js	797
+	Connection.js	1237
+	Exploration.js	4087
 	Logout.js	1157
-	Settings.js	107
-	Tags.js	669
-	User.js	1391
+	Results.js	464
+	SearchResults.js	1017
+	Settings.js	115
+	Tags.js	676
+	User.js	2165
 themes
 	common.css	7260
 	default
@@ -265,17 +268,17 @@ titanium.js	479113
 ui
 	common
 		CommonLoginView.js	1913
-		DashboardView.js	2937
+		DashboardView.js	3039
 		DetailView.js	349
 		FirstTimeView.js	1555
 		ForgotView.js	1194
 		LoginView.js	6820
 		MasterView.js	1290
-		UserView.js	2069
+		UserView.js	2075
 		dashboardViews
 			ActivityView.js	777
 			EventsView.js	771
-			ExploreView.js	6899
+			ExploreView.js	7417
 			InboxView.js	768
 			NeedsView.js	768
 			OffersView.js	771
@@ -283,11 +286,11 @@ ui
 			ProfileView.js	774
 			SettingsView.js	777
 			exploreViews
-				AutoCompleteView.js	5251
-				SearchView.js	7179
+				AutoCompleteView.js	5249
+				SearchView.js	8222
 				SelectorView.js	1659
 		tableViewMultiSelectRows.js	2281
-		utilities.js	1866
+		utilities.js	3787
 	handheld
 		android
 			ApplicationWindow.js	1237

@@ -44,7 +44,6 @@ function userView(){
 	
 	win.add(canvas);
 	
-	
 	this.open = function(){
 		win.open();
 	};
@@ -61,7 +60,7 @@ function userView(){
 		});
 	} 
 	this.clearCanvas = function(){
-		for (i = 0; i < contentWrapper.length; i++){
+		for (i = 0; i < contentWrapper.children.length; i++){
 			contentWrapper.remove(contentWrapper.children[i]);
 		}
 	}

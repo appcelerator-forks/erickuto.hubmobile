@@ -26,11 +26,15 @@ function DashboardView(){
 	});
 	
 	searchImage.addEventListener('click', function(){
+		Ti.App.fireEvent('loadExploration');
+	});
+
+	Ti.App.addEventListener('loadExploration', function(){
 		Exploration = require("services/Exploration");
 		hubAPI.explorer = new Exploration();
 		openPage("ExploreView");
 	});
-
+	
 	var offersImage = Ti.UI.createImageView({
 		top:205*hsf,
 		width:100*wsf, 

@@ -1,7 +1,7 @@
 
-connectHub = function(o, url, params, method, tries, getParams){
+connectHub = function(o, url, postParams, method, tries, getParams){
 	var loginReq = Titanium.Network.createHTTPClient();
-	var urlText = "api/mobile/" + url + ".json";
+	var urlText = "api/" + url + ".json";
 	var getArgs = "";
 	
 	if (getParams != null){
@@ -17,10 +17,13 @@ connectHub = function(o, url, params, method, tries, getParams){
 			}
 		}
 		urlText = urlText + getArgs;
+		
 	}
 	
 	
 	var url = Ti.App.getRemoteURL(urlText);
+	Ti.API.info(url);
+	
 	tries = tries || 0; 			
 	
 	loginReq.open(method,url);
@@ -53,7 +56,7 @@ connectHub = function(o, url, params, method, tries, getParams){
 	};
 	
 	if (o.start) { o.start(); }
-	loginReq.send(params);
+	loginReq.send(postParams);
 	
 }
 module.exports = connectHub;

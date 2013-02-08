@@ -77,12 +77,12 @@ hubAPI.indicate = function(appWideActivity, displayView){
 	  		Ti.App.fireEvent("stopIndicator");
 	  		indicatorImage.image = imagePath("reload.jpeg");
 	  		indicatorImage.addEventListener('click', function(){
-	  			Ti.App.fireEvent("Explore");
+	  			Ti.App.fireEvent(appWideActivity);
 	  			//Clear displayView
 	  			for (i = 0; i < displayView.children.length; i++){
 	  				displayView.remove(displayView.children[i]);
 	  			}
-				hubAPI.indicate('Explore', displayView);
+				hubAPI.indicate(appWideActivity, displayView);
 	  		});
 	  		indicatorText.text = "Loading " + appWideActivity + " timed out. Click here to refresh."
 	  }
@@ -98,12 +98,13 @@ hubAPI.indicate = function(appWideActivity, displayView){
 }
 	
 /*Hub API Helper functions*/
-hubAPI.fetchResults = function(category){
+hubAPI.fetchResults = function(category, order){
+
  		var results = [];
  		hubAPI.user.getAll(results);
  		addVariable(results, results.length, "Auth_token", hubAPI.user.getAuthToken());
  		addVariable(results, results.length, "page", 0);
- 		addVariable(results, results.length, "order", "most_recent");
+ 		addVariable(results, results.length, "order", order);
  		
  		SearchResults = require("services/SearchResults");
  		hubAPI.searchResults = new SearchResults(category, results);

@@ -55,12 +55,29 @@ userFunction = function(){
 					var resultArray = {}
 					keyText = "key"+resultIndex;
 					valueText = "value"+resultIndex;
-					resultArray[keyText] = data[k]; 
+					
 					
 					if (data[k] === "free"){
+						resultArray[keyText] = "tags"
 						resultArray[valueText] = thisArray[j];
 					}
 					else{
+						if (data[k] === "free"){
+							resultArray[keyText] = "target_populations"; 
+						}
+						else if(data[k] === "countries"){
+							resultArray[keyText] = "locations_of_work"; 
+						}
+						else if(data[k] === "cities"){
+							resultArray[keyText] = "locations"; 
+						}
+						else if(data[k] === "fields"){
+							resultArray[keyText] = "fields_of_work"; 
+						}
+						else{
+							resultArray[keyText] = data[k]; 
+						}
+						
 						resultArray[valueText] = options[thisArray[j]]; 
 					}
 					_allFollowed.push(resultArray);
