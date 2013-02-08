@@ -3,6 +3,7 @@ connectHub = function(o, url, postParams, method, tries, getParams){
 	var loginReq = Titanium.Network.createHTTPClient();
 	var urlText = "api/" + url + ".json";
 	var getArgs = "";
+	var page = 0; 
 	
 	if (getParams != null){
 		for (var i = 0; i < getParams.length; i++){
@@ -14,6 +15,9 @@ connectHub = function(o, url, postParams, method, tries, getParams){
 			}
 			else{
 				getArgs = getArgs + "&" + getParams[i][key] + "=" + getParams[i][value]; 
+			}
+			if (getParams[i][key] === "page"){
+				page = getParams[i][value]; 
 			}
 		}
 		urlText = urlText + getArgs;
@@ -34,7 +38,6 @@ connectHub = function(o, url, postParams, method, tries, getParams){
 		if (loginReq === null || json === null){
 			if (tries < 3){
 				tries++;
-				Ti.API.info("trying .. " + tries);
 				connectHub(o, _username, _password, tries);
 				return;
 			}
@@ -46,7 +49,7 @@ connectHub = function(o, url, postParams, method, tries, getParams){
 		
 		var response = JSON.parse(json);
 		//Ti.API.info(response);
-	
+		response.page = page; 
 		if (o.success){o.success(response);}
 		
 	};

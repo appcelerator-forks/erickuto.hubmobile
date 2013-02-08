@@ -282,7 +282,7 @@ function LoginView(){
     function handleLoginEvent(_username, _password){
     	AuthClient = require('services/Authentication');
     	var isAuthenticated = new AuthClient({
-    		start: function() {Ti.API.info("Fetching..")},
+    		start: function() {},
     		error: function() {
     			errorPane.text = "Error:There was a problem connecting to Ashoka Hub.";},
     		failure: function() { denyEntrance()},

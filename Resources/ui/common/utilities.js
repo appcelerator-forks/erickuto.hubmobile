@@ -91,19 +91,18 @@ hubAPI.indicate = function(appWideActivity, displayView){
 	// start the setInverval -- adjust the time to make a smooth animation
 	var loaderAnimate = setInterval(loadingAnimation,intervalLength);
 	Ti.App.addEventListener('stopIndicator', function(){
-		Ti.API.info("Times App :) " + appWideActivity);
 	  	clearInterval(loaderAnimate);
 	});	
 	displayView.add(indicatorHolder);
 }
 	
 /*Hub API Helper functions*/
-hubAPI.fetchResults = function(category, order){
+hubAPI.fetchResults = function(category, order, page){
 
  		var results = [];
  		hubAPI.user.getAll(results);
  		addVariable(results, results.length, "Auth_token", hubAPI.user.getAuthToken());
- 		addVariable(results, results.length, "page", 0);
+ 		addVariable(results, results.length, "page", page);
  		addVariable(results, results.length, "order", order);
  		
  		SearchResults = require("services/SearchResults");

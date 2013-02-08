@@ -69,18 +69,19 @@ var loadResults = function(_category){
 	table.setData(tdata);
 	//Call the method for fetching functions. 
 	if (_category === "people"){
-		hubAPI.fetchResults("users");
+		hubAPI.fetchResults("users", "most_recent", 0);
 	}
 	else{
-		hubAPI.fetchResults(_category);
+		hubAPI.fetchResults(_category, "most_recent", 0);
 	}
 	Ti.App.fireEvent("Results");
 	
 	//Fetch the returned results 
 	Ti.App.addEventListener('showFetchResults', function (){
 		var sResults = [];
+		var additional = {}; 
 		var data = []; 
-		hubAPI.searchResults.getResults(sResults); 
+		hubAPI.searchResults.getResults(sResults, additional); 
 		for (i = 0; i < sResults.length; i++){
 			if (sResults[i].neonTitle){
 				data.push(sResults[i].neonTitle);
@@ -90,19 +91,22 @@ var loadResults = function(_category){
 			}
  			
  		}
- 		setTableData(data);
+ 		if (hubAPI.searchResults.hasMore()){
+ 			data.push("has_more");
+ 		}
+ 		setTableData(data, _category);
 	});
 	
 	//Display the results. 
 	
 	//self.children[1].backgroundColor = 'blue'; 
 }; 
-function setTableData(_data){
+function setTableData(_data, _category){
 	table = self.children[1];
 	var tableRows = [];
 
 	for (var i = 0; i < _data.length; i++) {
-		tableRows.push(createMenuRow(_data[i]));
+		tableRows.push(createMenuRow(_data[i], _category));
 	}
 	table.setData(tableRows);
 }
@@ -171,20 +175,20 @@ var createSearchIcon = function(_status, _iconName, _amount){
 	return canvas; 
 }
 
-var createMenuRow = function(item) {
+var createMenuRow = function(item, _category) {
 	var category = item;
-	var selectedSize = user.getSelectedSize(category);
+	var tableHasChild = true; 
+	if (item === "has_more"){tableHasChild = false; }
 	var tableRow = Ti.UI.createTableViewRow({
 		className: 'itemRow',
 		category: category,
-		hasChild: true, 
-		
+		hasChild: tableHasChild, 
 	});
-
+	
 	var titleView = Ti.UI.createView({
 		backgroundColor: 'e5eaf0',
 		bottom: 5,
-		height: 80,
+		height: 50,
 		width: (hubAPI.app_width - 10),
 		right: 5, 
 		left: 5,
@@ -195,40 +199,52 @@ var createMenuRow = function(item) {
 		layout:'horizontal'
 	});
 	
-	var titleLabel = Ti.UI.createLabel({
-		text: item,
-		width: 'auto',
-		color: '#5e656a',
-		left: 5,
-		top: 10,
-		font: {
-			fontSize: 16
-		},
-		
-	});
-
-	var sizeText = "";
-	if (selectedSize > 0){
-		sizeText = "(" + selectedSize + ")";
+	if (item === "has_more"){
+		titleView.backgroundColor = "003a5f";
+		titleImage = Ti.UI.createImageView({
+			top: 5, 
+			width: 250, 
+			image: hubAPI.imagePath('more.png'),
+		});
+		titleView.add(titleImage);
+		tableRow.addEventListener('click', function(e) {
+			
+			//Start the activity indicator
+			displayView = Ti.UI.createView(); 
+			hubAPI.indicate('Results', displayView);
+			var tdata = [];
+			tdata.push(addRowView(displayView));
+			table.setData(tdata);
+			if (_category === "people"){
+				hubAPI.fetchResults("users", "most_recent", (hubAPI.searchResults.getPage() + 1));
+			}
+			else{
+				hubAPI.fetchResults(_category, "most_recent", (hubAPI.searchResults.getPage() + 1));
+			}
+			Ti.App.fireEvent("Results");
+		});
 	}
-	var sizeLabel = Ti.UI.createLabel({
-		text: sizeText, 
-		color: '#5e656a',
-		width: 'auto',
-		left: 5,
-		top: 10,
-		font: {
-			fontSize: 16
-		},
-	});
-	
-	tableRow.sizeLabel = sizeLabel; 
-	titleView.add(titleLabel);
-	titleView.add(sizeLabel);
+	else{
+		
+		var titleLabel = Ti.UI.createLabel({
+			text: item,
+			width: 'auto',
+			color: '#5e656a',
+			left: 5,
+			top: 10,
+			font: {
+				fontSize: 16
+			},
+			
+		});
+		
+		titleView.add(titleLabel);
+		
+		tableRow.addEventListener('click', function(e) {
+			tableRow.fireEvent('filterExploration', { category: category });
+		});
+	}
 	tableRow.add(titleView);
-	tableRow.addEventListener('click', function(e) {
-		tableRow.fireEvent('filterExploration', { category: category });
-	});
 	return tableRow;
 };
 

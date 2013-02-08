@@ -3,16 +3,27 @@ var params = null;
 var isReady = false; 
 var results = [];
 var counts = {}; 
-
+var hasMore = false; 
+var page = 0; 
 ResultsClient = require('services/Results'); 
 
 Ti.App.addEventListener("Results", function(){
 	var resultsClient = new ResultsClient({
 		
-		start: function() { Ti.API.info("Fetching results for " + category); },
+		start: function() { },
 		error: function() { Ti.API.info("ERROR!! while getting results for " + category);},
 		success: function(_json){
-			results = []; 
+			page = _json.page;
+			
+			if (page == 0){
+				results = []; 
+			}
+			if (_json.hasMore == true){
+				hasMore = true; 
+			}
+			else{
+				hasMore = false; 
+			}
 			if (category === "activities/count"){
 				counts = _json;
 				Ti.App.fireEvent('showSearchPage');
@@ -25,7 +36,6 @@ Ti.App.addEventListener("Results", function(){
 				Ti.App.fireEvent('showFetchResults');
 			}
 			isReady = true; 
-			 
 		}
 	}, category, params);
 });
@@ -35,7 +45,7 @@ function SearchResults(_category, _params){
 	category = _category; 
 	params = _params; 
 	
-	this.getResults = function(_results){
+	this.getResults = function(_results, _additional){
 			for (i = 0; i < results.length; i++){
 				_results.push(results[i]);
 			}
@@ -45,6 +55,12 @@ function SearchResults(_category, _params){
 	};
 	this.isReady = function(){
 		return isReady; 
+	}
+	this.hasMore = function(){
+		return hasMore; 
+	}
+	this.getPage = function(){
+		return page; 
 	}
 	this.changeReadyState = function(state){
 		isReady = state; 

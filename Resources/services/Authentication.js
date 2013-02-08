@@ -9,7 +9,6 @@ authenticateUser = function(o, _username, _password){
 	Connection = require('services/Connection');
     	var response = new Connection({
     		start: function() {
-    			Ti.API.info("Connecting.."); 
     			if (o.start) { o.start(); }
     			},
     			

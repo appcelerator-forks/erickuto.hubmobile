@@ -162,7 +162,7 @@ function buildExploreWindow(){
 	
 	self.addEventListener('searchResults', function(e){
 		//Search For the counts. 
-		hubAPI.fetchResults("activities/count", "most_recent");
+		hubAPI.fetchResults("activities/count", "most_recent", 0);
 		Ti.App.fireEvent("Results");
 		if (hubAPI.searchResults.isReady()){
 			hubAPI.searchResults.changeReadyState(false);
