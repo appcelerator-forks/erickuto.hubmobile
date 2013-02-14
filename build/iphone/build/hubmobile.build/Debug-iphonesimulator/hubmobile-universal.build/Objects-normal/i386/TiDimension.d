@@ -17,6 +17,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/headers/TiCore/TiContextRefPrivate.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollCallback.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollObject.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/WebFont.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiFile.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBuffer.h \

@@ -186,7 +186,6 @@
 /Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiUIDashboardViewProxy.o
 /Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiUIDashboardView.o
 /Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiUIDashboardItemProxy.o
-/Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiUIiPadDocumentViewerProxy.o
 /Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiGradient.o
 /Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/ApplicationRouting.o
 /Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiUIiPadSplitWindow.o
@@ -271,4 +270,10 @@
 /Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiDOMValidator.o
 /Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiConsole.o
 /Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/Ti3DMatrix.o
+/Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiUIiOSDocumentViewerProxy.o
 /Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/FBFrictionlessRequestSettings.o
+/Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiUIiPhoneAlertDialogStyleProxy.o
+/Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiBindingEvent.o
+/Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiBindingRunLoop.o
+/Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiBindingTiValue.o
+/Users/ekuto/titanium/hubmobile/build/iphone/build/hubmobile.build/Debug-iphonesimulator/hubmobile-universal.build/Objects-normal/i386/TiExceptionHandler.o

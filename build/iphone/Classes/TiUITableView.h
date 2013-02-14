@@ -93,7 +93,8 @@
 #pragma Private
 -(void)selectRow:(id)args;
 -(void)deselectRow:(id)args;
-
+-(void)reloadDataFromCount:(int)oldCount toCount:(int)newCount animation:(UITableViewRowAnimation)animation;
+-(void)refreshSearchControllerUsingReload:(BOOL)reloadSearch;
 
 @end
 

@@ -14,6 +14,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/headers/TiCore/TiContextRefPrivate.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollCallback.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollObject.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiHost.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/Bridge.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiStylesheet.h \
@@ -34,4 +35,5 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiPoint.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/LayoutConstraint.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiGradient.h \
-  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiRect.h
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiRect.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingEvent.h

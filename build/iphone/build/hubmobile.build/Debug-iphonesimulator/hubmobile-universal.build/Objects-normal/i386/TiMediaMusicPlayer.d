@@ -15,6 +15,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/headers/TiCore/TiContextRefPrivate.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollCallback.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollObject.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiMediaItem.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBlob.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/MediaModule.h \

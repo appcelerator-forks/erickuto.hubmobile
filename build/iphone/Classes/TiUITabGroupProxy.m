@@ -28,8 +28,10 @@
 {
 	for (id thisTab in tabs)
 	{
+        [thisTab removeFromTabGroup];
 		[thisTab setParentOrientationController:nil];
 		[thisTab setTabGroup:nil];
+        [self forgetProxy:thisTab];
 	}
 	RELEASE_TO_NIL(tabs);
 	[super dealloc];

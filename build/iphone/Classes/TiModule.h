@@ -35,6 +35,7 @@
 -(NSString*)moduleId;
 -(BOOL)isJSModule;
 -(NSData*)moduleJS;
+-(NSData*)loadModuleAsset:(NSString*)fromPath;
 
 /*
  Converts a resource name in to a URL.

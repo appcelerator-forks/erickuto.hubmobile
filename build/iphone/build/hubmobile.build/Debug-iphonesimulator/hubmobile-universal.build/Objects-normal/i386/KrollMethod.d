@@ -17,6 +17,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiProxy.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiEvaluator.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollCallback.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiModule.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUtils.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiColor.h \

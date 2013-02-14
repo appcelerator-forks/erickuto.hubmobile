@@ -1,6 +1,0 @@
-
-Ti.App.getRemoteURL = function(_path, site){
-	var mainURL = "http://greenhub-mobile.herokuapp.com/"
-	
-	return mainURL + _path;
-}

@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollContext.mm \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollContext.m \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBase.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiThreading.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiPublicAPI.h \
@@ -17,6 +17,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiColor.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiProxy.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiEvaluator.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiDimension.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/WebFont.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiFile.h \
@@ -24,4 +25,5 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBlob.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiLocale.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiDebugger.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiExceptionHandler.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUIAlertDialogProxy.h

@@ -16,6 +16,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/headers/TiCore/TiContextRefPrivate.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollCallback.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollObject.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiAnimation.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiPoint.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiDimension.h \
@@ -31,4 +32,11 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiGradient.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUISliderProxy.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiViewProxy.h \
-  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiRect.h
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiRect.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/ImageLoader.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/ASI/ASIHTTPRequest.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/ASI/ASIHTTPRequestConfig.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/ASI/ASIHTTPRequestDelegate.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/ASI/ASIProgressDelegate.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/ASI/ASICacheDelegate.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/ASI/ASINetworkQueue.h

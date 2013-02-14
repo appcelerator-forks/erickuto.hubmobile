@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/GeolocationModule.mm \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/GeolocationModule.m \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/GeolocationModule.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiModule.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUtils.h \
@@ -18,6 +18,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/headers/TiCore/TiContextRefPrivate.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollCallback.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollObject.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiDimension.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/WebFont.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiFile.h \

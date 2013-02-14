@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/AnalyticsModule.mm \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/AnalyticsModule.m \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBase.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiThreading.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiPublicAPI.h \
@@ -18,6 +18,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/headers/TiCore/TiContextRefPrivate.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollCallback.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollObject.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiDimension.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/WebFont.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiFile.h \

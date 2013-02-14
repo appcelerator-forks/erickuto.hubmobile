@@ -249,7 +249,7 @@
 	return nil;
 }
 
--(NSString*)nativePath
+-(id)nativePath
 {
     if (path != nil) {
 	    return [[NSURL fileURLWithPath:path] absoluteString];

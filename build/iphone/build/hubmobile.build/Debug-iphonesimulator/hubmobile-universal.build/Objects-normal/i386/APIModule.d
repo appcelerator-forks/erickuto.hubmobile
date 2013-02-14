@@ -18,6 +18,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/headers/TiCore/TiContextRefPrivate.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollCallback.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollObject.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiDimension.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/WebFont.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiFile.h \
@@ -44,4 +45,5 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiTabGroup.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUIWindow.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiViewController.h \
-  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiDebugger.h
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiDebugger.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiExceptionHandler.h

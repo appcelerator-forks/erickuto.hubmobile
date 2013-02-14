@@ -16,6 +16,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/headers/TiCore/TiContextRefPrivate.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollCallback.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollObject.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUIView.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiAnimation.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiPoint.h \
@@ -36,4 +37,17 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUITableViewSectionProxy.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUITableViewAction.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUISearchBarProxy.h \
-  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiComplexValue.h
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiComplexValue.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiApp.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiHost.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/Bridge.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiStylesheet.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollBridge.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/XHRBridge.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiRootViewController.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiRootController.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiWindowProxy.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiTab.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiTabGroup.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUIWindow.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiViewController.h

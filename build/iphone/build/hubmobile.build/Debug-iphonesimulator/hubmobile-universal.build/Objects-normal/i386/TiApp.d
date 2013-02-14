@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiApp.mm \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiApp.m \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiApp.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiHost.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiProxy.h \
@@ -16,6 +16,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/headers/TiCore/TiContextRefPrivate.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollCallback.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollObject.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/Bridge.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiStylesheet.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollBridge.h \
@@ -54,4 +55,5 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/ASI/ASICacheDelegate.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/ASI/ASINetworkQueue.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiDebugger.h \
-  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/ApplicationDefaults.h
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/ApplicationDefaults.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiExceptionHandler.h

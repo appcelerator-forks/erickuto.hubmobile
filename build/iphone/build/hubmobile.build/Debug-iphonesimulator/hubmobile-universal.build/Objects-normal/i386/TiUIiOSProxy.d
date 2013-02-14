@@ -15,6 +15,7 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/headers/TiCore/TiContextRefPrivate.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollCallback.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/KrollObject.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiBindingRunLoop.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUIiOSAdViewProxy.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUIViewProxy.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiViewProxy.h \
@@ -38,4 +39,5 @@ dependencies: \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUIiOSCoverFlowViewProxy.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUIiOSToolbarProxy.h \
   /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiToolbar.h \
-  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUIiOSTabbedBarProxy.h
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUIiOSTabbedBarProxy.h \
+  /Users/ekuto/titanium/hubmobile/build/iphone/Classes/TiUIiOSDocumentViewerProxy.h
