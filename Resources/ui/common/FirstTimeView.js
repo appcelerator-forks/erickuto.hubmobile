@@ -8,8 +8,7 @@ function FirstTimeView(){
 	
 	var appWindow = require("ui/common/CommonLoginView");
     win = new appWindow();
-
-
+	win.showNavBar(); 
 	var instructionsLabel = Titanium.UI.createLabel({
 		left:margin_offset,
 		height:50*hsf,

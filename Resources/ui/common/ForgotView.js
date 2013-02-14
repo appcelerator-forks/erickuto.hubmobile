@@ -8,7 +8,7 @@ function FirstTimeView(){
 	
 	var appWindow = require("ui/common/CommonLoginView");
     win = new appWindow();
-	
+	win.showNavBar(); 
 	var email = Titanium.UI.createTextField({
 		top:100*hsf,
 		width:350*wsf,

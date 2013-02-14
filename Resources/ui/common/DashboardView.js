@@ -11,8 +11,8 @@ function DashboardView(){
 	
 	var utilities = require("ui/common/utilities");
 	var util = new utilities();
-	var hsf = util.height_scale_factor;
-	var wsf = util.width_scale_factor;
+	var hsf = util.magnified_height_scale_factor;
+	var wsf = util.magnified_width_scale_factor;
 	var margin_offset = (util.app_width-350*wsf)/2;
 	
 	var appWindow = require("ui/common/UserView");

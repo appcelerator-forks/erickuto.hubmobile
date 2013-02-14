@@ -8,8 +8,9 @@ function CommonLoginView(){
 	var win = Ti.UI.createWindow({
 		backgroundColor: util.customBgColor,
 		layout:'vertical',
+		titleControl: false
 	}); 
-	
+	win.hideNavBar(); 
 	var canvas = Ti.UI.createView({});
 
 	var logoImage = Ti.UI.createImageView({
@@ -80,7 +81,12 @@ function CommonLoginView(){
 		canvas.remove(canvas.children[0]); 
 		canvas.add(contentWrapper);
 	}
-
+	this.showNavBar = function(){
+		win.showNavBar(); 
+	};
+	this.hideNavBar = function(){
+		win.hideNavBar(); 
+	}
 	CommonLoginView.prototype.appwin = win; 
 	
 }

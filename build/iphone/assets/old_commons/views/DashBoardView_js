@@ -1,33 +1,3 @@
-/*
- * DashBoard UI.
- */
-function DashBoardView(_user){
-    var customFont = 'SpicyRice-Regular';
-	var customBgColor = '#f9f9f9';
-	var customTextColor = '#5e656a';
-	var customTitleColor = '#0b395c';
-	
-
-    var profWindow = require("common/mweb/profileView");
-    win = new profWindow();
-	welcome_text = "Welcome to your dashboard " + _user.name + ". Your email is " + _user.email;
-	var dashboardStuff = Ti.UI.createLabel({
-		text:welcome_text,
-			top:2, 
-			left:50,
-			font:{
-		      fontSize:12,
-		      fontFamily: customFont
-		   },
-			color:'red'
-	});
-	win.addContent(dashboardStuff);
-
-	this.open = function(){
-		win.open();
-	}
-   this.close = function(){
-   		win.close();
-   };
-}
-module.exports = DashBoardView;
+function DashBoardView(_user){var customFont='SpicyRice-Regular';var customBgColor='#f9f9f9';var customTextColor='#5e656a';var customTitleColor='#0b395c';var profWindow=require("common/mweb/profileView");win=new profWindow();welcome_text="Welcome to your dashboard "+_user.name+". Your email is "+_user.email;var dashboardStuff=Ti.UI.createLabel({text:welcome_text,top:2,left:50,font:{fontSize:12,fontFamily:customFont},color:'red'});win.addContent(dashboardStuff);this.open=function(){win.open();}
+this.close=function(){win.close();};}
+module.exports=DashBoardView;

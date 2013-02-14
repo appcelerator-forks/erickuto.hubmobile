@@ -45,11 +45,14 @@ function SearchResults(_category, _params){
 	category = _category; 
 	params = _params; 
 	
-	this.getResults = function(_results, _additional){
+	this.getResults = function(_results){
 			for (i = 0; i < results.length; i++){
 				_results.push(results[i]);
 			}
 	};
+	this.getNeon = function(index){
+		return results[index]; 
+	}
 	this.getCounts = function(_category){
 		return counts[_category]; 
 	};

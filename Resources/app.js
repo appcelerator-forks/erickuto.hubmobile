@@ -34,7 +34,7 @@ else {
 		
 		var utilities = require("ui/common/utilities");
 		var util = new utilities();
-		
+		hubAPI.util = util; 
 		hubAPI.hsf = util.height_scale_factor;
 		hubAPI.wsf = util.width_scale_factor;
 		hubAPI.app_width = util.app_width; 

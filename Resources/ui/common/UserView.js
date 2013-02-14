@@ -9,7 +9,7 @@ function userView(){
 		backgroundColor: util.customBgColor,
 		layout:'vertical',
 	}); 
-	
+	win.showNavBar(); 
 	var canvas = Ti.UI.createView({});
 	
 	win.titleImage = util.imagePath("ashoka_logo_navbar.png");
