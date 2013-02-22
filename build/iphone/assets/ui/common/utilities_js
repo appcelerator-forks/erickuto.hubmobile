@@ -1,0 +1,15 @@
+function addVariable(_array,_index,_key,_value){var additions={}
+additions["key"+_index]=_key;additions["value"+_index]=_value;_array.push(additions);}
+var osname=Ti.Platform.osname;var imagePath=function(_path){image_path="";if(osname==='android'){image_path="../../images/"+_path;}
+else{image_path="images/"+_path;}
+return image_path;};hubAPI.indicate=function(appWideActivity,displayView){indicatorHolder=Ti.UI.createView({layout:"vertical",height:250,width:300,top:0,});iText="Loading "+appWideActivity+"...";indicatorText=Ti.UI.createLabel({top:5,text:iText,height:100,width:300,});indicatorImage=Ti.UI.createImageView({top:5,width:54,height:54});indicatorHolder.add(indicatorText,indicatorImage);var loaderArrayLength=7;var loaderIndex=0;var timeElapsed=0;var intervalLength=90;var ttk=10000;function loadingAnimation(){indicatorImage.image=imagePath("spinner/"+loaderIndex+".jpg");loaderIndex++;if(loaderIndex===loaderArrayLength){loaderIndex=0;}
+timeElapsed+=intervalLength;if(timeElapsed>=ttk){Ti.App.fireEvent("stopIndicator");indicatorImage.image=imagePath("reload.jpeg");indicatorImage.addEventListener('click',function(){Ti.App.fireEvent(appWideActivity);for(i=0;i<displayView.children.length;i++){displayView.remove(displayView.children[i]);}
+hubAPI.indicate(appWideActivity,displayView);});indicatorText.text="Loading "+appWideActivity+" timed out. Click here to refresh."}}
+var loaderAnimate=setInterval(loadingAnimation,intervalLength);Ti.App.addEventListener('stopIndicator',function(){clearInterval(loaderAnimate);});displayView.add(indicatorHolder);}
+hubAPI.fetchResults=function(category,order,page){var results=[];hubAPI.user.getAll(results);addVariable(results,results.length,"Auth_token",hubAPI.user.getAuthToken());addVariable(results,results.length,"page",page);addVariable(results,results.length,"order",order);SearchResults=require("services/SearchResults");hubAPI.searchResults=new SearchResults(category,results);}
+function Utilities(){this.customFont='SpicyRice-Regular';this.customBgColor='#f9f9f9';this.customTextColor='#5e656a';this.customTitleColor='#0b395c';aw=Ti.Platform.displayCaps.platformWidth;ah=Ti.Platform.displayCaps.platformHeight;this.app_width=aw;this.app_height=ah;this.height_scale_factor=this.app_height/800.0;this.width_scale_factor=this.app_width/500
+this.magnified_height_scale_factor=this.app_height/800.0;this.magnified_width_scale_factor=this.app_width/500
+if(this.app_width>500){this.width_scale_factor=1;}
+if(this.app_height>800){this.height_scale_factor=1;}
+this.imagePath=imagePath;}
+module.exports=Utilities;

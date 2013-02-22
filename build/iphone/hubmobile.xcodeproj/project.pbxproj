@@ -3120,8 +3120,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"/Users/ekuto/Library/Application Support/Titanium/mobilesdk/osx/3.0.0.GA/iphone/builder.py\" xcode\nexit $?";
-                };
+			shellScript = "/usr/local/bin/node \"/usr/local/bin/titanium\" build --platform iphone --sdk 3.0.0.GA --no-prompt --no-banner --xcode\nexit $?";
+		};
 		24CA8D03111169070084E2DE /* Post-Compile */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3135,7 +3135,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo 'post-compile'";
-                };
+		};
 		24D8E3B9119B9D8A00F8CAA6 /* Pre-Compile */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3148,8 +3148,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"/Users/ekuto/Library/Application Support/Titanium/mobilesdk/osx/3.0.0.GA/iphone/builder.py\" xcode\nexit $?";
-                };
+			shellScript = "/usr/local/bin/node \"/usr/local/bin/titanium\" build --platform iphone --sdk 3.0.0.GA --no-prompt --no-banner --xcode\nexit $?";
+		};
 		24D8E4AD119B9D8A00F8CAA6 /* Post-Compile */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3163,7 +3163,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo 'post-compile'";
-                };
+		};
 		DABB369F12E8CB280026A6EA /* Pre-Compile */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3176,8 +3176,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"/Users/ekuto/Library/Application Support/Titanium/mobilesdk/osx/3.0.0.GA/iphone/builder.py\" xcode\nexit $?";
-                };
+			shellScript = "/usr/local/bin/node \"/usr/local/bin/titanium\" build --platform iphone --sdk 3.0.0.GA --no-prompt --no-banner --xcode\nexit $?";
+		};
 		DABB37B812E8CB280026A6EA /* Post-Compile */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3191,7 +3191,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo 'post-compile'";
-                };
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
