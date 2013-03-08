@@ -1,0 +1,70 @@
+{
+	"utf8"=>"✓", 
+	"authenticity_token"=>"NafwAyCO3XHqDWbqsTlueMK2C/cQOZ9XEtxkzoVqSq0=", 
+	"message_thread"=>{
+		"message_recipients_attributes"=>{
+			"0"=>{"user_id"=>"1"}
+			}, 
+		"subject"=>"new message subject", 
+		"id"=>""
+	}, 
+	"message"=>{
+		"body"=>"new message body"
+	}, 
+	"commit"=>"send", 
+	"action"=>"create_message", 
+	"controller"=>"message_threads"
+}
+
+{
+	"message_thread"=>{
+		"subject"=>"Test Subject", 
+		"message_recipients_attributes"=>{
+			"0"=>{"user_id"=>"1]"}
+		}, 
+		"id"=>""
+	}, 
+	"message"=>{
+		"body"=>"This is a new message"
+	}, 
+	"auth_token"=>"SJTGyHqZLM7zEPzLshem", 
+	"format"=>:json, 
+	"action"=>"create", 
+	"controller"=>"api/mobile/messages"}
+	
+	
+{
+	"utf8"=>"✓", 
+	"authenticity_token"=>"NafwAyCO3XHqDWbqsTlueMK2C/cQOZ9XEtxkzoVqSq0=", 
+	"message"=>{
+		"body"=>"This is a reply to the new message subject"
+	}, 
+	"message_thread"=>{"id"=>"104276"}, 
+	"commit"=>"Send", 
+	"action"=>"create_message", 
+	"controller"=>"message_threads"
+}
+
+{
+	"message_thread"=>{
+		"subject"=>"This is my subject", 
+		"message_recipients_attributes"=>{
+			"0"=>{"user_id"=>"1"}
+			}, 
+			"id"=>""
+			}, 
+		"auth_token"=>"SJTGyHqZLM7zEPzLshem", 
+		"format"=>:json, 
+		"action"=>"create", 
+		"controller"=>"api/mobile/messages"
+	}
+
+
+
+Sending a message: 
+http://localhost:3000/api/mobile/messages?auth_token=SJTGyHqZLM7zEPzLshem
+message_thread[subject]=This is my subject&message_thread[message_recipients_attributes[0][user_id]]=1&message_thread[id]=&message[body]=This is the missing piece of the puzzle.
+Name: Content-Type and Value: application/x-www-form-urlencoded
+
+Viewing a message: 
+http://localhost:3000/api/mobile/messages/104269.json?auth_token=SJTGyHqZLM7zEPzLshem

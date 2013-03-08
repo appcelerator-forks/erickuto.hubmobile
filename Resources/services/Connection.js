@@ -1,7 +1,12 @@
 
 connectHub = function(o, url, postParams, method, tries, getParams){
 	var loginReq = Titanium.Network.createHTTPClient();
-	var urlText = "api/" + url + ".json";
+	var urlText = "api/" + url + ".json"; 
+	Ti.API.info(url.substring(0,9));
+	if (url.substring(0,9) === "activities"){
+		ulrText = urlText.replace("api/", "");
+	}
+	 
 	var getArgs = "";
 	var page = 0; 
 	

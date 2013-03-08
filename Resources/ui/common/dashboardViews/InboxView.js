@@ -38,13 +38,12 @@ function InboxView (_authToken){
 			}
 			
 			table.addEventListener('click', function(e){
-				var neon = hubAPI.searchResults.getNeon(e.index);
-				if (neon)
+				var message = hubAPI.messages.getMessages(e.index);
+				if (message)
 				{
-					NeonView = require("ui/common/dashboardViews/exploreViews/NeonView");
-					var neon = hubAPI.searchResults.getNeon(e.index);
-					var neonView = new NeonView(neon); 
-					Ti.App.globalWindow = neonView;
+					MessageView = require("ui/common/dashboardViews/exploreViews/MessageView");
+					var messageView = new MessageView(message); 
+					Ti.App.globalWindow = messageView;
 					Ti.App.fireEvent('openWindow',{});
 				}
 			});	
@@ -120,7 +119,7 @@ function InboxView (_authToken){
 		Ti.App.addEventListener('showMessages', function (){
 			var sResults = [];
 			var data = []; 
-			hubAPI.messages.getMessages(sResults); 
+			hubAPI.messages.getMessageThreads(sResults); 
 			for (i = 0; i < sResults.length; i++){
 				data.push(sResults[i]);
 				
