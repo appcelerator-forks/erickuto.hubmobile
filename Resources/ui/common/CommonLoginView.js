@@ -42,7 +42,7 @@ function CommonLoginView(){
 	canvas.add(Titanium.UI.createLabel({
 		left:20*wsf,
 		height:50*hsf,
-		bottom:1,
+		bottom:1, //top:650
 		font:{
 	      fontSize:12*hsf,
 	      fontFamily: hub.API.customFont
@@ -54,7 +54,7 @@ function CommonLoginView(){
 	canvas.add(Titanium.UI.createLabel({
 		right:20*wsf,
 		height:50*hsf,
-		bottom:1,
+		bottom:1, //top:650
 		font:{
 	      fontSize:12*hsf,
 	      fontFamily: hub.API.customFont

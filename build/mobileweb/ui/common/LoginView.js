@@ -7,14 +7,14 @@ function LoginView(){
 	
 	var appWindow = require("ui/common/CommonLoginView");
     win = new appWindow();
-	/*
+	
 	var errorPane = Ti.UI.createLabel({
 				text:"",
 				top:1, 
 				left:margin_offset,
 				font:{
 			      fontSize:12*hsf,
-			      fontFamily: hubAPI.util.customFont
+			      fontFamily: hub.API.util.customFont
 			   },
 				color:'red'
 		});
@@ -26,8 +26,8 @@ function LoginView(){
 		height:60*wsf,
 		font:{
 	      fontSize:20*hsf,
-	      fontColor:hubAPI.util.customTextColor,
-	      fontFamily: hubAPI.util.customFont
+	      fontColor:hub.API.util.customTextColor,
+	      fontFamily: hub.API.util.customFont
 	   },
 		hintText:'Enter your email address',
 		value:'ekkuto@gmail.com',
@@ -40,13 +40,13 @@ function LoginView(){
 	});
 	
 	var password = Titanium.UI.createTextField({
-		color:hubAPI.util.customTextColor,
+		color:hub.API.util.customTextColor,
 		top:100*hsf,
 		width:350*wsf,
 		height:60*wsf,
 		font:{
 	      fontSize:20*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
 		hintText:'Enter your Password',
 		passwordMask:true,
@@ -65,7 +65,7 @@ function LoginView(){
 		width:100*wsf,
 		height:50*hsf,
 		borderRadius:1,
-		backgroundImage:hubAPI.imagePath('ashoka_login_btn.png'),
+		backgroundImage:hub.API.imagePath('ashoka_login_btn.png'),
 	});
 	
 	loginBtn.addEventListener('click',function(e)
@@ -88,9 +88,9 @@ function LoginView(){
 		top:240*hsf,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-	   color:hubAPI.util.customTextColor,
+	   color:hub.API.util.customTextColor,
 		text: 'Forgot Password?'
 	});
 	
@@ -103,10 +103,10 @@ function LoginView(){
 		height:50*hsf,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
 		top:240*hsf,
-		color:hubAPI.util.customTextColor,
+		color:hub.API.util.customTextColor,
 		text: 'First time login'
 	});
 	firstLabel.addEventListener('click',function(e){
@@ -118,10 +118,10 @@ function LoginView(){
 		height:50*hsf,
 		font:{
 	      fontSize:20*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
 		top:240*hsf,
-		color:hubAPI.util.customTextColor,
+		color:hub.API.util.customTextColor,
 		text: '|'
 	});
 	
@@ -144,28 +144,28 @@ function LoginView(){
 		text: '\u2022',
 		top:87*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hub.API.util.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
 		top:117*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hub.API.util.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
 		top:147*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hub.API.util.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
 		top:177*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hub.API.util.customTitleColor}
 	}));
 	topicLabel = Ti.UI.createLabel({
 		text: 'About Us',
@@ -174,10 +174,10 @@ function LoginView(){
 		font:{
 	      fontSize:21*hsf,
 	      fontWeight:'bold',
-	      fontColor:hubAPI.util.customTitleColor,
-	      fontFamily: hubAPI.util.customFont
+	      fontColor:hub.API.util.customTitleColor,
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTitleColor
+		color:hub.API.util.customTitleColor
 	});
 	
 	var missionLabel = Ti.UI.createLabel({
@@ -186,9 +186,9 @@ function LoginView(){
 		left:10,
 		font:{
 	      fontSize:18*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTextColor
+		color:hub.API.util.customTextColor
 	});
 	infoRow.add(missionLabel);
 	infoRow.add(topicLabel);
@@ -198,9 +198,9 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTextColor
+		color:hub.API.util.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
@@ -209,9 +209,9 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTextColor
+		color:hub.API.util.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
@@ -220,9 +220,9 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTextColor
+		color:hub.API.util.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
@@ -231,9 +231,9 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTextColor
+		color:hub.API.util.customTextColor
 	}));
     
     
@@ -289,7 +289,7 @@ function LoginView(){
     		}
     	}, _username, _password);
     	
-    }*/
+    }
 	return win.appwin;
 
 }	
