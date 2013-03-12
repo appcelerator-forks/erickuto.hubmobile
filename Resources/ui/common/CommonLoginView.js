@@ -1,22 +1,26 @@
 function CommonLoginView(){
 	
-	var utilities = require("ui/common/utilities");
-	util = new utilities();
-	var hsf = util.height_scale_factor;
-	var wsf = util.width_scale_factor;
+	hub = require("hub");
+	var hsf = hub.API.hsf;
+	var wsf = hub.API.wsf;
 	
 	var win = Ti.UI.createWindow({
-		backgroundColor: util.customBgColor,
+		backgroundColor: hub.API.customBgColor,
 		layout:'vertical',
-		titleControl: false
+		titleControl: false, 
+		modal: true,
+		navBarHidden: true,
+        tabBarHidden: true,
 	}); 
-	win.hideNavBar(); 
+	if (hub.API.osname === "iphone" || hub.API.osname === "ipad"){
+		win.hideNavBar(); 
+	}
 	var canvas = Ti.UI.createView({});
 
 	var logoImage = Ti.UI.createImageView({
 		top:15*hsf,
 		width:300*wsf, 
-		image:util.imagePath("ashoka_logo.png")
+		image:hub.API.imagePath("ashoka_logo.png")
 	});
 	//logoImage.image = '../../ashoka_logo.png';
 	var logoCanvas = Ti.UI.createView({top:0, height:120});
@@ -28,7 +32,7 @@ function CommonLoginView(){
 
 	var contentWrapper = Ti.UI.createView({
 	    top: 145*hsf,
-	    width: util.app_width,
+	    width: hub.API.app_width,
 	});	
 	canvas.add(contentWrapper);
 	canvas.add(borderBottom);
@@ -41,9 +45,9 @@ function CommonLoginView(){
 		bottom:1,
 		font:{
 	      fontSize:12*hsf,
-	      fontFamily: util.customFont
+	      fontFamily: hub.API.customFont
 	   },
-	   color:util.customTextColor,
+	   color:hub.API.customTextColor,
 		text: 'Copyright 2011 Ashoka ',
 	}));
 	
@@ -53,9 +57,9 @@ function CommonLoginView(){
 		bottom:1,
 		font:{
 	      fontSize:12*hsf,
-	      fontFamily: util.customFont
+	      fontFamily: hub.API.customFont
 	   },
-	   color:util.customTextColor,
+	   color:hub.API.customTextColor,
 		text: 'hub.ashoka.org ',
 	}));
 
@@ -72,21 +76,6 @@ function CommonLoginView(){
 		contentWrapper.add(_content);
 	};
 
-	hubAPI.startActivityIndicator = function(){
-		canvas.remove(canvas.children[0]);
-		canvas.add(hubAPI.indicatorView);
-	}
-	
-	hubAPI.stopActivityIndicator = function(){
-		canvas.remove(canvas.children[0]); 
-		canvas.add(contentWrapper);
-	}
-	this.showNavBar = function(){
-		win.showNavBar(); 
-	};
-	this.hideNavBar = function(){
-		win.hideNavBar(); 
-	}
 	CommonLoginView.prototype.appwin = win; 
 	
 }

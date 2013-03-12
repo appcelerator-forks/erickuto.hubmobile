@@ -3,10 +3,8 @@ function ApplicationWindow() {
 	
 	//create object instance
 	var self = Ti.UI.createWindow({
-		backgroundColor:hubAPI.customBgColor,
 	});
-	
-	
+
 	LoginView = require('ui/common/LoginView');
 	var loginView = new LoginView();
 	

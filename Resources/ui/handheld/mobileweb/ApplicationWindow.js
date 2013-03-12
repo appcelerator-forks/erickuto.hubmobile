@@ -2,7 +2,6 @@
 function ApplicationWindow() {
 
 	var win = Titanium.UI.createWindow({
-		backgroundColor:hubAPI.customBgColor,
 	});
 	
 	LoginView = require('ui/common/LoginView');
