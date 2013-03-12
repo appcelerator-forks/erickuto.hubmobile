@@ -38,13 +38,12 @@ function InboxView (_authToken){
 			}
 			
 			table.addEventListener('click', function(e){
-				var neon = hubAPI.searchResults.getNeon(e.index);
-				if (neon)
+				var message = hubAPI.messages.getMessages(e.index);
+				if (message)
 				{
-					NeonView = require("ui/common/dashboardViews/exploreViews/NeonView");
-					var neon = hubAPI.searchResults.getNeon(e.index);
-					var neonView = new NeonView(neon); 
-					Ti.App.globalWindow = neonView;
+					MessageView = require("ui/common/dashboardViews/exploreViews/MessageView");
+					var messageView = new MessageView(message); 
+					Ti.App.globalWindow = messageView;
 					Ti.App.fireEvent('openWindow',{});
 				}
 			});	
@@ -120,13 +119,15 @@ function InboxView (_authToken){
 		Ti.App.addEventListener('showMessages', function (){
 			var sResults = [];
 			var data = []; 
-			hubAPI.messages.getMessages(sResults); 
+			hubAPI.messages.getMessageThreads(sResults); 
 			for (i = 0; i < sResults.length; i++){
-				data.push(sResults[i].messageSubject);
+				data.push(sResults[i]);
+				
 	 		}
 	 		if (hubAPI.messages.hasMore()){
 	 			data.push("has_more");
 	 		}
+	 		
 	 		loadTable(data, _category);
 		});
 		
@@ -214,11 +215,11 @@ function InboxView (_authToken){
 		
 		var titleView = Ti.UI.createView({
 			backgroundColor: 'e5eaf0',
-			bottom: 5,
+			bottom: 1,
 			height: 70,
-			width: (hubAPI.app_width - 10),
-			right: 5, 
-			left: 5,
+			width: (hubAPI.app_width - 2),
+			right: 1, 
+			left: 0,
 			borderColor:'#e0e0e0',
 			borderWidth:1,
 			layout:'horizontal'
@@ -252,50 +253,72 @@ function InboxView (_authToken){
 				top: 0, 
 				left: 0,
 			});
-			
+			var sender = item.participants[item.participants.length-1];//.participants[participants.length-1];
 			var messageIcon = Ti.UI.createImageView({
-				image: hubAPI.imagePath("new_message_icon.png"),
-				height: 50, 
+				image: sender.avatarUrl,
+				width: 50, 
 				top: 0,
 				left: 0,
 			});
 
+			var messageTitle = Ti.UI.createView({
+				top: 0, 
+				left: 2, 
+				
+			});
+			
+			var messageDetails = Ti.UI.createView({
+				top:0, 
+				left: 5, 
+			});
+			
+			messageSenderText = sender.displayName;
+			if (item.messageCount){
+				messageSenderText = messageSenderText + "(" + item.messageCount + ")";
+			} 
 			var messageSender = Ti.UI.createLabel({
-				text: "Abby Winslow (3)",
+				text: messageSenderText,
 				width: 'auto',
 				color: '#5e656a',
-				left: 5,
+				left: 0,
 				top: 0,
 				font: {
-					fontSize: 10
+					fontSize: 12
 				},
 				
 			});
 			
 			var messageTime = Ti.UI.createLabel({
-				text: "Nov 22, 2011 - 08:22 AM",
+				text: item.lastUpdatedFormatted,
 				width: 'auto',
 				color: 'black',
-				right: 5,
+				right: 3,
 				top: 0,
 				font: {
-					fontSize: 10
+					fontSize: 11
 				},
 				
 			});
 			
+			messageTitle.add(messageSender, messageTime);
+			
 			var messageSubject = Ti.UI.createLabel({
-				text: "This is the subject of the message",
+				text: item.messageSubject,
 				width: 'auto',
 				color: 'black',
+				top: 30,
 				left: 5,
-				bottom: 0,
 				font: {
-					fontSize: 10
+					fontSize: 13
 				},
 				
 			});
-			messageHolder.add(messageIcon, messageSender, messageTime, messageSubject);
+			
+			
+			messageDetails.add(messageTitle);
+			messageDetails.add(messageSubject);
+			
+			messageHolder.add(messageIcon, messageDetails);
 			titleView.add(messageHolder);
 	
 		}

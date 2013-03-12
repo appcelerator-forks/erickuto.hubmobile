@@ -16,7 +16,6 @@ function ApplicationWindow() {
 	self.add(navGroup);
 	
 	this.openNewWindow = function(){
-		
 		navGroup.open(Ti.App.globalWindow);
 	}
 	this.closeWindow = function(){
@@ -24,6 +23,6 @@ function ApplicationWindow() {
 	}
 	this.openMainWindow = function(){
 		self.open();
-		}
+	}
 };
 module.exports = ApplicationWindow;

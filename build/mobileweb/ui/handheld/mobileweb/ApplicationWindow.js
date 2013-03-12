@@ -1,57 +1,29 @@
 //Application Window Component Constructor
 function ApplicationWindow() {
-	
-	var utilities = require("ui/common/utilities");
-	var util = new utilities();
-	var hsf = util.height_scale_factor;
-	var wsf = util.width_scale_factor;
-	var margin_offset = (util.app_width-350*wsf)/2;
-	//create object instance
-	var self = Ti.UI.createWindow({
-		backgroundColor:util.customBgColor,
+
+	var win = Titanium.UI.createWindow({
+		backgroundColor:hubAPI.customBgColor,
 	});
+	
 	LoginView = require('ui/common/LoginView');
 	var loginView = new LoginView();
 	
-	//declare module dependencies
-	/*var rss = require('services/rss'),
-		MainView = require('ui/common/MainView'),
-		ProfileView = require('ui/common/ProfileView');
-*/
-	
-	//create detail view container
-	//var detailContainerWindow = Ti.UI.createWindow();
-	//detailContainerWindow.add(detailView);
+    var tab = Titanium.UI.createTab({
+            window: loginView
+        });
+ 
+    var tabGroup = Titanium.UI.createTabGroup();
+    tabGroup.addTab(tab);
 
-	//create Mobile Web specific NavGroup UI
-	
-	var navGroup = Ti.UI.MobileWeb.createNavigationGroup({
-		window:loginView
-	});
-	self.add(navGroup);
-
-	this.openNewWindow = function(){
-		navGroup.open(Ti.App.globalWindow);
-		}
-	this.openMainWindow = function(){
-		self.open();
-		}
-	//add behavior for master view
-	/*masterView.addEventListener('itemSelected', function(e) {
-		detailView.showArticle(e.link);
-		navGroup.open(detailContainerWindow);
-	});
-	
-	function refreshRSS() {
-		rss.loadRssFeed({
-			success: function(data) {
-	    		masterView.refreshRssTable(data);
-	    	}
-		});
+	this.openNewWindow = function(_win){
+		Titanium.UI.currentTab.open(Ti.App.globalWindow);
 	}
-	*/
-	// load initial rss feed
-	//refreshRSS();
+	this.openMainWindow = function(){
+		 tabGroup.open();
+		}
+	this.closeWindow = function(){
+		Ti.App.globalWindow.close();
+	}
 	
 	//return self;
 };

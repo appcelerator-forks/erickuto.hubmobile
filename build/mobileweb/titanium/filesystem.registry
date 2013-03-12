@@ -1,4 +1,4 @@
-ts	1361564024000
+ts	1363096590000
 .DS_Store	12292
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
@@ -40,6 +40,7 @@ images
 	radio_unselected.png	2099
 	recover_password_btn.png	19030
 	reload.jpeg	6976
+	reply.png	12537
 	search.png	5372
 	search_button.png	17371
 	search_events_selected.png	498
@@ -106,10 +107,10 @@ old_commons
 			ashoka_tree.png	12339
 services
 	Authentication.js	760
-	Connection.js	1313
+	Connection.js	1438
 	Exploration.js	4087
 	Logout.js	1157
-	Messages.js	1430
+	Messages.js	2932
 	Results.js	468
 	SearchResults.js	1496
 	Settings.js	172
@@ -280,14 +281,14 @@ ui
 		DetailView.js	349
 		FirstTimeView.js	1573
 		ForgotView.js	1212
-		LoginView.js	6774
+		LoginView.js	6939
 		MasterView.js	1290
 		UserView.js	1808
 		dashboardViews
 			ActivityView.js	777
 			EventsView.js	771
 			ExploreView.js	7540
-			InboxView.js	9254
+			InboxView.js	9703
 			NeedsView.js	768
 			OffersView.js	771
 			PeopleView.js	771
@@ -295,8 +296,9 @@ ui
 			SettingsView.js	777
 			exploreViews
 				AutoCompleteView.js	5249
-				NeonView.js	2848
-				SearchView.js	10319
+				MessageView.js	5602
+				NeonView.js	2818
+				SearchView.js	10264
 				SelectorView.js	1659
 		tableViewMultiSelectRows.js	2281
 		utilities.js	4374
@@ -304,6 +306,6 @@ ui
 		android
 			ApplicationWindow.js	1237
 		ios
-			ApplicationWindow.js	609
+			ApplicationWindow.js	605
 		mobileweb
-			ApplicationWindow.js	1440
+			ApplicationWindow.js	673

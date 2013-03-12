@@ -24,7 +24,7 @@ Ti.App.addEventListener("Messages", function(){
 			else{
 				hasMore = false; 
 			}
-			if (category === "message_threads/count"){
+			if (category === "mobile/message_threads/count"){
 				counts = _json;
 				Ti.App.fireEvent('showMessagePage');
 			}
@@ -42,15 +42,67 @@ Ti.App.addEventListener("Messages", function(){
 
 function Messages(_category, _params){
 	
-	category = _category; 
+	category = "mobile/" + _category; 
 	params = _params; 
 	
-	this.getMessages = function(_results){
+	this.getMessageThreads = function(_results){
 			for (i = 0; i < results.length; i++){
 				_results.push(results[i]);
 			}
 	};
-
+	var getParticipant = function(participant_id, thread_id){
+		participants = results[thread_id].participants; 
+		var index = 0; 
+		
+		while (index < participants.length){
+			if (participants[index].id === parseInt(participant_id)){
+				return participants[index]; 
+			}
+			index++; 
+		}
+		
+		Ti.API.info('RED ALERT!! PARTICIPANT NOT FOUND ' + participant_id);
+		Ti.API.info(JSON.stringify(participants));
+		return null; 
+		
+	}
+	this.getMessages = function(index, message_thread){
+		message_thread = {
+			messages:[],
+			recipient:{
+				name:"", 
+				image_url:"",
+			},
+		};
+		var recipient_object = results[index].participants[0];
+		recipient_details = getParticipant(recipient_object.participantPath.replace("/users/", ""), index);
+		message_thread.recipient.name = recipient_details.displayName; 
+		message_thread.recipient.image_url = recipient_details.avatarUrl;
+		messages_input = results[index].messageContent; 
+		
+		for (var i = 0; i < messages_input.length; i++) {
+			
+			message = {
+				sender:{},
+				body:"",
+				time:"",
+			};
+			sender = {
+				name:"",
+				image_url:"",
+			};
+			participant_id = messages_input[i].user_id; 
+			participant = getParticipant(participant_id, index);
+			sender.name = participant.displayName; 
+			sender.image_url = participant.avatarUrl;
+			message.sender = sender; 
+			message.body = messages_input[i].body;
+			message.time = messages_input[i].updated_at;
+			message_thread.messages.push(message);
+		}
+		
+		return message_thread;
+	}
 	this.getCounts = function(_category){
 		return counts[_category]; 
 	};

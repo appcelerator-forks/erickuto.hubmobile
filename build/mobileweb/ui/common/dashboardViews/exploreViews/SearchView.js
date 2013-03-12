@@ -54,7 +54,6 @@ function SearchView (_authToken){
 				if (neon)
 				{
 					NeonView = require("ui/common/dashboardViews/exploreViews/NeonView");
-					var neon = hubAPI.searchResults.getNeon(e.index);
 					var neonView = new NeonView(neon); 
 					Ti.App.globalWindow = neonView;
 					Ti.App.fireEvent('openWindow',{});

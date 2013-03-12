@@ -97,7 +97,6 @@ function buildNeonView(neon){
 	
 	contentLocation.add(neonTitleLocation, neonDetailLocation);
 	
-	Ti.API.info(neonDetailHtml);
 	if (neonDetailHtml && neonDetailHtml != "<p></p>"){
 		neonDetailHtml = "<div style = \"font-size:14px\">" + neonDetailHtml + "</div>"
 	}else{
