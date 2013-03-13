@@ -14,7 +14,7 @@ function ApplicationWindow() {
     var tabGroup = Titanium.UI.createTabGroup();
     tabGroup.addTab(tab);
 
-	this.openNewWindow = function(_win){
+	this.openNewWindow = function(){
 		Titanium.UI.currentTab.open(Ti.App.globalWindow);
 	}
 	this.openMainWindow = function(){

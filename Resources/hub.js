@@ -14,7 +14,7 @@ hubAPI.imagePath = function(imagePath){
 }
 
 /* Time out functionality. */
-hubAPI.indicate = function(appWideActivity, displayView){
+hubAPI.indicate = function(appWideActivity, displayView, indicatorMessage){
 	// create an imageview and set it to the width and height of your images
 	indicatorHolder = Ti.UI.createView({
 		layout: "vertical", 
@@ -22,8 +22,10 @@ hubAPI.indicate = function(appWideActivity, displayView){
 		width: 300, 
 		top: 0, 
 	});
-	
-	iText = "Loading " + appWideActivity + "..."; 
+	if (!indicatorMessage){
+		indicatorMessage = "Loading " + appWideActivity + "..."; 
+	}
+	iText = indicatorMessage; 
 	indicatorText = Ti.UI.createLabel({
 		top: 5, 
 		text: iText, 
@@ -71,7 +73,7 @@ hubAPI.indicate = function(appWideActivity, displayView){
 	  			}
 				hubAPI.indicate(appWideActivity, displayView);
 	  		});
-	  		indicatorText.text = "Loading " + appWideActivity + " timed out. Click here to refresh."
+	  		indicatorText.text = indicatorMessage + " timed out. Click here to refresh."
 	  }
 	}
 	 

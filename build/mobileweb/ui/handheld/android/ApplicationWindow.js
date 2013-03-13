@@ -11,7 +11,7 @@ function ApplicationWindow() {
 	LoginView = require('ui/common/LoginView');
 	var loginView = new LoginView();
 	
-	this.openNewWindow = function(_win){
+	this.openNewWindow = function(){
 		Ti.App.globalWindow.modal = true;
 		Ti.App.globalWindow.open();
 	}

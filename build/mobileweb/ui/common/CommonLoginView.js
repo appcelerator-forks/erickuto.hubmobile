@@ -16,7 +16,7 @@ function CommonLoginView(){
 		win.hideNavBar(); 
 	}
 	var canvas = Ti.UI.createView({});
-
+	
 	var logoImage = Ti.UI.createImageView({
 		top:15*hsf,
 		width:300*wsf, 
@@ -35,6 +35,8 @@ function CommonLoginView(){
 	    width: hub.API.app_width,
 	});	
 	canvas.add(contentWrapper);
+	canvas.ContentWrapper = contentWrapper; 
+	
 	canvas.add(borderBottom);
 	logoCanvas.add(logoImage);
 	canvas.add(logoCanvas);
@@ -64,6 +66,7 @@ function CommonLoginView(){
 	}));
 
 	win.add(canvas);
+	win.Canvas = canvas; 
 	
 	
 	this.open = function(){
@@ -76,8 +79,26 @@ function CommonLoginView(){
 		contentWrapper.add(_content);
 	};
 
-	CommonLoginView.prototype.appwin = win; 
+	this.showNavBar = function(){
+		win.navBarHidden = false;
+		win.tabBarHidden = false;
+	};
+	this.hideNavBar = function(){
+		win.navBarHidden = true;
+        win.tabBarHidden = true;
+	}
 	
+	this.clearCanvas = function(){
+		canvas.remove(canvas.ContentWrapper);
+		newContentWrapper = Ti.UI.createView({
+		    top: 145*hsf,
+		    width: hub.API.app_width,
+		});	
+		canvas.add(newContentWrapper);
+		canvas.ContentWrapper = newContentWrapper;
+	}
+	
+	CommonLoginView.prototype.appwin = win; 
 }
 
 module.exports = CommonLoginView;

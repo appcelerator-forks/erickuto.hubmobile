@@ -70,6 +70,7 @@ function LoginView(){
 	
 	loginBtn.addEventListener('click',function(e)
 		{
+			
 			username.blur();
 			password.blur();
 			if (username.value != '' && password.value != '')
@@ -96,7 +97,7 @@ function LoginView(){
 	
 	forgotLabel.addEventListener('click',function(e){
 		handleForgotEvent();
-		});
+	});
 		
 	var firstLabel = Titanium.UI.createLabel({
 		right:margin_offset,
@@ -124,7 +125,6 @@ function LoginView(){
 		color:hub.API.util.customTextColor,
 		text: '|'
 	});
-	
 	
 	win.addContent(forgotLabel);
 	win.addContent(username);
@@ -167,6 +167,7 @@ function LoginView(){
 		left:10,
 		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hub.API.util.customTitleColor}
 	}));
+	
 	topicLabel = Ti.UI.createLabel({
 		text: 'About Us',
 		top:10*hsf, 
@@ -274,7 +275,9 @@ function LoginView(){
     }
 
     function handleLoginEvent(_username, _password){
-    	AuthClient = require('services/Authentication');
+    	win.clearCanvas();
+    	Ti.API.info("Canvas Clear?");
+    	/*AuthClient = require('services/Authentication');
     	var isAuthenticated = new AuthClient({
     		start: function() {
     		},
@@ -288,7 +291,7 @@ function LoginView(){
     			grantEntrance();
     		}
     	}, _username, _password);
-    	
+    	*/
     }
 	return win.appwin;
 
