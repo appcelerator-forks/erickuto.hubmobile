@@ -76,7 +76,7 @@ function CommonLoginView(){
 		win.close();
 	};
 	this.addContent = function(_content){
-		contentWrapper.add(_content);
+		canvas.ContentWrapper.add(_content);
 	};
 
 	this.showNavBar = function(){
@@ -90,20 +90,6 @@ function CommonLoginView(){
 	
 	this.clearCanvas = function(){
 		canvas.remove(canvas.ContentWrapper);
-
-		if(contentWrapper.children)
-	    {
-	    	var i = 0; 
-	        while(i < contentWrapper.children.length)
-	        {
-	            var len = contentWrapper.children.length;
-	            contentWrapper.children[len-1].hide();
-	            i++; 
-	        }
-	        i
-	        Ti.API.info("Len is " + len);
-	    }
-    
 		newContentWrapper = Ti.UI.createView({
 		    top: 145*hsf,
 		    backgroundColor: "red",

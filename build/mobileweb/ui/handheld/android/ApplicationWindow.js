@@ -18,7 +18,9 @@ function ApplicationWindow() {
 	this.openMainWindow = function(){
 		self.open();
 		}
-	
+	this.closeWindow = function(){
+		Ti.App.globalWindow.close();
+	}
 	//return self;
 };
 module.exports = ApplicationWindow;

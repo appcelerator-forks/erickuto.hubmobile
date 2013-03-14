@@ -16,6 +16,7 @@ function LoginView(){
 			      fontSize:12*hsf,
 			      fontFamily: hub.API.util.customFont
 			   },
+			   opacity: 0,
 				color:'red'
 		});
 			
@@ -237,14 +238,13 @@ function LoginView(){
 		color:hub.API.util.customTextColor
 	}));
     
-    
-    
 	win.addContent(infoRow);
 		
 	function grantEntrance(){
     	DashboardView = require('ui/common/DashboardView');
     	dashboardView = new DashboardView();
     	openWindow(dashboardView);
+    	
     };
     
     function handleFirstEvent(){
@@ -272,26 +272,65 @@ function LoginView(){
 		password.borderWidth = 1;
 	
 		errorPane.text = "Invalid email or password.";
+		errorPane.opacity = 1; 
+		
+		var timeElapsed = 0; 
+		ttk = 5000;
+		intervalLength = 1000; 
+		function loadingAnimation(){
+			 if (timeElapsed >= ttk){
+			 	username.borderColor = '#e0e0e0';
+				username.borderRadius = 5;
+				username.borderWidth = 1;
+				password.borderColor = '#e0e0e0';
+				password.borderRadius = 5;
+				password.borderWidth = 1;
+				errorPane.opacity = 0; 
+			 	clearInterval(loaderAnimate);
+			 }
+			 timeElapsed += intervalLength; 
+		}
+		var loaderAnimate = setInterval(loadingAnimation,intervalLength);
     }
 
+	function showError(errorText){
+		errorPane.text = errorText;
+		errorPane.opacity = 1; 
+		var timeElapsed = 0; 
+		ttk = 5000;
+		intervalLength = 1000; 
+		function loadingAnimation(){
+			 if (timeElapsed >= ttk){
+			 	errorPane.opacity = 0; 
+			 	clearInterval(loaderAnimate);
+			 }
+			 timeElapsed += intervalLength; 
+		}
+		var loaderAnimate = setInterval(loadingAnimation,intervalLength);
+	
+	}
+	
     function handleLoginEvent(_username, _password){
-    	win.clearCanvas();
-    	Ti.API.info("Canvas Clear?");
-    	/*AuthClient = require('services/Authentication');
+
+		indicatorMessage = "Loggin in " + _username + "..."; 
+    	AuthClient = require('services/Authentication');
     	var isAuthenticated = new AuthClient({
     		start: function() {
+    			//hub.API.indicate(indicatorMessage);
     		},
     		error: function() {
-    			errorPane.text = "Error:There was a problem connecting to Ashoka Hub.";
+    			//Ti.App.fireEvent("stopIndicator");
+    			showError("Error:There was a problem connecting to Ashoka Hub."); 
     			},
     		failure: function() { 
-    			denyEntrance()
+    			//Ti.App.fireEvent("stopIndicator");
+    			denyEntrance();
     			},
     		success: function(){
     			grantEntrance();
     		}
     	}, _username, _password);
-    	*/
+    	
     }
 	return win.appwin;
 

@@ -13,79 +13,35 @@ hubAPI.imagePath = function(imagePath){
 	return util.imagePath(imagePath);	
 }
 
-/* Time out functionality. */
-hubAPI.indicate = function(appWideActivity, displayView, indicatorMessage){
-	// create an imageview and set it to the width and height of your images
-	indicatorHolder = Ti.UI.createView({
-		layout: "vertical", 
-		height: 250, 
-		width: 300, 
-		top: 0, 
-	});
-	if (!indicatorMessage){
-		indicatorMessage = "Loading " + appWideActivity + "..."; 
-	}
-	iText = indicatorMessage; 
-	indicatorText = Ti.UI.createLabel({
-		top: 5, 
-		text: iText, 
-		height: 100, 
-		width: 300, 
-	});
-	indicatorImage=  Ti.UI.createImageView({
-	  top: 5, 
-	  width:54,
-	  height:54
-	});
-	
-	indicatorHolder.add(indicatorText, indicatorImage);
-	
-	// set the length of the images you have in your sequence
-	var loaderArrayLength=7;
-	// initialize the index to 0
-	var loaderIndex=0;
-	var timeElapsed = 0; 
-	var intervalLength = 90; 
-	
-	/*Time To Kill*/
-	var ttk = 10000; 
-	
-	// this function will be called by the setInterval
-	function loadingAnimation(){
-	  // set the image property of the imageview by constructing the path with the loaderIndex variable
-	  animation_image_path = "spinner/" + loaderIndex + ".jpg"
-	  indicatorImage.image = imagePath(animation_image_path);
-	  //increment the index so that next time it loads the next image in the sequence
-	  loaderIndex++;
-	  // if you have reached the end of the sequence, reset it to 1
-	  if(loaderIndex===loaderArrayLength){
-	  		loaderIndex=0;
-	  }
-	  timeElapsed += intervalLength; 
-	  if (timeElapsed >= ttk){
-	  		Ti.App.fireEvent("stopIndicator");
-	  		indicatorImage.image = imagePath("reload.jpeg");
-	  		indicatorImage.addEventListener('click', function(){
-	  			Ti.App.fireEvent(appWideActivity);
-	  			//Clear displayView
-	  			for (i = 0; i < displayView.children.length; i++){
-	  				displayView.remove(displayView.children[i]);
-	  			}
-				hubAPI.indicate(appWideActivity, displayView);
-	  		});
-	  		indicatorText.text = indicatorMessage + " timed out. Click here to refresh."
-	  }
-	}
-	 
-	// start the setInverval -- adjust the time to make a smooth animation
-	var loaderAnimate = setInterval(loadingAnimation,intervalLength);
-	Ti.App.addEventListener('stopIndicator', function(){
-	  	clearInterval(loaderAnimate);
-	});	
-	displayView.add(indicatorHolder);
-}
-	
 /*Hub API Helper functions*/
+
+hubAPI.indicate = function(indicatorMessage){
+	var ActivityIndicator = require("ui/common/ActivityIndicator");	
+	var activityIndicator = new ActivityIndicator();
+
+	activityIndicator.show(indicatorMessage);
+	
+	var intervalLength = 1000; 
+	var ttk = 10000; 
+	var timeElapsed = 0; 
+	
+	function loadingAnimation(){
+		 if (timeElapsed >= ttk){
+		 	stopAnimation();
+		 }
+		 timeElapsed += intervalLength; 
+	}
+	var loaderAnimate = setInterval(loadingAnimation,intervalLength);
+	
+	function stopAnimation(){
+		clearInterval(loaderAnimate);
+	  	activityIndicator.hide(); 
+	  	//stop appWideActivity.
+	}
+	Ti.App.addEventListener('stopIndicator', function(){
+	  	stopAnimation(); 
+	});	
+}
 hubAPI.fetchResults = function(category, order, page){
 	var results = [];
 	hubAPI.user.getAll(results);
@@ -96,6 +52,12 @@ hubAPI.fetchResults = function(category, order, page){
 	SearchResults = require("services/SearchResults");
 	hubAPI.searchResults = new SearchResults(category, results);
 	
+}
+
+hubAPI.getRemoteURL = function(_path, site){
+	//var mainURL = "http://localhost:3000/";
+	var mainURL = "http://greenhub-mobile.herokuapp.com/";
+	return mainURL + _path;
 }
 
 hubAPI.fetchMessages = function(category, page){

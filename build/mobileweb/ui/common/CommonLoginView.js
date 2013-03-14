@@ -76,7 +76,7 @@ function CommonLoginView(){
 		win.close();
 	};
 	this.addContent = function(_content){
-		contentWrapper.add(_content);
+		canvas.ContentWrapper.add(_content);
 	};
 
 	this.showNavBar = function(){
@@ -92,6 +92,7 @@ function CommonLoginView(){
 		canvas.remove(canvas.ContentWrapper);
 		newContentWrapper = Ti.UI.createView({
 		    top: 145*hsf,
+		    backgroundColor: "red",
 		    width: hub.API.app_width,
 		});	
 		canvas.add(newContentWrapper);
