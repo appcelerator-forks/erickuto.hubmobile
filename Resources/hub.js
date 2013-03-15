@@ -12,7 +12,7 @@ hubAPI.customTextColor = util.customTextColor;
 hubAPI.imagePath = function(imagePath){
 	return util.imagePath(imagePath);	
 }
-
+hubAPI.osname = util.osname; 
 /*Hub API Helper functions*/
 
 hubAPI.indicate = function(indicatorMessage){

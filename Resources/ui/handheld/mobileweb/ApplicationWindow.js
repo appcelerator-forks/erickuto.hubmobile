@@ -21,9 +21,8 @@ function ApplicationWindow() {
 		 tabGroup.open();
 		}
 	this.closeWindow = function(){
-		Ti.App.globalWindow.close();
+		Titanium.UI.currentTab.close(Ti.App.globalWindow);
 	}
-	
 	//return self;
 };
 module.exports = ApplicationWindow;

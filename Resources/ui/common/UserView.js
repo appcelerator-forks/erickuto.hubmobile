@@ -1,27 +1,41 @@
 function userView(){
 	
-	var utilities = require("ui/common/utilities");
-	util = new utilities();
-	var hsf = util.height_scale_factor;
-	var wsf = util.width_scale_factor;
+	hub = require("hub");
+	var hsf = hub.API.hsf;
+	var wsf = hub.API.wsf;
+	var margin_offset = (hub.API.app_width-350*wsf)/2;
 	
 	var win = Ti.UI.createWindow({
-		backgroundColor: util.customBgColor,
+		backgroundColor: hub.API.customBgColor,
 		layout:'vertical',
+		modal: true,
+		navBarHidden: true,
+        tabBarHidden: true,
 	}); 
-	win.showNavBar(); 
-	var canvas = Ti.UI.createView({});
-	
-	win.titleImage = util.imagePath("ashoka_logo_navbar.png");
-	win.barColor = '#d0ddef';
-	
+	//win.showNavBar(); 
+	var canvas = Ti.UI.createView({
+		top: 0, 
+		width: hub.API.app_width, 
+		layout: "vertical"
+	});
+
+	var navigationBarHolder = Ti.UI.createView({
+		top:0, 
+		width: hub.API.app_width, 
+		height: 57*hsf, 
+		backgroundImage: hub.API.imagePath("navbar_background.png"),
+	});
 	var contentWrapper = Ti.UI.createView({
-	    width: util.app_width,
+	    width: hub.API.app_width,
 	});	
-	var topLeftButton = Ti.UI.createButtonBar({
-		labels: [{title:'Sign Out', image:util.imagePath("back_nav_btn.png")}],
+	canvas.add(navigationBarHolder);
+	
+	var topLeftButton = Ti.UI.createImageView({
+		left: 5, 
+		top: 6,
+		height: 42*hsf,
+		image: hub.API.imagePath("sign_out.png"),
 		backgroundColor: '#d0ddef',
-		width:60,
 		});
 	
 	topLeftButton.addEventListener('click', function()
@@ -30,16 +44,23 @@ function userView(){
 		Ti.App.fireEvent('closeWindow',{});
 	});
 	
-	var helpButton = Ti.UI.createButtonBar({
-		//backgroundImage: util.imagePath("home_nav_btn.png"),
-		labels: [{title:' Help', image:util.imagePath("help_nav_btn.png")}],
+	
+	var topRightButton = Ti.UI.createImageView({
+		right: 5, 
+		top: 6,
+		height: 42*hsf,
+		image: hub.API.imagePath("help.png"),
 		backgroundColor: '#d0ddef',
-		width:60,
 		});
 	
-	win.leftNavButton = topLeftButton;
-	win.rightNavButton = helpButton;
-	
+	topRightButton.addEventListener('click', function()
+	{	
+		Ti.App.globalWindow = win;
+		Ti.App.fireEvent('closeWindow',{});
+	});
+	navigationBarHolder.add(topLeftButton);
+	navigationBarHolder.add(topRightButton);
+
 	canvas.add(contentWrapper);
 	
 	win.add(canvas);
@@ -59,13 +80,6 @@ function userView(){
 			Ti.App.fireEvent(_action);
 		});
 	} 
-	this.clearCanvas = function(){
-		for (i = 0; i < contentWrapper.children.length; i++){
-			if (contentWrapper.children[i]){
-				contentWrapper.remove(contentWrapper.children[i]);
-			}
-		}
-	}
 	userView.prototype.appwin = win; 
 }
 

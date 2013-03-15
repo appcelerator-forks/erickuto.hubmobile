@@ -244,7 +244,7 @@ function LoginView(){
     	DashboardView = require('ui/common/DashboardView');
     	dashboardView = new DashboardView();
     	openWindow(dashboardView);
-    	
+    	Ti.API.info("Opening dashboard");
     };
     
     function handleFirstEvent(){
@@ -311,8 +311,8 @@ function LoginView(){
 	}
 	
     function handleLoginEvent(_username, _password){
-
-		indicatorMessage = "Loggin in " + _username + "..."; 
+		grantEntrance();
+		/*indicatorMessage = "Loggin in " + _username + "..."; 
     	AuthClient = require('services/Authentication');
     	var isAuthenticated = new AuthClient({
     		start: function() {
@@ -330,7 +330,7 @@ function LoginView(){
     			grantEntrance();
     		}
     	}, _username, _password);
-    	
+    	*/
     }
 	return win.appwin;
 

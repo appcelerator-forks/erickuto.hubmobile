@@ -244,7 +244,7 @@ function LoginView(){
     	DashboardView = require('ui/common/DashboardView');
     	dashboardView = new DashboardView();
     	openWindow(dashboardView);
-    	
+    	Ti.API.info("Opening dashboard");
     };
     
     function handleFirstEvent(){
@@ -311,15 +311,14 @@ function LoginView(){
 	}
 	
     function handleLoginEvent(_username, _password){
-
 		indicatorMessage = "Loggin in " + _username + "..."; 
     	AuthClient = require('services/Authentication');
     	var isAuthenticated = new AuthClient({
     		start: function() {
-    			//hub.API.indicate(indicatorMessage);
+    			hub.API.indicate(indicatorMessage);
     		},
     		error: function() {
-    			//Ti.App.fireEvent("stopIndicator");
+    			Ti.App.fireEvent("stopIndicator");
     			showError("Error:There was a problem connecting to Ashoka Hub."); 
     			},
     		failure: function() { 

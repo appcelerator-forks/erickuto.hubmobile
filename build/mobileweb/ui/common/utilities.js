@@ -51,11 +51,6 @@ function Utilities(){
 		this.height_scale_factor = 1; 
 	}
 	
-	if (osname === "mobileweb"){
-		if (this.app_width > 400 ){
-			this.app_width = 400; 
-		}
-	}
 	this.imagePath = imagePath; 
 }
 

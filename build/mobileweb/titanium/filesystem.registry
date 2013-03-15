@@ -1,4 +1,4 @@
-ts	1363293861000
+ts	1363370754000
 .DS_Store	12292
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
@@ -14,23 +14,27 @@ apple-touch-icon-precomposed.png	6790
 controllers
 	LoginController.js	1254
 favicon.ico	0
-hub.js	2186
+hub.js	2215
 images
 	.DS_Store	15364
 	1_Login.jpg	183284
-	Done.png	1247
 	activity.png	5182
 	ashoka_banner.png	15141
+	ashoka_iphone_logo_navbar.png	10931
 	ashoka_login_btn.png	10716
 	ashoka_logo.png	27467
-	ashoka_logo_navbar.png	10931
+	ashoka_logo_navbar.png	21505
 	ashoka_tree.png	12339
 	back_nav_btn.png	2713
 	delete.png	766
+	done.png	10801
 	events.png	4996
+	help.png	8426
 	help_nav_btn.png	2910
+	home.png	9796
 	inbox.png	5090
 	more.png	1099
+	navbar_background.png	4491
 	needs.png	5072
 	new_message_icon.png	10520
 	offers.png	5413
@@ -54,6 +58,7 @@ images
 	search_people_selected.png	316
 	search_people_unselected.png	990
 	settings.png	6135
+	sign_out.png	10938
 	spinner
 		0.jpg	1403
 		1.jpg	1435
@@ -277,13 +282,13 @@ ui
 	common
 		ActivityIndicator.js	1666
 		CommonLoginView.js	2376
-		DashboardView.js	3350
+		DashboardView.js	5935
 		DetailView.js	349
 		FirstTimeView.js	1573
 		ForgotView.js	1212
-		LoginView.js	7991
+		LoginView.js	8046
 		MasterView.js	1290
-		UserView.js	1808
+		UserView.js	1947
 		dashboardViews
 			ActivityView.js	777
 			EventsView.js	771
@@ -301,11 +306,11 @@ ui
 				SearchView.js	10264
 				SelectorView.js	1659
 		tableViewMultiSelectRows.js	2281
-		utilities.js	1458
+		utilities.js	1365
 	handheld
 		android
 			ApplicationWindow.js	610
 		ios
 			ApplicationWindow.js	562
 		mobileweb
-			ApplicationWindow.js	629
+			ApplicationWindow.js	651
