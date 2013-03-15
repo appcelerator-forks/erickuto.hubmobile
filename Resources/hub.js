@@ -18,7 +18,7 @@ hubAPI.osname = util.osname;
 hubAPI.indicate = function(indicatorMessage){
 	var ActivityIndicator = require("ui/common/ActivityIndicator");	
 	var activityIndicator = new ActivityIndicator();
-
+		
 	activityIndicator.show(indicatorMessage);
 	
 	var intervalLength = 1000; 
@@ -31,17 +31,21 @@ hubAPI.indicate = function(indicatorMessage){
 		 }
 		 timeElapsed += intervalLength; 
 	}
-	var loaderAnimate = setInterval(loadingAnimation,intervalLength);
 	
 	function stopAnimation(){
 		clearInterval(loaderAnimate);
 	  	activityIndicator.hide(); 
 	  	//stop appWideActivity.
 	}
-	Ti.App.addEventListener('stopIndicator', function(){
-	  	stopAnimation(); 
-	});	
+	var loaderAnimate = setInterval(loadingAnimation,intervalLength);
+	
+	hubAPI.stopIndication = function(){
+		stopAnimation();
+		Ti.API.info("Animation stopped");
+	}
 }
+
+
 hubAPI.fetchResults = function(category, order, page){
 	var results = [];
 	hubAPI.user.getAll(results);

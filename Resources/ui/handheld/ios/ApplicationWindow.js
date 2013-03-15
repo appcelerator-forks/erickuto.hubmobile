@@ -18,6 +18,7 @@ function ApplicationWindow() {
 	}
 	this.closeWindow = function(){
 		navGroup.close(Ti.App.globalWindow);
+		Ti.API.info("Closed the iphone window.");
 	}
 	this.openMainWindow = function(){
 		self.open();

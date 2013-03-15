@@ -318,7 +318,7 @@ function LoginView(){
     			hub.API.indicate(indicatorMessage);
     		},
     		error: function() {
-    			Ti.App.fireEvent("stopIndicator");
+    			hub.API.stopIndication();
     			showError("Error:There was a problem connecting to Ashoka Hub."); 
     			},
     		failure: function() { 
@@ -326,7 +326,8 @@ function LoginView(){
     			denyEntrance();
     			},
     		success: function(){
-    			grantEntrance();
+    			hub.API.stopIndication();
+    			//grantEntrance();
     		}
     	}, _username, _password);
     	
