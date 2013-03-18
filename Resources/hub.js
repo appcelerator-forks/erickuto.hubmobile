@@ -23,7 +23,7 @@ hubAPI.indicate = function(indicatorMessage){
 	
 	var intervalLength = 1000; 
 	var ttk = 10000; 
-	var timeElapsed = 0; 
+	var timeElapsed = 05; 
 	
 	function loadingAnimation(){
 		 if (timeElapsed >= ttk){
