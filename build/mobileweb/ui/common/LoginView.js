@@ -1,13 +1,12 @@
 function LoginView(){
-	/*
+
 	var hsf = hubAPI.hsf;
 	var wsf = hubAPI.wsf;
 	var margin_offset = (hubAPI.app_width-350*wsf)/2;
-	*/
+	
 	var appWindow = require("ui/common/CommonLoginView");
     win = new appWindow();
 
-	/*
 	var errorPane = Ti.UI.createLabel({
 				text:"",
 				top:1, 
@@ -277,22 +276,19 @@ function LoginView(){
     	AuthClient = require('services/Authentication');
     	var isAuthenticated = new AuthClient({
     		start: function() {
-    			alert("Started");
     		},
     		error: function() {
-    			alert("Got an Eror");//errorPane.text = "Error:There was a problem connecting to Ashoka Hub.";
+    			errorPane.text = "Error:There was a problem connecting to Ashoka Hub.";
     			},
     		failure: function() { 
-    			alert("Got a failure!!");
-    			//denyEntrance()
+    			denyEntrance()
     			},
     		success: function(){
-    			alert("Successfully Logged in!");//grantEntrance();
+    			grantEntrance();
     		}
     	}, _username, _password);
     	
     }
-    */
 	return win.appwin;
 }	
 module.exports = LoginView;
