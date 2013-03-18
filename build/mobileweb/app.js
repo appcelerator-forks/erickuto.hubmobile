@@ -27,21 +27,8 @@ else {
 		User = require("services/User");
 		hub.API.user = new User();
 
-		var mainWindow = new Window();
-		mainWindow.openMainWindow();
-		
-		Ti.App.addEventListener('openWindow', function(event)
-		{
-			mainWindow.openNewWindow();
-		});
-		Ti.App.addEventListener('closeWindow', function(event)
-		{
-			mainWindow.closeWindow();
-		});
-		Ti.App.addEventListener('logout', function(event)
-		{
-			
-		});
+		hub.API.mainWindow = new Window();
+		hub.API.mainWindow.openMainWindow();
 	})();
 }
 

@@ -10,17 +10,18 @@ function ActivityScreen() {
 	//
 
 	var isControlsCreated = false;
-	var view1, view2, indicator;
+	var view1, view2, indicator, win;
 
-	function createControls(){
+	var createControls = function(){
 		if (isControlsCreated) {return;}
-		var win = Ti.UI.createWindow({
+
+		win = Ti.UI.createWindow({
 			titleControl: false, 
 			modal: true,
 			navBarHidden: true,
 	        tabBarHidden: true,
-        });
-		
+	    });
+	    
 		view1 = Ti.UI.createView({
 			height:'100%',
 			width:'100%',
@@ -59,6 +60,7 @@ function ActivityScreen() {
 		view2.add(indicator);
 
 		isControlsCreated = true;
+		
 	}
 
 	//
@@ -77,12 +79,13 @@ function ActivityScreen() {
 	};
 
 	this.hide = function(){
+		Ti.API.info("Page Loaded now we can ");
 		createControls();
-
 		view1.hide();
 		view2.hide();
 		indicator.hide();
-		Ti.App.fireEvent("closeWindow");
+		Ti.App.globalWindow = win;
+		Ti.App.fireEvent('closeWindow');
 	};
 };
 module.exports = ActivityScreen;

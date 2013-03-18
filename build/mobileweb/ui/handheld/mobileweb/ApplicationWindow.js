@@ -1,29 +1,30 @@
 //Application Window Component Constructor
 function ApplicationWindow() {
 
-	var win = Titanium.UI.createWindow({
+	var rootWindow = Ti.UI.createWindow({
+		backgroundColor: "black"
 	});
-	
-	LoginView = require('ui/common/LoginView');
-	var loginView = new LoginView();
-	
+
     var tab = Titanium.UI.createTab({
-            window: loginView
+            window: rootWindow
         });
  
     var tabGroup = Titanium.UI.createTabGroup();
     tabGroup.addTab(tab);
 
-	this.openNewWindow = function(){
-		Titanium.UI.currentTab.open(Ti.App.globalWindow);
+	this.openNewWindow = function(newWindow){
+		Titanium.UI.currentTab.open(newWindow);
+		Ti.API.info("Open new window");
 	}
 	this.openMainWindow = function(){
-		 tabGroup.open();
-		}
-	this.closeWindow = function(){
-		Titanium.UI.currentTab.close(Ti.App.globalWindow);
+		tabGroup.open();
+		LoginView = require('ui/common/LoginView');
+		var loginView = new LoginView();
+		Titanium.UI.currentTab.open(loginView);
 	}
-	
+	this.closeWindow = function(win){
+		Titanium.UI.currentTab.close(win);
+	}
 	//return self;
 };
 module.exports = ApplicationWindow;

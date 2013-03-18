@@ -254,8 +254,7 @@ function LoginView(){
     }
     
     function openWindow(_window){
-    	Ti.App.globalWindow = _window;
-		Ti.App.fireEvent('openWindow',{});
+    	hub.API.mainWindow.openNewWindow(_window);
     }
     function handleForgotEvent(){
     	ForgotView = require('ui/common/ForgotView');
@@ -312,13 +311,19 @@ function LoginView(){
 	
     function handleLoginEvent(_username, _password){
 		indicatorMessage = "Loggin in " + _username + "..."; 
-    	AuthClient = require('services/Authentication');
+		Ti.API.info(indicatorMessage);
+    	win.showIndicator(indicatorMessage);
+    	
+    	setTimeout(function(){
+		    win.hideIndicator(); 
+		  }, 6000);
+    	/*AuthClient = require('services/Authentication');
     	var isAuthenticated = new AuthClient({
     		start: function() {
-    			hub.API.indicate(indicatorMessage);
+    			
     		},
     		error: function() {
-    			hub.API.stopIndication();
+    			//hub.API.stopIndication();
     			showError("Error:There was a problem connecting to Ashoka Hub."); 
     			},
     		failure: function() { 
@@ -326,11 +331,11 @@ function LoginView(){
     			denyEntrance();
     			},
     		success: function(){
-    			hub.API.stopIndication();
+    			//hub.API.stopIndication();
     			//grantEntrance();
     		}
     	}, _username, _password);
-    	
+    	*/
     }
 	return win.appwin;
 

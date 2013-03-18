@@ -29,7 +29,7 @@ function DashboardView(){
 	var topLeftButton; 
 	var topRightButton; 
 	
-	if (hub.API.osname === "mobileweb" || hub.API.osname === "android"){
+	if (hub.API.osname === "mobileweb"){
 		var navigationBarHolder = Ti.UI.createView({
 			top:0, 
 			width: hub.API.app_width, 

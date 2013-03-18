@@ -27,6 +27,8 @@ function userView(){
 	});
 	var contentWrapper = Ti.UI.createView({
 	    width: hub.API.app_width,
+	    zIndex:9, 
+	    opacity: 1,
 	});	
 	canvas.add(navigationBarHolder);
 	
@@ -80,6 +82,30 @@ function userView(){
 			Ti.App.fireEvent(_action);
 		});
 	} 
+	this.showIndicator = function(indicatorMessage){
+		indicatorHolder = Ti.UI.createView({
+			top:0,
+			height:'100%',
+			width:'100%',
+			backgroundColor:'#000',
+			opacity:1,
+			zIndex:9
+		});
+		indicator = Titanium.UI.createActivityIndicator({
+			//style:style,
+			font:{fontFamily:'Arial', fontSize:18, fontWeight:'bold'},
+			color:'#FFF',
+			message:'Loading...',
+			height:'100%',
+			width:'auto'
+		});
+		indicatorHolder.hide();
+		indicatorHolder.add(indicator);
+		canvas.add(indicatorHolder);
+		contentWrapper.opacity = 0.3; 
+		contentWrapper.zIndex = 8;
+		indicatorHolder.show();
+	}
 	userView.prototype.appwin = win; 
 }
 

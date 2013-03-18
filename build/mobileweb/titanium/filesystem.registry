@@ -1,11 +1,11 @@
-ts	1363370754000
+ts	1363621020000
 .DS_Store	12292
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
 KS_nav_ui.png	1158
 KS_nav_views.png	1074
-app.js	1144
+app.js	894
 appicon.png	19109
 apple-touch-icon-114x114-precomposed.png	15820
 apple-touch-icon-57x57-precomposed.png	6790
@@ -14,7 +14,7 @@ apple-touch-icon-precomposed.png	6790
 controllers
 	LoginController.js	1254
 favicon.ico	0
-hub.js	2215
+hub.js	2234
 images
 	.DS_Store	15364
 	1_Login.jpg	183284
@@ -280,15 +280,15 @@ titanium.css	37837
 titanium.js	492840
 ui
 	common
-		ActivityIndicator.js	1666
-		CommonLoginView.js	2376
-		DashboardView.js	5935
+		ActivityIndicator.js	1747
+		CommonLoginView.js	3958
+		DashboardView.js	5903
 		DetailView.js	349
 		FirstTimeView.js	1573
 		ForgotView.js	1212
-		LoginView.js	8046
+		LoginView.js	8144
 		MasterView.js	1290
-		UserView.js	1947
+		UserView.js	2595
 		dashboardViews
 			ActivityView.js	777
 			EventsView.js	771
@@ -311,6 +311,6 @@ ui
 		android
 			ApplicationWindow.js	610
 		ios
-			ApplicationWindow.js	562
+			ApplicationWindow.js	664
 		mobileweb
-			ApplicationWindow.js	651
+			ApplicationWindow.js	737
