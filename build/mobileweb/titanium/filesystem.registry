@@ -1,11 +1,12 @@
-ts	1363621020000
+ts	1363706318000
 .DS_Store	12292
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
 KS_nav_ui.png	1158
 KS_nav_views.png	1074
-app.js	894
+NavigationController.js	1837
+app.js	452
 appicon.png	19109
 apple-touch-icon-114x114-precomposed.png	15820
 apple-touch-icon-57x57-precomposed.png	6790
@@ -14,10 +15,11 @@ apple-touch-icon-precomposed.png	6790
 controllers
 	LoginController.js	1254
 favicon.ico	0
-hub.js	2234
+hub.js	2674
 images
 	.DS_Store	15364
 	1_Login.jpg	183284
+	Done.png	10801
 	activity.png	5182
 	ashoka_banner.png	15141
 	ashoka_iphone_logo_navbar.png	10931
@@ -27,7 +29,6 @@ images
 	ashoka_tree.png	12339
 	back_nav_btn.png	2713
 	delete.png	766
-	done.png	10801
 	events.png	4996
 	help.png	8426
 	help_nav_btn.png	2910
@@ -281,14 +282,14 @@ titanium.js	492840
 ui
 	common
 		ActivityIndicator.js	1747
-		CommonLoginView.js	3958
+		CommonLoginView.js	2922
 		DashboardView.js	5903
 		DetailView.js	349
 		FirstTimeView.js	1573
 		ForgotView.js	1212
-		LoginView.js	8144
+		LoginView.js	8130
 		MasterView.js	1290
-		UserView.js	2595
+		UserView.js	2791
 		dashboardViews
 			ActivityView.js	777
 			EventsView.js	771
@@ -307,10 +308,10 @@ ui
 				SelectorView.js	1659
 		tableViewMultiSelectRows.js	2281
 		utilities.js	1365
-	handheld
+	handheld_delete
 		android
 			ApplicationWindow.js	610
 		ios
 			ApplicationWindow.js	664
 		mobileweb
-			ApplicationWindow.js	737
+			ApplicationWindow.js	809

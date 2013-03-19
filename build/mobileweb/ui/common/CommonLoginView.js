@@ -6,7 +6,7 @@ function CommonLoginView(){
 	
 	var win = Ti.UI.createWindow({
 		backgroundColor: hub.API.customBgColor,
-		layout:'vertical',
+		//layout:'vertical',
 		titleControl: false, 
 		modal: true,
 		navBarHidden: true,
@@ -87,44 +87,17 @@ function CommonLoginView(){
 		height:'100%',
 		width:'auto'
 	});
-		
-	if (hub.API.osname === "android"){
-		
-		var win2 = Ti.UI.createWindow({
-		  backgroundColor: 'yellow',
-		  fullscreen: true
-		});
-		win2.add(indicator);
+
+	var win2 = Ti.UI.createWindow({
+	  backgroundColor: '#000',
+	  opacity: 0.5,
+	  fullscreen: true
+	});
+	win2.add(indicator);
 	
-		// eventListeners must always be loaded before the event is likely to fire
-		// hence, the open() method must be positioned before the window is opened
-		win2.addEventListener('open', function (e) {
-		  indicator.show();
-		  // do some work that takes 6 seconds
-		  // ie. replace the following setTimeout block with your code
-		  /*setTimeout(function(){
-		    e.source.close();
-		    activityIndicator.hide();
-		  }, 6000);*/
-		});
-	}
-	else{
-		//For iphone and mobile web
-		indicatorHolder = Ti.UI.createView({
-			top:0,
-			height:'100%',
-			width:'100%',
-			backgroundColor:'grey',
-			opacity:1,
-			zIndex:9
-		});
-		
-		indicatorHolder.hide();
-			
-		indicatorHolder.add(indicator);
-		canvas.add(indicatorHolder);
-	}
-	
+	win2.addEventListener('open', function (e) {
+	  indicator.show();
+	});
 	
 		
 	this.open = function(){
@@ -134,7 +107,7 @@ function CommonLoginView(){
 		win.close();
 	};
 	this.addContent = function(_content){
-		canvas.ContentWrapper.add(_content);
+		contentWrapper.add(_content);
 	};
 
 	this.showNavBar = function(){
@@ -147,29 +120,13 @@ function CommonLoginView(){
 	}
 	
 	this.showIndicator = function(indicatorMessage){
-		if (hub.API.osname === "android"){
-			win2.open();
-		}
-		else{
-			contentWrapper.opacity = 0.3; 
-			contentWrapper.zIndex = 8;
-			indicatorHolder.show();
-			indicator.show();
-		}
 		
+		hub.API.openWindow(win2);
 	}
 
 	this.hideIndicator = function(){
-		if (hub.API.osname === "android"){
-			win2.close();
-			indicator.hide();
-		}
-		else{
-			contentWrapper.opacity = 1.0; 
-			contentWrapper.zIndex = 9;
-			indicatorHolder.hide();
-			indicator.hide();
-		}
+		hub.API.closeWindow(win2);
+		indicator.hide();
 	}
 	CommonLoginView.prototype.appwin = win; 
 }

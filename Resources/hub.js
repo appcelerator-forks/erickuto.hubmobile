@@ -13,7 +13,22 @@ hubAPI.imagePath = function(imagePath){
 	return util.imagePath(imagePath);	
 }
 hubAPI.osname = util.osname; 
+
+//require the UI components necessary to drive the test
+var NavigationController = require('NavigationController').NavigationController;
+		
+//create NavigationController which will drive our simple application
+hubAPI.controller = new NavigationController();
+		
 /*Hub API Helper functions*/
+hubAPI.openWindow = function(windowToOpen){
+	hubAPI.controller.open(windowToOpen);
+}
+
+//Closes the current window
+hubAPI.closeWindow = function(){
+	hubAPI.controller.close(); 
+}
 
 hubAPI.indicate = function(indicatorMessage){
 	var ActivityIndicator = require("ui/common/ActivityIndicator");	
@@ -23,7 +38,7 @@ hubAPI.indicate = function(indicatorMessage){
 	
 	var intervalLength = 1000; 
 	var ttk = 10000; 
-	var timeElapsed = 05; 
+	var timeElapsed = 0; 
 	
 	function loadingAnimation(){
 		 if (timeElapsed >= ttk){

@@ -82,6 +82,15 @@ function userView(){
 			Ti.App.fireEvent(_action);
 		});
 	} 
+	this.showNavBar = function(){
+		win.navBarHidden = false;
+		win.tabBarHidden = false;
+	};
+	this.hideNavBar = function(){
+		win.navBarHidden = true;
+        win.tabBarHidden = true;
+	}
+	
 	this.showIndicator = function(indicatorMessage){
 		indicatorHolder = Ti.UI.createView({
 			top:0,

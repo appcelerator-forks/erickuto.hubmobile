@@ -254,7 +254,7 @@ function LoginView(){
     }
     
     function openWindow(_window){
-    	hub.API.mainWindow.openNewWindow(_window);
+    	hub.API.openWindow(_window);
     }
     function handleForgotEvent(){
     	ForgotView = require('ui/common/ForgotView');
