@@ -13,7 +13,7 @@ exports.NavigationController.prototype.open = function(/*Ti.UI.Window*/windowToO
 	});
 	
 	//hack - setting this property ensures the window is "heavyweight" (associated with an Android activity)
-	//windowToOpen.navBarHidden = windowToOpen.navBarHidden || false;
+	windowToOpen.navBarHidden = windowToOpen.navBarHidden || false;
 	
 	//This is the first window
 	if(this.windowStack.length === 1) {
@@ -25,7 +25,15 @@ exports.NavigationController.prototype.open = function(/*Ti.UI.Window*/windowToO
 			containerWindow.add(this.navGroup);
 			containerWindow.open();
 		}
-		else{
+		else if (Ti.Platform.osname === 'mobileweb') {
+			this.navGroup = Ti.UI.MobileWeb.createNavigationGroup({
+				window : windowToOpen
+			});
+			var containerWindow = Ti.UI.createWindow();
+			containerWindow.add(this.navGroup);
+			containerWindow.open();
+		}
+		else {
 			windowToOpen.exitOnClose = true;
 			windowToOpen.open();
 		}
@@ -35,6 +43,9 @@ exports.NavigationController.prototype.open = function(/*Ti.UI.Window*/windowToO
 		if(Ti.Platform.osname === 'iphone') {
 			this.navGroup.open(windowToOpen);
 		} 
+		else if (Ti.Platform.osname === 'mobileweb'){
+			this.navGroup.open(windowToOpen);
+		}
 		else {
 			windowToOpen.open();
 		}

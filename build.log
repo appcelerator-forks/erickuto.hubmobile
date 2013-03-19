@@ -5,17 +5,13 @@ Logfile initialized
 [INFO] Titanium SDK version: 3.0.0 (12/12/12 18:49 a5894b3)
 [DEBUG] Waiting for device to be ready ...
 [TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[TRACE] adb devices returned 1 devices/emulators
-[DEBUG] Device connected... (waited 15 seconds)
-[DEBUG] waited 15.096687 seconds on emulator to get ready
-[INFO] Waiting for the Android Emulator to become available
+[DEBUG] Device connected... (waited 0 seconds)
+[DEBUG] waited 0.018761 seconds on emulator to get ready
 [DEBUG] com.ashoka.hubmobile installed? True
 [INFO] Fastdev server running, deploying in Fastdev mode
 [INFO] Copying CommonJS modules...
 [INFO] Copying project resources..
-[TRACE] COPYING MODIFIED FILE: /Users/ekuto/titanium/hubmobile/Resources/NavigationController.js => /Users/ekuto/titanium/hubmobile/build/android/bin/assets/Resources/NavigationController.js
+[TRACE] COPYING MODIFIED FILE: /Users/ekuto/titanium/hubmobile/Resources/ui/common/CommonLoginView.js => /Users/ekuto/titanium/hubmobile/build/android/bin/assets/Resources/ui/common/CommonLoginView.js
 [INFO] Tiapp.xml unchanged, skipping class generation
 [DEBUG] Processing Android resource drawables
 [DEBUG] found drawable-long-land-hdpi splash screen at /Users/ekuto/titanium/hubmobile/Resources/android/images/res-long-land-hdpi/default.png
@@ -28,9 +24,9 @@ Logfile initialized
 [DEBUG] found drawable-notlong-port-hdpi splash screen at /Users/ekuto/titanium/hubmobile/Resources/android/images/res-notlong-port-hdpi/default.png
 [DEBUG] found drawable-notlong-port-ldpi splash screen at /Users/ekuto/titanium/hubmobile/Resources/android/images/res-notlong-port-ldpi/default.png
 [DEBUG] found drawable-notlong-port-mdpi splash screen at /Users/ekuto/titanium/hubmobile/Resources/android/images/res-notlong-port-mdpi/default.png
-[INFO] Waiting for SDCard to become available..
 [INFO] Re-launching application ... hubmobile
 [INFO] Launching application ... hubmobile
 [TRACE] Launch output: Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.ashoka.hubmobile/.HubmobileActivity }
+Warning: Activity not started, its current task has been brought to the front
 
 [INFO] Android Emulator has exited

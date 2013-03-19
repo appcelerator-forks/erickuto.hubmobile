@@ -1,11 +1,11 @@
-ts	1363706318000
+ts	1363724553000
 .DS_Store	12292
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
 KS_nav_ui.png	1158
 KS_nav_views.png	1074
-NavigationController.js	1837
+NavigationController.js	2183
 app.js	452
 appicon.png	19109
 apple-touch-icon-114x114-precomposed.png	15820
@@ -282,7 +282,7 @@ titanium.js	492840
 ui
 	common
 		ActivityIndicator.js	1747
-		CommonLoginView.js	2922
+		CommonLoginView.js	3612
 		DashboardView.js	5903
 		DetailView.js	349
 		FirstTimeView.js	1573
