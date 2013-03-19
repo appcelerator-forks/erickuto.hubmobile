@@ -1,5 +1,6 @@
 function LoginView(){
 
+<<<<<<< HEAD
 	var hsf = hubAPI.hsf;
 	var wsf = hubAPI.wsf;
 	var margin_offset = (hubAPI.app_width-350*wsf)/2;
@@ -7,14 +8,25 @@ function LoginView(){
 	var appWindow = require("ui/common/CommonLoginView");
     win = new appWindow();
 
+=======
+	hub = require("hub");
+	var hsf = hub.API.hsf;
+	var wsf = hub.API.wsf;
+	var margin_offset = (hub.API.app_width-350*wsf)/2;
+	
+	var appWindow = require("ui/common/CommonLoginView");
+    win = new appWindow();
+	
+>>>>>>> mobileweb-compatibility
 	var errorPane = Ti.UI.createLabel({
 				text:"",
 				top:1, 
 				left:margin_offset,
 				font:{
 			      fontSize:12*hsf,
-			      fontFamily: hubAPI.util.customFont
+			      fontFamily: hub.API.util.customFont
 			   },
+			   opacity: 0,
 				color:'red'
 		});
 			
@@ -25,8 +37,8 @@ function LoginView(){
 		height:60*wsf,
 		font:{
 	      fontSize:20*hsf,
-	      fontColor:hubAPI.util.customTextColor,
-	      fontFamily: hubAPI.util.customFont
+	      fontColor:hub.API.util.customTextColor,
+	      fontFamily: hub.API.util.customFont
 	   },
 		hintText:'Enter your email address',
 		value:'ekkuto@gmail.com',
@@ -39,13 +51,13 @@ function LoginView(){
 	});
 	
 	var password = Titanium.UI.createTextField({
-		color:hubAPI.util.customTextColor,
+		color:hub.API.util.customTextColor,
 		top:100*hsf,
 		width:350*wsf,
 		height:60*wsf,
 		font:{
 	      fontSize:20*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
 		hintText:'Enter your Password',
 		passwordMask:true,
@@ -64,11 +76,12 @@ function LoginView(){
 		width:100*wsf,
 		height:50*hsf,
 		borderRadius:1,
-		backgroundImage:hubAPI.imagePath('ashoka_login_btn.png'),
+		backgroundImage:hub.API.imagePath('ashoka_login_btn.png'),
 	});
 	
 	loginBtn.addEventListener('click',function(e)
 		{
+			
 			username.blur();
 			password.blur();
 			if (username.value != '' && password.value != '')
@@ -87,25 +100,25 @@ function LoginView(){
 		top:240*hsf,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-	   color:hubAPI.util.customTextColor,
+	   color:hub.API.util.customTextColor,
 		text: 'Forgot Password?'
 	});
 	
 	forgotLabel.addEventListener('click',function(e){
 		handleForgotEvent();
-		});
+	});
 		
 	var firstLabel = Titanium.UI.createLabel({
 		right:margin_offset,
 		height:50*hsf,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
 		top:240*hsf,
-		color:hubAPI.util.customTextColor,
+		color:hub.API.util.customTextColor,
 		text: 'First time login'
 	});
 	firstLabel.addEventListener('click',function(e){
@@ -117,13 +130,12 @@ function LoginView(){
 		height:50*hsf,
 		font:{
 	      fontSize:20*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
 		top:240*hsf,
-		color:hubAPI.util.customTextColor,
+		color:hub.API.util.customTextColor,
 		text: '|'
 	});
-	
 	
 	win.addContent(forgotLabel);
 	win.addContent(username);
@@ -143,29 +155,30 @@ function LoginView(){
 		text: '\u2022',
 		top:87*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hub.API.util.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
 		top:117*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hub.API.util.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
 		top:147*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hub.API.util.customTitleColor}
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
 		text: '\u2022',
 		top:177*hsf,
 		left:10,
-		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hubAPI.util.customTitleColor}
+		font:{fontFamily:'Arial',fontWeight:'bold',fontSize:20*hsf, color:hub.API.util.customTitleColor}
 	}));
+	
 	topicLabel = Ti.UI.createLabel({
 		text: 'About Us',
 		top:10*hsf, 
@@ -173,10 +186,10 @@ function LoginView(){
 		font:{
 	      fontSize:21*hsf,
 	      fontWeight:'bold',
-	      fontColor:hubAPI.util.customTitleColor,
-	      fontFamily: hubAPI.util.customFont
+	      fontColor:hub.API.util.customTitleColor,
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTitleColor
+		color:hub.API.util.customTitleColor
 	});
 	
 	var missionLabel = Ti.UI.createLabel({
@@ -185,9 +198,9 @@ function LoginView(){
 		left:10,
 		font:{
 	      fontSize:18*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTextColor
+		color:hub.API.util.customTextColor
 	});
 	infoRow.add(missionLabel);
 	infoRow.add(topicLabel);
@@ -197,9 +210,9 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTextColor
+		color:hub.API.util.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
@@ -208,9 +221,9 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTextColor
+		color:hub.API.util.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
@@ -219,9 +232,9 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTextColor
+		color:hub.API.util.customTextColor
 	}));
 	
 	infoRow.add(Ti.UI.createLabel({
@@ -230,12 +243,10 @@ function LoginView(){
 		left:20,
 		font:{
 	      fontSize:17*hsf,
-	      fontFamily: hubAPI.util.customFont
+	      fontFamily: hub.API.util.customFont
 	   },
-		color:hubAPI.util.customTextColor
+		color:hub.API.util.customTextColor
 	}));
-    
-    
     
 	win.addContent(infoRow);
 		
@@ -243,6 +254,7 @@ function LoginView(){
     	DashboardView = require('ui/common/DashboardView');
     	dashboardView = new DashboardView();
     	openWindow(dashboardView);
+    	Ti.API.info("Opening dashboard");
     };
     
     function handleFirstEvent(){
@@ -252,8 +264,7 @@ function LoginView(){
     }
     
     function openWindow(_window){
-    	Ti.App.globalWindow = _window;
-		Ti.App.fireEvent('openWindow',{});
+    	hub.API.openWindow(_window);
     }
     function handleForgotEvent(){
     	ForgotView = require('ui/common/ForgotView');
@@ -270,12 +281,56 @@ function LoginView(){
 		password.borderWidth = 1;
 	
 		errorPane.text = "Invalid email or password.";
+		errorPane.opacity = 1; 
+		
+		var timeElapsed = 0; 
+		ttk = 5000;
+		intervalLength = 1000; 
+		function loadingAnimation(){
+			 if (timeElapsed >= ttk){
+			 	username.borderColor = '#e0e0e0';
+				username.borderRadius = 5;
+				username.borderWidth = 1;
+				password.borderColor = '#e0e0e0';
+				password.borderRadius = 5;
+				password.borderWidth = 1;
+				errorPane.opacity = 0; 
+			 	clearInterval(loaderAnimate);
+			 }
+			 timeElapsed += intervalLength; 
+		}
+		var loaderAnimate = setInterval(loadingAnimation,intervalLength);
     }
 
+	function showError(errorText){
+		errorPane.text = errorText;
+		errorPane.opacity = 1; 
+		var timeElapsed = 0; 
+		ttk = 5000;
+		intervalLength = 1000; 
+		function loadingAnimation(){
+			 if (timeElapsed >= ttk){
+			 	errorPane.opacity = 0; 
+			 	clearInterval(loaderAnimate);
+			 }
+			 timeElapsed += intervalLength; 
+		}
+		var loaderAnimate = setInterval(loadingAnimation,intervalLength);
+	
+	}
+	
     function handleLoginEvent(_username, _password){
-    	AuthClient = require('services/Authentication');
+		indicatorMessage = "Loggin in " + _username + "..."; 
+		Ti.API.info(indicatorMessage);
+    	win.showIndicator(indicatorMessage);
+    	
+    	setTimeout(function(){
+		    win.hideIndicator(); 
+		  }, 6000);
+    	/*AuthClient = require('services/Authentication');
     	var isAuthenticated = new AuthClient({
     		start: function() {
+<<<<<<< HEAD
     		},
     		error: function() {
     			errorPane.text = "Error:There was a problem connecting to Ashoka Hub.";
@@ -285,10 +340,26 @@ function LoginView(){
     			},
     		success: function(){
     			grantEntrance();
+=======
+    			
+    		},
+    		error: function() {
+    			//hub.API.stopIndication();
+    			showError("Error:There was a problem connecting to Ashoka Hub."); 
+    			},
+    		failure: function() { 
+    			//Ti.App.fireEvent("stopIndicator");
+    			denyEntrance();
+    			},
+    		success: function(){
+    			//hub.API.stopIndication();
+    			//grantEntrance();
+>>>>>>> mobileweb-compatibility
     		}
     	}, _username, _password);
-    	
+    	*/
     }
 	return win.appwin;
+
 }	
 module.exports = LoginView;

@@ -1,0 +1,1 @@
+/Users/ekuto/titanium/hubmobile/Resources/ui/handheld_delete/android/ApplicationWindow.js

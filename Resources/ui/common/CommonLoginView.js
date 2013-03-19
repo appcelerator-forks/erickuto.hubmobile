@@ -1,16 +1,24 @@
 function CommonLoginView(){
 	
+	hub = require("hub");
 	var utilities = require("ui/common/utilities");
 	util = new utilities();
 	var hsf = util.height_scale_factor;
 	var wsf = util.width_scale_factor;
+
+	modal = false; 
+	if (hub.API.osname === 'mobileweb'){
+		modal = true;
+	}
 	
 	var win = Ti.UI.createWindow({
 		backgroundColor: util.customBgColor,
 		layout:'vertical',
-		titleControl: false
+		navBarHidden: true, 
+		tabBarHidden: true,
+		modal: modal,
 	}); 
-	win.hideNavBar(); 
+	
 	var canvas = Ti.UI.createView({});
 
 	var logoImage = Ti.UI.createImageView({
@@ -30,9 +38,10 @@ function CommonLoginView(){
 	    top: 145*hsf,
 	    width: util.app_width,
 	});	
-	canvas.add(contentWrapper);
 	canvas.add(borderBottom);
 	logoCanvas.add(logoImage);
+	canvas.add(contentWrapper);
+
 	canvas.add(logoCanvas);
 	
 	canvas.add(Titanium.UI.createLabel({
@@ -61,31 +70,95 @@ function CommonLoginView(){
 
 	win.add(canvas);
 	
+	//Style for the indicator. 
+	var style;
+	if (Ti.Platform.name === 'iPhone OS'){
+	  style = Ti.UI.iPhone.ActivityIndicatorStyle.DARK;
+	}
+	else {
+	  style = Ti.UI.ActivityIndicatorStyle.DARK;
+	}
 	
-	this.open = function(){
-		win.open();
-	};
-	this.close = function(){
-		win.close();
-	};
+	indicatorHolder = Ti.UI.createView({
+		height: "100",
+		backgroundColor: "#000", 
+		layout: "horizontal", 
+		width: "90%", 
+		opacity: 0.8,
+	});
+	indicator = Titanium.UI.createActivityIndicator({
+		style:style,
+		font:{fontFamily:'Arial', fontSize:18, fontWeight:'bold'},
+		color:'#FFF',
+		height:'50',
+		width:'50',
+		left: "5", 
+	});
+
+	indicatorLabel = Ti.UI.createLabel({
+		font:{fontFamily:'Arial', fontSize:18, fontWeight:'bold'},
+		color: "#FFF", 
+		text: "Loading...", 
+		width: "auto", 
+		height: "auto", 
+		left: "10", 
+	}); 
+	
+	indicator.show(); 
+	indicatorHolder.add(indicator); 
+	indicatorHolder.add(indicatorLabel);
+	var win2 = Ti.UI.createWindow({
+	  backgroundColor: '#000',
+	  opacity: 0.5,
+	  navBarHidden: true,
+	  
+	});
+	win2.add(indicatorHolder);
+
+	win.addEventListener('open', function (e){
+		indicator.show();
+	});
 	this.addContent = function(_content){
 		contentWrapper.add(_content);
 	};
 
-	hubAPI.startActivityIndicator = function(){
-		canvas.remove(canvas.children[0]);
-		canvas.add(hubAPI.indicatorView);
-	}
-	
-	hubAPI.stopActivityIndicator = function(){
-		canvas.remove(canvas.children[0]); 
-		canvas.add(contentWrapper);
-	}
 	this.showNavBar = function(){
-		win.showNavBar(); 
+		if (hub.API.osname === 'android'){
+			return
+		}
+		win.navBarHidden = false;
+		win.tabBarHidden = false;
 	};
 	this.hideNavBar = function(){
-		win.hideNavBar(); 
+		if (hub.API.osname === 'android'){
+			return
+		}
+		win.navBarHidden = true;
+		win.tabBarHidden = true;
+	}
+	
+	this.showIndicator = function(indicatorMessage){
+		if (indicatorMessage === ""){
+			indicatorLabel.text = "Loading...";
+			alert("empty indicator message");
+		}
+		else{
+			indicatorLabel.text = indicatorMessage;
+		}
+		 
+		win2.addEventListener('open', function (e) {
+		  indicator.show();
+		});
+		indicator.show(); 
+		win2.open();
+	}
+
+	this.hideIndicator = function(){
+		/*win2.addEventListener('close', function (e) {
+		  indicator.hide();
+		});*/
+		win2.close();
+		
 	}
 	CommonLoginView.prototype.appwin = win; 
 	

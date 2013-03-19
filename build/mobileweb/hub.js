@@ -1,38 +1,97 @@
-/*
- * MVC namespace contains the resources for the MVC example app.
- */
-var HUB = {}; 
+var hubAPI = {};
+
+var utilities = require("ui/common/utilities");
+var util = new utilities();
+hubAPI.util = util; 
+hubAPI.hsf = util.height_scale_factor;
+hubAPI.wsf = util.width_scale_factor;
+hubAPI.app_width = util.app_width; 
+hubAPI.margin_offset = (util.app_width-350*util.wsf)/2;
+hubAPI.customBgColor = util.customBgColor;
+hubAPI.customTextColor = util.customTextColor;
+hubAPI.imagePath = function(imagePath){
+	return util.imagePath(imagePath);	
+}
+hubAPI.osname = util.osname; 
+
+//require the UI components necessary to drive the test
+var NavigationController = require('NavigationController').NavigationController;
+		
+//create NavigationController which will drive our simple application
+hubAPI.controller = new NavigationController();
+		
+/*Hub API Helper functions*/
+hubAPI.openWindow = function(windowToOpen){
+	hubAPI.controller.open(windowToOpen);
+}
+
+//Closes the current window
+hubAPI.closeWindow = function(){
+	hubAPI.controller.close(); 
+}
+
+hubAPI.indicate = function(indicatorMessage){
+	var ActivityIndicator = require("ui/common/ActivityIndicator");	
+	var activityIndicator = new ActivityIndicator();
+		
+	activityIndicator.show(indicatorMessage);
+	
+	var intervalLength = 1000; 
+	var ttk = 10000; 
+	var timeElapsed = 0; 
+	
+	function loadingAnimation(){
+		 if (timeElapsed >= ttk){
+		 	stopAnimation();
+		 }
+		 timeElapsed += intervalLength; 
+	}
+	
+	function stopAnimation(){
+		clearInterval(loaderAnimate);
+	  	activityIndicator.hide(); 
+	  	//stop appWideActivity.
+	}
+	var loaderAnimate = setInterval(loadingAnimation,intervalLength);
+	
+	hubAPI.stopIndication = function(){
+		stopAnimation();
+		Ti.API.info("Animation stopped");
+	}
+}
 
 
-/*
- * MVC.ui resources.
- */
-HUB.ui = {};
-Ti.include(
-	'common/controllers/LoginController.js',
-	'common/views/LoginView.js',
-	'common/controllers/StartupController.js'
-);
+hubAPI.fetchResults = function(category, order, page){
+	var results = [];
+	hubAPI.user.getAll(results);
+	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
+	addVariable(results, results.length, "page", page);
+	addVariable(results, results.length, "order", order);
+	
+	SearchResults = require("services/SearchResults");
+	hubAPI.searchResults = new SearchResults(category, results);
+	
+}
 
-var osname = Ti.Platform.osname,
-		version = Ti.Platform.version,
-		height = Ti.Platform.displayCaps.platformHeight,
-		width = Ti.Platform.displayCaps.platformWidth;
+hubAPI.getRemoteURL = function(_path, site){
+	//var mainURL = "http://localhost:3000/";
+	var mainURL = "http://greenhub-mobile.herokuapp.com/";
+	return mainURL + _path;
+}
 
-// iPhone makes use of the platform-specific navigation controller,
-// all other platforms follow a similar UI pattern
-if (osname === 'iphone') {
-	Ti.include('/iphone/ApplicationView.js', './iphone/ProfileView.js');
+hubAPI.fetchMessages = function(category, page){
+	var results = [];
+	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
+	addVariable(results, results.length, "page", page);
+
+	Messages = require("services/Messages");
+	if (category === "inbox"){
+		category = "message_threads";
+	}else{
+		category = "message_threads/" + category; 
+	}
+	hubAPI.messages = new Messages(category, results);
+	
 }
-else if(osname === 'ipad'){
-	Ti.include('ipad/ApplicationView.js', 'ipad/ApplicationView.js');
-}
-else if (osname === 'mobileweb'){
-	Ti.include('mobileweb/ApplicationView.js', 'mobileweb/ProfileView.js');
-}
-else if (osname === 'android'){
-	Ti.include('android/ApplicationView.js', 'android/ProfileView.js');
-}
-else{
-	Ti.inlucde('android/ApplicationView.js', 'android/ProfileView.js');
-}
+
+exports.API = hubAPI; 

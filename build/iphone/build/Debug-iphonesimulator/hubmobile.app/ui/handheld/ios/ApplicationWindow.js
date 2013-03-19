@@ -1,1 +1,0 @@
-/Users/ekuto/titanium/hubmobile/Resources/ui/handheld/ios/ApplicationWindow.js

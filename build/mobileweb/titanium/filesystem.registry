@@ -1,11 +1,16 @@
+<<<<<<< HEAD
 ts	1363706718000
+=======
+ts	1363724553000
+>>>>>>> mobileweb-compatibility
 .DS_Store	12292
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
 Default.jpg	17184
 KS_nav_ui.png	1158
 KS_nav_views.png	1074
-app.js	1723
+NavigationController.js	2183
+app.js	452
 appicon.png	19109
 apple-touch-icon-114x114-precomposed.png	15820
 apple-touch-icon-57x57-precomposed.png	6790
@@ -14,23 +19,27 @@ apple-touch-icon-precomposed.png	6790
 controllers
 	LoginController.js	1254
 favicon.ico	0
-hub.js	1070
+hub.js	2674
 images
 	.DS_Store	15364
 	1_Login.jpg	183284
-	Done.png	1247
+	Done.png	10801
 	activity.png	5182
 	ashoka_banner.png	15141
+	ashoka_iphone_logo_navbar.png	10931
 	ashoka_login_btn.png	10716
 	ashoka_logo.png	27467
-	ashoka_logo_navbar.png	10931
+	ashoka_logo_navbar.png	21505
 	ashoka_tree.png	12339
 	back_nav_btn.png	2713
 	delete.png	766
 	events.png	4996
+	help.png	8426
 	help_nav_btn.png	2910
+	home.png	9796
 	inbox.png	5090
 	more.png	1099
+	navbar_background.png	4491
 	needs.png	5072
 	new_message_icon.png	10520
 	offers.png	5413
@@ -54,6 +63,7 @@ images
 	search_people_selected.png	316
 	search_people_unselected.png	990
 	settings.png	6135
+	sign_out.png	10938
 	spinner
 		0.jpg	1403
 		1.jpg	1435
@@ -106,14 +116,13 @@ old_commons
 			ashoka_logo.png	27467
 			ashoka_tree.png	12339
 services
-	Authentication.js	760
-	Connection.js	1438
+	Authentication.js	716
+	Connection.js	1451
 	Exploration.js	4087
 	Logout.js	1157
 	Messages.js	2932
 	Results.js	468
 	SearchResults.js	1496
-	Settings.js	172
 	Tags.js	676
 	User.js	2655
 themes
@@ -276,14 +285,19 @@ titanium.css	37837
 titanium.js	492840
 ui
 	common
-		CommonLoginView.js	2069
-		DashboardView.js	3350
+		ActivityIndicator.js	1747
+		CommonLoginView.js	3612
+		DashboardView.js	5903
 		DetailView.js	349
 		FirstTimeView.js	1573
 		ForgotView.js	1212
+<<<<<<< HEAD
 		LoginView.js	6805
+=======
+		LoginView.js	8130
+>>>>>>> mobileweb-compatibility
 		MasterView.js	1290
-		UserView.js	1808
+		UserView.js	2791
 		dashboardViews
 			ActivityView.js	777
 			EventsView.js	771
@@ -301,11 +315,11 @@ ui
 				SearchView.js	10264
 				SelectorView.js	1659
 		tableViewMultiSelectRows.js	2281
-		utilities.js	4374
-	handheld
+		utilities.js	1365
+	handheld_delete
 		android
-			ApplicationWindow.js	1237
+			ApplicationWindow.js	610
 		ios
-			ApplicationWindow.js	605
+			ApplicationWindow.js	664
 		mobileweb
-			ApplicationWindow.js	673
+			ApplicationWindow.js	809
