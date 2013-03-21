@@ -1,26 +1,30 @@
 function CommonLoginView(){
 	
 	hub = require("hub");
-	var hsf = hub.API.hsf;
-	var wsf = hub.API.wsf;
+	var utilities = require("ui/common/utilities");
+	util = new utilities();
+	var hsf = util.height_scale_factor;
+	var wsf = util.width_scale_factor;
+
+	modal = false; 
+	if (hub.API.osname === 'mobileweb'){
+		modal = true;
+	}
 	
 	var win = Ti.UI.createWindow({
-		backgroundColor: hub.API.customBgColor,
+		backgroundColor: util.customBgColor,
 		layout:'vertical',
-		titleControl: false, 
-		modal: true,
-		navBarHidden: true,
-        tabBarHidden: true,
+		navBarHidden: true, 
+		tabBarHidden: true,
+		modal: modal,
 	}); 
-	if (hub.API.osname === "iphone" || hub.API.osname === "ipad"){
-		win.hideNavBar(); 
-	}
-	var canvas = Ti.UI.createView({});
 	
+	var canvas = Ti.UI.createView({});
+
 	var logoImage = Ti.UI.createImageView({
 		top:15*hsf,
 		width:300*wsf, 
-		image:hub.API.imagePath("ashoka_logo.png")
+		image:util.imagePath("ashoka_logo.png")
 	});
 	//logoImage.image = '../../ashoka_logo.png';
 	var logoCanvas = Ti.UI.createView({top:0, height:120});
@@ -32,43 +36,39 @@ function CommonLoginView(){
 
 	var contentWrapper = Ti.UI.createView({
 	    top: 145*hsf,
-	    zIndex:9, 
-	    opacity: 1,
-	    width: hub.API.app_width,
+	    width: util.app_width,
 	});	
-	canvas.add(contentWrapper);
-	canvas.ContentWrapper = contentWrapper; 
-	
 	canvas.add(borderBottom);
 	logoCanvas.add(logoImage);
+	canvas.add(contentWrapper);
+
 	canvas.add(logoCanvas);
 	
 	canvas.add(Titanium.UI.createLabel({
 		left:20*wsf,
 		height:50*hsf,
-		bottom:1, //top:650
+		bottom:1,
 		font:{
 	      fontSize:12*hsf,
-	      fontFamily: hub.API.customFont
+	      fontFamily: util.customFont
 	   },
-	   color:hub.API.customTextColor,
+	   color:util.customTextColor,
 		text: 'Copyright 2011 Ashoka ',
 	}));
 	
 	canvas.add(Titanium.UI.createLabel({
 		right:20*wsf,
 		height:50*hsf,
-		bottom:1, //top:650
+		bottom:1,
 		font:{
 	      fontSize:12*hsf,
-	      fontFamily: hub.API.customFont
+	      fontFamily: util.customFont
 	   },
-	   color:hub.API.customTextColor,
+	   color:util.customTextColor,
 		text: 'hub.ashoka.org ',
 	}));
 
 	win.add(canvas);
-	win.Canvas = canvas; 
 	
 	//Style for the indicator. 
 	var style;
@@ -79,99 +79,89 @@ function CommonLoginView(){
 	  style = Ti.UI.ActivityIndicatorStyle.DARK;
 	}
 	
+	indicatorHolder = Ti.UI.createView({
+		height: "100",
+		backgroundColor: "#000", 
+		layout: "horizontal", 
+		width: "90%", 
+		opacity: 0.8,
+	});
 	indicator = Titanium.UI.createActivityIndicator({
 		style:style,
 		font:{fontFamily:'Arial', fontSize:18, fontWeight:'bold'},
 		color:'#FFF',
-		message:'Loading...',
-		height:'100%',
-		width:'auto'
+		height:'50',
+		width:'50',
+		left: "5", 
 	});
-		
-	if (hub.API.osname === "android"){
-		
-		var win2 = Ti.UI.createWindow({
-		  backgroundColor: 'yellow',
-		  fullscreen: true
-		});
-		win2.add(indicator);
+
+	indicatorLabel = Ti.UI.createLabel({
+		font:{fontFamily:'Arial', fontSize:18, fontWeight:'bold'},
+		color: "#FFF", 
+		text: "Loading...", 
+		width: "auto", 
+		height: "auto", 
+		left: "10", 
+	}); 
 	
-		// eventListeners must always be loaded before the event is likely to fire
-		// hence, the open() method must be positioned before the window is opened
-		win2.addEventListener('open', function (e) {
-		  indicator.show();
-		  // do some work that takes 6 seconds
-		  // ie. replace the following setTimeout block with your code
-		  /*setTimeout(function(){
-		    e.source.close();
-		    activityIndicator.hide();
-		  }, 6000);*/
-		});
-	}
-	else{
-		//For iphone and mobile web
-		indicatorHolder = Ti.UI.createView({
-			top:0,
-			height:'100%',
-			width:'100%',
-			backgroundColor:'grey',
-			opacity:1,
-			zIndex:9
-		});
-		
-		indicatorHolder.hide();
-			
-		indicatorHolder.add(indicator);
-		canvas.add(indicatorHolder);
-	}
-	
-	
-		
-	this.open = function(){
-		win.open();
-	};
-	this.close = function(){
-		win.close();
-	};
+	indicator.show(); 
+	indicatorHolder.add(indicator); 
+	indicatorHolder.add(indicatorLabel);
+	var win2 = Ti.UI.createWindow({
+	  backgroundColor: '#000',
+	  opacity: 0.5,
+	  navBarHidden: true,
+	  
+	});
+	win2.add(indicatorHolder);
+
+	win.addEventListener('open', function (e){
+		indicator.show();
+	});
 	this.addContent = function(_content){
-		canvas.ContentWrapper.add(_content);
+		contentWrapper.add(_content);
 	};
 
 	this.showNavBar = function(){
+		if (hub.API.osname === 'android'){
+			return
+		}
 		win.navBarHidden = false;
 		win.tabBarHidden = false;
 	};
 	this.hideNavBar = function(){
+		if (hub.API.osname === 'android'){
+			return
+		}
 		win.navBarHidden = true;
-        win.tabBarHidden = true;
+		win.tabBarHidden = true;
 	}
 	
 	this.showIndicator = function(indicatorMessage){
-		if (hub.API.osname === "android"){
-			win2.open();
+		if (indicatorMessage === ""){
+			indicatorLabel.text = "Loading...";
+			alert("empty indicator message");
 		}
 		else{
-			contentWrapper.opacity = 0.3; 
-			contentWrapper.zIndex = 8;
-			indicatorHolder.show();
-			indicator.show();
+			indicatorLabel.text = indicatorMessage;
 		}
-		
+		 
+		win2.addEventListener('open', function (e) {
+		  indicator.show();
+		});
+		indicator.show(); 
+		win2.open();
 	}
 
 	this.hideIndicator = function(){
-		if (hub.API.osname === "android"){
-			win2.close();
-			indicator.hide();
-		}
-		else{
-			contentWrapper.opacity = 1.0; 
-			contentWrapper.zIndex = 9;
-			indicatorHolder.hide();
-			indicator.hide();
-		}
+		/*win2.addEventListener('close', function (e) {
+		  indicator.hide();
+		});*/
+		win2.close();
+		
 	}
 	CommonLoginView.prototype.appwin = win; 
+	
 }
 
 module.exports = CommonLoginView;

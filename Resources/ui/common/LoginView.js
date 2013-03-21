@@ -310,32 +310,32 @@ function LoginView(){
 	}
 	
     function handleLoginEvent(_username, _password){
-		indicatorMessage = "Loggin in " + _username + "..."; 
+		/*indicatorMessage = "Loggin in " + _username + "..."; 
 		Ti.API.info(indicatorMessage);
     	win.showIndicator(indicatorMessage);
     	
     	setTimeout(function(){
 		    win.hideIndicator(); 
-		  }, 6000);
-    	/*AuthClient = require('services/Authentication');
+		  }, 6000);*/
+    	AuthClient = require('services/Authentication');
     	var isAuthenticated = new AuthClient({
     		start: function() {
     			
     		},
     		error: function() {
-    			//hub.API.stopIndication();
+    			win.showIndicator(indicatorMessage);
     			showError("Error:There was a problem connecting to Ashoka Hub."); 
     			},
     		failure: function() { 
-    			//Ti.App.fireEvent("stopIndicator");
+    			win.hideIndicator(); 
     			denyEntrance();
     			},
     		success: function(){
-    			//hub.API.stopIndication();
-    			//grantEntrance();
+    			win.hideIndicator(); 
+    			grantEntrance();
     		}
     	}, _username, _password);
-    	*/
+    	
     }
 	return win.appwin;
 

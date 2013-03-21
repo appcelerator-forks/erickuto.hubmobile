@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-ts	1363706718000
-=======
-ts	1363724553000
->>>>>>> mobileweb-compatibility
+ts	1363881940000
 .DS_Store	12292
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
@@ -287,15 +283,11 @@ ui
 	common
 		ActivityIndicator.js	1747
 		CommonLoginView.js	3612
-		DashboardView.js	5903
+		DashboardView.js	6721
 		DetailView.js	349
 		FirstTimeView.js	1573
 		ForgotView.js	1212
-<<<<<<< HEAD
-		LoginView.js	6805
-=======
-		LoginView.js	8130
->>>>>>> mobileweb-compatibility
+		LoginView.js	8116
 		MasterView.js	1290
 		UserView.js	2791
 		dashboardViews

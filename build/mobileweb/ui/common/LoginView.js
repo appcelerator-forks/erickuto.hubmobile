@@ -1,14 +1,5 @@
 function LoginView(){
 
-<<<<<<< HEAD
-	var hsf = hubAPI.hsf;
-	var wsf = hubAPI.wsf;
-	var margin_offset = (hubAPI.app_width-350*wsf)/2;
-	
-	var appWindow = require("ui/common/CommonLoginView");
-    win = new appWindow();
-
-=======
 	hub = require("hub");
 	var hsf = hub.API.hsf;
 	var wsf = hub.API.wsf;
@@ -17,7 +8,6 @@ function LoginView(){
 	var appWindow = require("ui/common/CommonLoginView");
     win = new appWindow();
 	
->>>>>>> mobileweb-compatibility
 	var errorPane = Ti.UI.createLabel({
 				text:"",
 				top:1, 
@@ -320,44 +310,32 @@ function LoginView(){
 	}
 	
     function handleLoginEvent(_username, _password){
-		indicatorMessage = "Loggin in " + _username + "..."; 
+		/*indicatorMessage = "Loggin in " + _username + "..."; 
 		Ti.API.info(indicatorMessage);
     	win.showIndicator(indicatorMessage);
     	
     	setTimeout(function(){
 		    win.hideIndicator(); 
-		  }, 6000);
-    	/*AuthClient = require('services/Authentication');
+		  }, 6000);*/
+    	AuthClient = require('services/Authentication');
     	var isAuthenticated = new AuthClient({
     		start: function() {
-<<<<<<< HEAD
-    		},
-    		error: function() {
-    			errorPane.text = "Error:There was a problem connecting to Ashoka Hub.";
-    			},
-    		failure: function() { 
-    			denyEntrance()
-    			},
-    		success: function(){
-    			grantEntrance();
-=======
     			
     		},
     		error: function() {
-    			//hub.API.stopIndication();
+    			win.showIndicator(indicatorMessage);
     			showError("Error:There was a problem connecting to Ashoka Hub."); 
     			},
     		failure: function() { 
-    			//Ti.App.fireEvent("stopIndicator");
+    			win.hideIndicator(); 
     			denyEntrance();
     			},
     		success: function(){
-    			//hub.API.stopIndication();
-    			//grantEntrance();
->>>>>>> mobileweb-compatibility
+    			win.hideIndicator(); 
+    			grantEntrance();
     		}
     	}, _username, _password);
-    	*/
+    	
     }
 	return win.appwin;
 

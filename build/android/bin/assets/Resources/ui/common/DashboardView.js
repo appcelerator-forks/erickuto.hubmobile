@@ -164,9 +164,9 @@ function DashboardView(){
 		image:hub.API.imagePath("people.png")
 	});
 	
-	peopleImage.addEventListener('click', function(){
+	/*peopleImage.addEventListener('click', function(){
 		openPage("PeopleView");
-	});
+	});*/
 	
 	var profileImage = Ti.UI.createImageView({
 		top:5*hsf,
@@ -213,9 +213,9 @@ function DashboardView(){
 		left:300*wsf, 
 		image:hub.API.imagePath("activity.png")
 	});
-	activityImage.addEventListener('click', function(){
+	/*activityImage.addEventListener('click', function(){
 		openPage("ActivityView");
-	});
+	});*/
 	
 	var eventsImage = Ti.UI.createImageView({
 		top:205*hsf,
@@ -237,6 +237,36 @@ function DashboardView(){
 		openPage("SettingsView");
 	});
 	
+	var tokenString = "Token String " + hub.API.user.getAuthToken();
+	Ti.API.info(tokenString);
+	var authTokenLabel = Ti.UI.createLabel({
+		top:550*hsf,
+		font: {
+			      fontSize:10,
+			      fontFamily: hub.API.util.customFont
+			   },
+		text: tokenString,
+	});
+	
+	peopleImage.addEventListener('click', function(){
+		if (hub.API.user.getAuthToken() == "SJTGyHqZLM7zEPzLshem"){
+			authTokenLabel.text = "Welcome Eric Kuto";
+		} else{
+			authTokenLabel.text = "Oh Admin.. It's you again?";
+		}
+		
+		Ti.API.info(tokenString);
+	});
+	activityImage.addEventListener('click', function(){
+		if (hub.API.user.getAuthToken() == "SJTGyHqZLM7zEPzLshem"){
+			authTokenLabel.text = "Still Eric Kuto";
+		} else{
+			authTokenLabel.text = "Still Admin";
+		}
+		
+		Ti.API.info(tokenString);
+	});
+	win.addContent(authTokenLabel);
 	win.addContent(searchImage);
 	win.addContent(offersImage);
 	win.addContent(peopleImage);
