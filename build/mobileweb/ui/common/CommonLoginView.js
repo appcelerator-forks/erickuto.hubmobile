@@ -104,20 +104,16 @@ function CommonLoginView(){
 		left: "10", 
 	}); 
 	
-	indicator.show(); 
 	indicatorHolder.add(indicator); 
 	indicatorHolder.add(indicatorLabel);
+	
 	var win2 = Ti.UI.createWindow({
 	  backgroundColor: '#000',
 	  opacity: 0.5,
 	  navBarHidden: true,
-	  
 	});
 	win2.add(indicatorHolder);
 
-	win.addEventListener('open', function (e){
-		indicator.show();
-	});
 	this.addContent = function(_content){
 		contentWrapper.add(_content);
 	};
@@ -140,7 +136,6 @@ function CommonLoginView(){
 	this.showIndicator = function(indicatorMessage){
 		if (indicatorMessage === ""){
 			indicatorLabel.text = "Loading...";
-			alert("empty indicator message");
 		}
 		else{
 			indicatorLabel.text = indicatorMessage;
@@ -149,14 +144,10 @@ function CommonLoginView(){
 		win2.addEventListener('open', function (e) {
 		  indicator.show();
 		});
-		indicator.show(); 
 		win2.open();
 	}
 
 	this.hideIndicator = function(){
-		/*win2.addEventListener('close', function (e) {
-		  indicator.hide();
-		});*/
 		win2.close();
 		
 	}

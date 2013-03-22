@@ -5,6 +5,7 @@ Logfile initialized
 [INFO] Titanium SDK version: 3.0.0 (12/12/12 18:49 a5894b3)
 [DEBUG] Waiting for device to be ready ...
 [TRACE] adb devices returned 0 devices/emulators
+[TRACE] adb devices returned 0 devices/emulators
 [TRACE] adb devices returned 1 devices/emulators
 [TRACE] adb devices returned 1 devices/emulators
 [TRACE] adb devices returned 1 devices/emulators
@@ -14,16 +15,15 @@ Logfile initialized
 [TRACE] adb devices returned 1 devices/emulators
 [TRACE] adb devices returned 1 devices/emulators
 [TRACE] adb devices returned 1 devices/emulators
-[DEBUG] Device connected... (waited 45 seconds)
-[DEBUG] waited 45.294058 seconds on emulator to get ready
+[DEBUG] Device connected... (waited 50 seconds)
+[DEBUG] waited 50.426521 seconds on emulator to get ready
 [INFO] Waiting for the Android Emulator to become available
 [DEBUG] com.ashoka.hubmobile installed? True
 [INFO] Fastdev server running, deploying in Fastdev mode
 [INFO] Copying CommonJS modules...
 [INFO] Copying project resources..
-[TRACE] COPYING MODIFIED FILE: /Users/ekuto/titanium/hubmobile/Resources/hub.js => /Users/ekuto/titanium/hubmobile/build/android/bin/assets/Resources/hub.js
-[TRACE] COPYING MODIFIED FILE: /Users/ekuto/titanium/hubmobile/Resources/ui/common/DashboardView.js => /Users/ekuto/titanium/hubmobile/build/android/bin/assets/Resources/ui/common/DashboardView.js
-[TRACE] COPYING MODIFIED FILE: /Users/ekuto/titanium/hubmobile/Resources/ui/common/LoginView.js => /Users/ekuto/titanium/hubmobile/build/android/bin/assets/Resources/ui/common/LoginView.js
+[TRACE] COPYING MODIFIED FILE: /Users/ekuto/titanium/hubmobile/Resources/ui/common/CommonLoginView.js => /Users/ekuto/titanium/hubmobile/build/android/bin/assets/Resources/ui/common/CommonLoginView.js
+[TRACE] COPYING MODIFIED FILE: /Users/ekuto/titanium/hubmobile/Resources/ui/common/ForgotView.js => /Users/ekuto/titanium/hubmobile/build/android/bin/assets/Resources/ui/common/ForgotView.js
 [INFO] Tiapp.xml unchanged, skipping class generation
 [DEBUG] Processing Android resource drawables
 [DEBUG] found drawable-long-land-hdpi splash screen at /Users/ekuto/titanium/hubmobile/Resources/android/images/res-long-land-hdpi/default.png

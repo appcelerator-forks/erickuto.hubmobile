@@ -74,8 +74,12 @@ hubAPI.fetchResults = function(category, order, page){
 }
 
 hubAPI.getRemoteURL = function(_path, site){
-	//var mainURL = "http://localhost:3000/";
-	var mainURL = "http://greenhub-mobile.herokuapp.com/";
+	var localhost = "localhost"
+	if (hubAPI.osname === "android"){
+		localhost = "10.0.2.2";
+	}
+	var mainURL = "http://" + localhost + ":3000/";
+	//var mainURL = "http://greenhub-mobile.herokuapp.com/";
 	return mainURL + _path;
 }
 

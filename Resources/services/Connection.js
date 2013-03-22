@@ -52,7 +52,7 @@ connectHub = function(o, url, postParams, method, tries, getParams){
 		}
 		
 		var response = JSON.parse(json);
-		//Ti.API.info(response);
+		//Ti.API.info(JSON.stringify(response));
 		response.page = page; 
 		if (o.success){o.success(response);}
 		

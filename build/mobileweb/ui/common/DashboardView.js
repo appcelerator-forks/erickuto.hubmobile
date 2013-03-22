@@ -63,7 +63,6 @@ function DashboardView(){
 			Ti.App.fireEvent('closeWindow',{});
 		});
 		
-		
 		navigationBarHolder.add(topLeftButton);
 		navigationBarHolder.add(topRightButton);
 		navigationBarHolder.add(ashoka_logo);
