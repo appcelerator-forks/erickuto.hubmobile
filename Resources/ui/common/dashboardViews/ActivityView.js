@@ -10,7 +10,7 @@ var user = Ti.App.user;
 function ActivityView(_authToken){
 
 	var appWindow = require("ui/common/UserView");
-    win = new appWindow();
+    win = new appWindow("Activity");
 
 	var self = Ti.UI.createView({
 		backgroundColor:util.customBgColor,
@@ -19,7 +19,7 @@ function ActivityView(_authToken){
 	
 	var allActivities = Ti.UI.createLabel({
 		top:105,
-		text: "Activity Page", 
+		text: "Activity Page Coming Soon!", 
 		color: util.customTextColor,
 		height: 40,
 		font: {

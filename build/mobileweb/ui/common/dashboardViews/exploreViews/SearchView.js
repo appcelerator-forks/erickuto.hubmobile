@@ -1,11 +1,12 @@
 
 
 function SearchView (_authToken){
-	var iconWidth = hubAPI.app_width/5.1; 
-	var margin_offset = (hubAPI.app_width-350*hubAPI.wsf)/2;
+	hub = require("hub");
+	var iconWidth = hub.API.app_width/5.1; 
+	var margin_offset = (hub.API.app_width-350*hub.API.wsf)/2;
 	var all_activity_offset = 0; 
 	var select_activity_offset = 30; 
-	var user = hubAPI.user; 
+	var user = hub.API.user; 
 	var selectedIconColor = '275378'; 
 	var unselectedIconColor = 'f1f2f6'; 
 	var explorer = null; 
@@ -15,32 +16,20 @@ function SearchView (_authToken){
 	var tableHolder = Ti.UI.createView({
 		top: 0, 
 	});
-		
-	var titleLabel = Ti.UI.createLabel({
-			top:3,
-			text: "", 
-			color: hubAPI.customTextColor,
-			height: 20,
-			font: {
-				fontWeight: 'bold',
-				fontSize: 18,
-			},
-			left: 5,
-	});
 	
 	var loadTable = function(_data, _category){
 		
 		if (_category === "indicator"){
 			
 			displayView = Ti.UI.createView(); 
-			hubAPI.indicate('Results', displayView);
+			hub.API.indicate('Results', displayView);
 			populateTableHolder(displayView);
 		}
 		else{
 			var table = Ti.UI.createTableView({
 				top:0,
 				separatorColor: 'transparent',
-				backgroundColor: hubAPI.customBgColor,
+				backgroundColor: hub.API.customBgColor,
 			});
 			
 			var tableRows = [];
@@ -50,7 +39,7 @@ function SearchView (_authToken){
 			}
 			
 			table.addEventListener('click', function(e){
-				var neon = hubAPI.searchResults.getNeon(e.index);
+				var neon = hub.API.searchResults.getNeon(e.index);
 				if (neon)
 				{
 					NeonView = require("ui/common/dashboardViews/exploreViews/NeonView");
@@ -86,57 +75,38 @@ function SearchView (_authToken){
 	}; 
 	
 	var loadResults = function(_category){
-		//Change the icons
-		for (var i = 0; i < icons.length; i++){
-			
-			if (icons[i].category === _category){
-				titleLabel.text = _category.charAt(0).toUpperCase() + _category.slice(1);
-				//Change the background of the icon
-				icons[i].children[0].backgroundColor = selectedIconColor; 
-				//Change the image of the icon
-				icons[i].children[0].children[0].image = hubAPI.imagePath('search_' + _category + '_selected.png');
-				//Change the color of the background of the ticker
-				icons[i].children[1].backgroundColor = unselectedIconColor; 
-				//Change the color of the text of the ticker
-				icons[i].children[1].color = selectedIconColor; 
-			
-				icons[i].status = "selected";
-				
-			}
-			//Unselect the other icon
-			else if (icons[i].status === "selected"){
-				//Change the background of the icon
-				icons[i].children[0].backgroundColor = unselectedIconColor; 
-				//Change the image of the icon
-				icons[i].children[0].children[0].image = hubAPI.imagePath('search_' + icons[i].category + '_unselected.png');
-				//Change the color of the background of the ticker
-				icons[i].children[1].backgroundColor = selectedIconColor; 
-				//Change the color of the text of the ticker
-				icons[i].children[1].color = unselectedIconColor; 
-				
-				icons[i].status = "unselected";
-	
-			}
-		}
 		
-		//Change the results
-		//Start the activity indicator
 		
-		loadTable([], "indicator");
-		//Call the method for fetching functions. 
+		var o = {
+			start: function(){
+				win.showIndicator("Fetching " + _category + "...");
+			},
+			error: function(){
+				Ti.API.info("Error Fetching " + _category);
+				win.hideIndicator(); 
+			},
+			success: function(){
+				win.hideIndicator();
+				/*SearchView = require("ui/common/dashboardViews/exploreViews/SearchView");
+				var searchView = new SearchView(); 
+				hub.API.openWindow(searchView);*/
+				Ti.API.info("Found Sub Results");
+			}
+		}; 
+
 		if (_category === "people"){
-			hubAPI.fetchResults("users", "most_recent", 0);
+			hub.API.fetchResults("users", "most_recent", 0, o);
 		}
 		else{
-			hubAPI.fetchResults(_category, "most_recent", 0);
+			hub.API.fetchResults(_category, "most_recent", 0, o);
 		}
-		Ti.App.fireEvent("Results");
-		
+
+		/*
 		//Fetch the returned results 
 		Ti.App.addEventListener('showFetchResults', function (){
 			var sResults = [];
 			var data = []; 
-			hubAPI.searchResults.getResults(sResults); 
+			hub.API.searchResults.getResults(sResults); 
 			for (i = 0; i < sResults.length; i++){
 				if (sResults[i].neonTitle){
 					data.push(sResults[i].neonTitle);
@@ -146,12 +116,12 @@ function SearchView (_authToken){
 				}
 	 			
 	 		}
-	 		if (hubAPI.searchResults.hasMore()){
+	 		if (hub.API.searchResults.hasMore()){
 	 			data.push("has_more");
 	 		}
 	 		loadTable(data, _category);
 		});
-		
+		*/
 		//Display the results. 
 		
 		//self.children[1].backgroundColor = 'blue'; 
@@ -189,7 +159,7 @@ function SearchView (_authToken){
 		});
 		
 		var imageView = Ti.UI.createImageView({
-			image: hubAPI.imagePath(imageName),
+			image: hub.API.imagePath(imageName),
 			height: 30, 
 			width: 30, 
 			left: 7,
@@ -236,7 +206,7 @@ function SearchView (_authToken){
 			backgroundColor: 'e5eaf0',
 			bottom: 5,
 			height: 50,
-			width: (hubAPI.app_width - 10),
+			width: (hub.API.app_width - 10),
 			right: 5, 
 			left: 5,
 			borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
@@ -251,7 +221,7 @@ function SearchView (_authToken){
 			titleImage = Ti.UI.createImageView({
 				top: 5, 
 				width: 250, 
-				image: hubAPI.imagePath('more.png'),
+				image: hub.API.imagePath('more.png'),
 			});
 			titleView.add(titleImage);
 			tableRow.addEventListener('click', function(e) {
@@ -259,10 +229,10 @@ function SearchView (_authToken){
 				//Start the activity indicator
 				loadTable([], "indicator");
 				if (_category === "people"){
-					hubAPI.fetchResults("users", "most_recent", (hubAPI.searchResults.getPage() + 1));
+					hub.API.fetchResults("users", "most_recent", (hub.API.searchResults.getPage() + 1));
 				}
 				else{
-					hubAPI.fetchResults(_category, "most_recent", (hubAPI.searchResults.getPage() + 1));
+					hub.API.fetchResults(_category, "most_recent", (hub.API.searchResults.getPage() + 1));
 				}
 				Ti.App.fireEvent("Results");
 			});
@@ -301,135 +271,131 @@ function SearchView (_authToken){
 		return tablerow;
 	};
 	
+	var createOptionRow = function(item, count) {
+		var selectedSize = count; 
+		var tableRow = Ti.UI.createTableViewRow({
+			className: 'itemRow',
+			hasChild: true, 
+		});
+	
+		var titleView = Ti.UI.createView({
+			backgroundColor: 'e5eaf0',
+			bottom: 5,
+			height: 60,
+			width: (hub.API.app_width - 10),
+			right: 5, 
+			left: 5,
+			borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
+			borderColor:'#e0e0e0',
+			borderRadius:5,
+			borderWidth:1,
+			layout:'horizontal'
+		});
+		
+		
+		var titleIcon = Ti.UI.createImageView({
+			image: hub.API.imagePath('search_' + item + '_unselected.png'),
+			height: 30, 
+			width: 30, 
+			left: 7,
+			top: 20,
+		});
+		
+		labelText = item.charAt(0).toUpperCase() + item.slice(1);
+		var titleLabel = Ti.UI.createLabel({
+			text: labelText,
+			width: 'auto',
+			color: '#5e656a',
+			left: 10,
+			top: 20,
+			font: {
+				fontSize: 16
+			},
+			
+		});
+	
+		var sizeText = "";
+		if (selectedSize > 0){
+			sizeText = "(" + selectedSize + ")";
+		}
+		var sizeLabel = Ti.UI.createLabel({
+			text: sizeText, 
+			color: '#5e656a',
+			width: 'auto',
+			left: 5,
+			top: 20,
+			font: {
+				fontSize: 16
+			},
+		});
+		
+		tableRow.sizeLabel = sizeLabel; 
+		titleView.add(titleIcon);
+		titleView.add(titleLabel);
+		titleView.add(sizeLabel);
+		tableRow.add(titleView);
+		tableRow.addEventListener('click', function(e) {
+			loadResults(item); 
+		});
+		return tableRow;
+	};
+	
 	function buildSearchView(){
 		
 		var self = Ti.UI.createView({
-			backgroundColor:hubAPI.customBgColor,
+			backgroundColor:hub.API.customBgColor,
 			layout: 'vertical', 
-			table: null
 		});
 			
 		var nonScrollView = Ti.UI.createView({
 			top: 3,
-			height: 140, 
+			height: 30, 
 			layout:'vertical'
 		});
 		
-		var iconsView = Ti.UI.createView({
-			top:0,
-			height: 50, 
-			backgroundColor: hubAPI.customBgColor, 
-			layout:'horizontal'
-		});
-		
-		var iconNames = ['people', 'offers', 'needs', 'events', 'ideas'];
-		icons = []; 
-		for (var i = 0; i < iconNames.length; i++){
-			icons.push(createSearchIcon('unselected', iconNames[i], hubAPI.searchResults.getCounts(iconNames[i])));
-			iconsView.add(icons[i]);
-		}
-		
-		var sortView = Ti.UI.createView({
-			top: 5,
-			height: 40,  
+		var titleLabel = Ti.UI.createLabel({
+
 			layout:'horizontal', 
-			backgroundColor: 'ebebeb',
-			borderWidth: 1, 
-			borderColor: 'd7dbde',
-		});
-		
-		var titleView = Ti.UI.createView({
-			top: 0, 
-			height: 30, 
-			layout:'horizontal', 
-			borderColor: 'd7dbde',
-			borderWidth: 1,
-		});
-		self.add(nonScrollView);
-		
-		sortView.add(Ti.UI.createLabel({
 			top:3,
-			text: "Sort by:", 
-			color: hubAPI.customTextColor,
-			height: 30,
-			font: {
-				fontWeight: 'bold',
-				fontSize: 19,
-			},
-			left: 5,
-		}));
-		
-		var mostRecent = Ti.UI.createLabel({
-			top:3,
-			text: "Most Recent", 
-			color: 'blue',
-			height: 30,
-			font: {
-				fontWeight: 'bold',
-				fontSize: 16,
-			},
-			left: 5,
-		});
-		
-		sortView.add(mostRecent);
-		
-		sortView.add(Ti.UI.createLabel({
-			top:3,
-			text: " | ", 
-			color: hubAPI.customTextColor,
-			height: 30,
+			text: "Search Results", 
+			color: hub.API.customTextColor,
+			height: 20,
 			font: {
 				fontWeight: 'bold',
 				fontSize: 18,
 			},
 			left: 5,
-		}));
-		
-		var mostFollowed = Ti.UI.createLabel({
-			top:3,
-			text: "Most Followed", 
-			color: hubAPI.customTextColor,
-			height: 30,
-			font: {
-				fontSize: 16,
-			},
-			left: 5,
 		});
+
 		
+		var table = Ti.UI.createTableView({
+			top:0,
+			separatorColor: 'transparent',
+			backgroundColor:hub.API.customBgColor,
+		});
+
+		var data = ['people', 'offers', 'needs', 'events', 'ideas'];
+
+		var rows = [];
 		
-		sortView.add(mostFollowed);
-		titleView.add(titleLabel);
+		for (var i = 0; i < data.length; i++) {
+			rows.push(createOptionRow(data[i], hub.API.searchResults.getCounts(data[i])));
+		}
 		
-		nonScrollView.add(iconsView, sortView, titleView);
-		var views = [];
+		table.setData(rows);
+		nonScrollView.add(titleLabel);
 		
-		self.add(tableHolder); 
-		loadResults("people");
+		self.add(nonScrollView); 
+		self.add(table);
+		
 		return(self);
 	}
 
 	var appWindow = require("ui/common/UserView");
-    search_win = new appWindow();
+    search_win = new appWindow("Explore");
+	self = buildSearchView(); 
+	search_win.addContent(self);
 
-	if (!hubAPI.searchResults.isReady()){
-		//Wait on Results. 
-		search_win.clearCanvas(); 
-		displayView = Ti.UI.createView(); 
-		hubAPI.indicate('Results', displayView);
-		search_win.addContent(displayView);
-	}
-	else{
-		search_win.clearCanvas(); 
-		self = buildSearchView(); 
-		search_win.addContent(self);
-	}
-	
-	Ti.App.addEventListener("showSearchPage", function(){
-		search_win.clearCanvas(); 
-		Ti.App.fireEvent("stopIndicator");
-		self = buildSearchView(); 
-		search_win.addContent(self);
-	})
 	/*Ti.App.addEventListener("refreshSearchResults", function(){
 		Ti.API.info("Refreshing. ");
 		win.close();  

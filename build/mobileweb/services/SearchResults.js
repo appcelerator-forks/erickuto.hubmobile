@@ -1,49 +1,46 @@
-var category = null; 
-var params = null;
-var isReady = false; 
+
 var results = [];
 var counts = {}; 
 var hasMore = false; 
 var page = 0; 
-ResultsClient = require('services/Results'); 
 
-Ti.App.addEventListener("Results", function(){
-	var resultsClient = new ResultsClient({
-		
-		start: function() { },
-		error: function() { Ti.API.info("ERROR!! while getting results for " + category);},
-		success: function(_json){
-			page = _json.page;
-			
-			if (page == 0){
-				results = []; 
-			}
-			if (_json.hasMore == true){
-				hasMore = true; 
-			}
-			else{
-				hasMore = false; 
-			}
-			if (category === "activities/count"){
-				counts = _json;
-				Ti.App.fireEvent('showSearchPage');
-			}
-			else{
-				_results = _json.results; 
-				for (i = 0; i < _results.length; i++){
-					results.push(_results[i]);
-				}
-				Ti.App.fireEvent('showFetchResults');
-			}
-			isReady = true; 
-		}
-	}, category, params);
-});
-
-function SearchResults(_category, _params){
+function SearchResults(_category, _params, o){
 	
-	category = _category; 
-	params = _params; 
+	Connection = require('services/Connection');
+
+	var response = new Connection({
+		start: function() {
+			if (o.start) { o.start(); }
+			},
+			
+		error: function() {
+			if (o.error) { o.error(); }
+			},
+		
+		success: function(_json){
+				page = _json.page;
+			
+				if (page == 0){
+					results = []; 
+				}
+				if (_json.hasMore == true){
+					hasMore = true; 
+				}
+				else{
+					hasMore = false; 
+				}
+				if (_category === "activities/count"){
+					counts = _json; 
+				}
+				else{
+					for (i = 0; i < _json.length; i++){
+						results.push(_json[i]);
+					}
+				}
+
+				o.success();
+			}
+	}, _category , [], "GET", _params);
 	
 	this.getResults = function(_results){
 			for (i = 0; i < results.length; i++){
@@ -56,9 +53,6 @@ function SearchResults(_category, _params){
 	this.getCounts = function(_category){
 		return counts[_category]; 
 	};
-	this.isReady = function(){
-		return isReady; 
-	}
 	this.hasMore = function(){
 		return hasMore; 
 	}

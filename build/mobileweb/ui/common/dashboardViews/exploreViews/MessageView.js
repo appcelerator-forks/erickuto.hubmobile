@@ -1,9 +1,9 @@
 
 function messageView(message_thread){
 	
-	var margin_offset = (hubAPI.app_width-350*hubAPI.wsf)/2;
+	var margin_offset = (hub.API.app_width-350*hub.API.wsf)/2;
 	
-	var user = hubAPI.user; 
+	var user = hub.API.user; 
 
 	var tableHolder = Ti.UI.createScrollView({
 			top: 0, 
@@ -40,7 +40,7 @@ function messageView(message_thread){
 		var titleView = Ti.UI.createView({
 			backgroundColor: 'e5eaf0',
 			bottom: 1,
-			width: (hubAPI.app_width - 2),
+			width: (hub.API.app_width - 2),
 			height: 125,
 			right: 1, 
 			left: 0,
@@ -70,7 +70,7 @@ function messageView(message_thread){
 		var messageDetailsHolder = Ti.UI.createView({
 			layout: 'vertical', 
 			height: 120, 
-			width: (hubAPI.app_width - 60), 
+			width: (hub.API.app_width - 60), 
 		});
 		var messageDetails = Ti.UI.createTextArea({
 		  borderWidth: 2,
@@ -85,7 +85,7 @@ function messageView(message_thread){
 		});
 		
 		var replyButton = Ti.UI.createImageView({
-			image: hubAPI.imagePath('reply.png'),
+			image: hub.API.imagePath('reply.png'),
 			width: 75, 
 			top: 5,
 			right: 5,
@@ -126,7 +126,7 @@ function messageView(message_thread){
 		var titleView = Ti.UI.createView({
 			backgroundColor: 'e5eaf0',
 			bottom: 1,
-			width: (hubAPI.app_width - 2),
+			width: (hub.API.app_width - 2),
 			right: 1, 
 			left: 0,
 			borderColor:'#e0e0e0',
@@ -191,7 +191,7 @@ function messageView(message_thread){
 		var messageContent = Ti.UI.createWebView({
 			top:0, 
 			backgroundColor: 'e5eaf0',
-			width: (hubAPI.app_width - 60),
+			width: (hub.API.app_width - 60),
 			height: Ti.UI.SIZE,
 			html: messageHtml, 
 		});
@@ -234,7 +234,7 @@ function messageView(message_thread){
 	function buildMessageView(message_thread){
 		
 		var self = Ti.UI.createView({
-			backgroundColor:hubAPI.customBgColor,
+			backgroundColor:hub.API.customBgColor,
 			layout: 'vertical', 
 		});
 			

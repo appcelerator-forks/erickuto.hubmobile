@@ -1,5 +1,5 @@
+hub = require("hub");
 
-TagClient = require('services/Tags');
 var communities = [];
 var targetPopulations = []; 
 var regions = [];
@@ -7,48 +7,7 @@ var fieldsOfWork = [];
 var people = []; 
 var groups = []; 
 var freeTags = []; 
-var isReady = false; 
 
-Ti.App.addEventListener("Explore", function(){
-	var tagClient = new TagClient({
-	
-	start: function() { },
-	error: function() { },
-
-	success: function(_tags){
-		for (i = 0; i < _tags.communities.length; i++){
-			communities.push(_tags.communities[i].title);
-			groups.push(_tags.communities[i].groups);
-		}
-		for (i = 0; i < _tags.targetPopulations.length; i++){
-			targetPopulations.push(_tags.targetPopulations[i]);
-		}
-		for (i = 0; i < _tags.regions.length; i++){
-			region = _tags.regions[i];
-			countries = [];
-			for (j = 0; j < region.countries.length; j++){
-				country = region.countries[j];
-				subLocations = country.subLocations;
-				countryObject = {"name": country.title, "subLocations": subLocations}
-				countries.push(countryObject);
-			}
-			regionObject = {"name": region.title, "countries": countries};
-			regions.push(regionObject);
-		}
-		for (i = 0; i < _tags.fieldsOfWork.length; i++){
-			fieldsOfWork.push(_tags.fieldsOfWork[i]);
-		}
-		for (i = 0; i < _tags.userTypes.length; i++){
-			people.push(_tags.userTypes[i]);
-		}
-		for (i = 0; i < _tags.freeTags.length; i++){
-			freeTags.push(_tags.freeTags[i]);
-		}
-		isReady = true; 
-		Ti.App.fireEvent('openExplorerPage'); 
-	}
-});
-})
 
 function getCommunities(choices){
 	for (i = 0; i < communities.length; i++){
@@ -75,7 +34,7 @@ function getRegions(choices){
 }
 
 function getCountries(choices){
-	userRegions = hubAPI.user.getSelectedOptions("regions");
+	userRegions = hub.API.user.getSelectedOptions("regions");
 	for (i = 0; i < userRegions.length; i++){
 		index = userRegions[i]; 
 		for (j = 0; j < regions[index].countries.length; j++){
@@ -85,8 +44,8 @@ function getCountries(choices){
 }
 
 function getCities(choices){
-	userRegions = hubAPI.user.getSelectedOptions("regions");
-	userCountries = hubAPI.user.getSelectedOptions("countries");
+	userRegions = hub.API.user.getSelectedOptions("regions");
+	userCountries = hub.API.user.getSelectedOptions("countries");
 	for (i = 0; i < userRegions.length; i++){
 		indexRegion = userRegions[i]; 
 		for (j = 0; j < userCountries.length; j++){
@@ -110,7 +69,7 @@ function getFieldsOfWork(choices){
 }
 
 function getGroups(choices){
-	userCommunities = hubAPI.user.getSelectedOptions("communities");
+	userCommunities = hub.API.user.getSelectedOptions("communities");
 	for (i = 0; i < userCommunities.length; i++){
 		index = userCommunities[i];
 		for (j = 0; j < groups[index].length; j++){
@@ -125,8 +84,68 @@ function getPeople(choices){
 	}
 }
 
-function Exploration(){
-	
+function Exploration(o){
+	var tries = 3; 	
+
+	hub = require("hub");
+	Connection = require('services/Connection');
+		getParams = [];
+		getParams.push({
+			"key0":"auth_token", 
+			"value0":hub.API.user.getAuthToken()
+			});
+
+    	var response = new Connection({
+    		start: function() {
+    			if (o.start) { o.start(); }
+    			},
+    			
+    		error: function() {
+    			if (o.error) { o.error(); }
+    			},
+    		
+    		success: function(_tags){
+    				communities = [];
+					targetPopulations = []; 
+					regions = [];
+					fieldsOfWork = []; 
+					people = []; 
+					groups = []; 
+					freeTags = [];
+					
+    				for (i = 0; i < _tags.communities.length; i++){
+						communities.push(_tags.communities[i].title);
+						groups.push(_tags.communities[i].groups);
+					}
+					for (i = 0; i < _tags.targetPopulations.length; i++){
+						targetPopulations.push(_tags.targetPopulations[i]);
+					}
+					for (i = 0; i < _tags.regions.length; i++){
+						region = _tags.regions[i];
+						countries = [];
+						for (j = 0; j < region.countries.length; j++){
+							country = region.countries[j];
+							subLocations = country.subLocations;
+							countryObject = {"name": country.title, "subLocations": subLocations}
+							countries.push(countryObject);
+						}
+						regionObject = {"name": region.title, "countries": countries};
+						regions.push(regionObject);
+					}
+					for (i = 0; i < _tags.fieldsOfWork.length; i++){
+						fieldsOfWork.push(_tags.fieldsOfWork[i]);
+					}
+					for (i = 0; i < _tags.userTypes.length; i++){
+						people.push(_tags.userTypes[i]);
+					}
+					for (i = 0; i < _tags.freeTags.length; i++){
+						freeTags.push(_tags.freeTags[i]);
+					}
+					o.success();
+    			}
+    	}, "tags", [], "GET", getParams);
+    	
+
 	this.getChoices = function(_category, choices){
 		if (_category == "communities"){
 			return getCommunities(choices);

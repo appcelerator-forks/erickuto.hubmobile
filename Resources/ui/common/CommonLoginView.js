@@ -73,10 +73,10 @@ function CommonLoginView(){
 	//Style for the indicator. 
 	var style;
 	if (Ti.Platform.name === 'iPhone OS'){
-	  style = Ti.UI.iPhone.ActivityIndicatorStyle.DARK;
+	  style = Ti.UI.iPhone.ActivityIndicatorStyle.BIG;
 	}
 	else {
-	  style = Ti.UI.ActivityIndicatorStyle.DARK;
+	  style = Ti.UI.ActivityIndicatorStyle.BIG;
 	}
 	
 	indicatorHolder = Ti.UI.createView({
@@ -86,13 +86,14 @@ function CommonLoginView(){
 		width: "90%", 
 		opacity: 0.8,
 	});
+	
 	indicator = Titanium.UI.createActivityIndicator({
 		style:style,
 		font:{fontFamily:'Arial', fontSize:18, fontWeight:'bold'},
 		color:'#FFF',
-		height:'50',
-		width:'50',
-		left: "5", 
+		height:70,
+		width:70,
+		left: 5, 
 	});
 
 	indicatorLabel = Ti.UI.createLabel({
@@ -140,16 +141,33 @@ function CommonLoginView(){
 		else{
 			indicatorLabel.text = indicatorMessage;
 		}
-		 
+		var intervalLength = 1000; 
+		var ttk = 10000; 
+		var timeout = 7000; 
+		var timeElapsed = 0; 
+		
+		function loadingAnimation(){
+			 if (timeElapsed >= ttk){
+			 	win2.close(); 
+			 	clearInterval(hub.API.loaderAnimate);
+			 }
+			 if (timeElapsed >= timeout){
+			 	indicatorLabel.text = "Hub mobile is taking too long to respond please try again in a few minutes."
+			 }
+			 timeElapsed += intervalLength; 
+			 Ti.API.info(timeElapsed/1000);
+			 
+		}
+		hub.API.loaderAnimate = setInterval(loadingAnimation,intervalLength);
 		win2.addEventListener('open', function (e) {
-		  indicator.show();
-		});
-		win2.open();
-	}
+			indicator.show();
+			});
+			win2.open();
+		}
 
 	this.hideIndicator = function(){
 		win2.close();
-		
+		clearInterval(hub.API.loaderAnimate);
 	}
 	CommonLoginView.prototype.appwin = win; 
 	

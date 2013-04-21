@@ -68,7 +68,7 @@ function PasswordView(){
 					showError("Unknown error while sending you a password reset. please contact hub@ashoka.org.");
 				}
 			}
-		}, "mobile/passwords", params, "POST", 3, {});
+		}, "passwords", params, "POST", 3, {});
 
 	};
 	var errorPane = Ti.UI.createLabel({

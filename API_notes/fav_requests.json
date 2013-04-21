@@ -1,1 +1,17 @@
-{"POST to login":{"method":"POST","url":"http://localhost:3000/api/mobile/tokens.json","body":"email=ekkuto@gmail.com&password=v=O6tazfzj","overrideMimeType":false,"headers":[["Content-Type","application/x-www-form-urlencoded"]]},"GET messages_inbox":{"method":"GET","url":"http://localhost:3000/api/message_threads.json?Auth_token=SJTGyHqZLM7zEPzLshem","body":"","overrideMimeType":false,"headers":[]},"POST to reply to message":{"method":"POST","url":"http://localhost:3000/api/mobile/messages?auth_token=SJTGyHqZLM7zEPzLshem","body":"message[body]=Replying to a message&message_thread[id]=104274","overrideMimeType":false,"headers":[["Content-Type","application/x-www-form-urlencoded"]]},"POST to send message":{"method":"POST","url":"http://localhost:3000/api/mobile/messages?auth_token=SJTGyHqZLM7zEPzLshem","body":"message_thread[subject]=Test Subject&message_thread[message_recipients_attributes[0][user_id]=1]&message_thread[id]=&message[body]=This is a new message","overrideMimeType":false,"headers":[["Content-Type","application/x-www-form-urlencoded"]]}}
+{
+	"POST to login":{
+		"method":"POST","url":"http://localhost:3000/api/mobile/tokens.json","body":"email=ekkuto@gmail.com&password=v=O6tazfzj","overrideMimeType":false,"headers":[["Content-Type","application/x-www-form-urlencoded"]]
+		},
+	"GET messages_inbox":{
+	"method":"GET","url":"http://localhost:3000/api/message_threads.json?Auth_token=SJTGyHqZLM7zEPzLshem","body":"","overrideMimeType":false,"headers":[]
+	},
+	"POST to reply to message":{
+	"method":"POST","url":"http://localhost:3000/api/mobile/messages?auth_token=SJTGyHqZLM7zEPzLshem","body":"message[body]=Replying to a message&message_thread[id]=104274","overrideMimeType":false,"headers":[["Content-Type","application/x-www-form-urlencoded"]]
+	},
+	"POST to send message":{
+	"method":"POST","url":"http://localhost:3000/api/mobile/messages?auth_token=SJTGyHqZLM7zEPzLshem","body":"message_thread[subject]=Test Subject&message_thread[message_recipients_attributes[0][user_id]=1]&message_thread[id]=&message[body]=This is a new message","overrideMimeType":false,"headers":[["Content-Type","application/x-www-form-urlencoded"]]
+	}
+	"GET Count of Activities":{
+	"method":"GET","url":"http://localhost:3000/api/mobile/activities/count.json?page=0&order=most_recent&query=&content=followed&auth_token=qM7qDxzkpqzSzycJDKvy","body":"","overrideMimeType":false,"headers":[]
+	}
+}

@@ -31,7 +31,7 @@ function LoginView(){
 	      fontFamily: hub.API.util.customFont
 	   },
 		hintText:'Enter your email address',
-		value:'ekkuto@gmail.com',
+		value:'ekuto@ashoka.org',
 		keyboardType:Titanium.UI.KEYBOARD_DEFAULT,
 		returnKeyType:Titanium.UI.RETURNKEY_DEFAULT,
 		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
@@ -243,8 +243,9 @@ function LoginView(){
 	function grantEntrance(){
     	DashboardView = require('ui/common/DashboardView');
     	dashboardView = new DashboardView();
-    	openWindow(dashboardView);
     	Ti.API.info("Opening dashboard");
+    	openWindow(dashboardView);
+    	
     };
     
     function handleFirstEvent(){
@@ -320,10 +321,10 @@ function LoginView(){
     	AuthClient = require('services/Authentication');
     	var isAuthenticated = new AuthClient({
     		start: function() {
-    			
+    			win.showIndicator("Logging in " + _username + "...");
     		},
     		error: function() {
-    			win.showIndicator(indicatorMessage);
+    			win.hideIndicator(); 
     			showError("Error:There was a problem connecting to Ashoka Hub."); 
     			},
     		failure: function() { 

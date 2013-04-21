@@ -1,3 +1,4 @@
+hub = require("hub");
 //Table view showing your autocomplete values
 var selectedTagOptions = []; 
 var searchArray = []; 
@@ -96,7 +97,7 @@ function createTag(tagText){
 		top:0,
 		height: 20, 
 		width: 20, 
-		image:hubAPI.imagePath('delete.png'),
+		image:hub.API.imagePath('delete.png'),
 	});
 	tagHolder.add(tagX);
 	tagHolder.addEventListener('click', function(e){
@@ -202,7 +203,7 @@ function CreateAutoCompleteList(searchResults){
 }
 
 function AutoCompleteView (inputArray){
-	selectedTagOptions = hubAPI.user.getSelectedOptions("free"); 
+	selectedTagOptions = hub.API.user.getSelectedOptions("free"); 
 	searchArray = inputArray; 
 	
 	var self = Ti.UI.createView({

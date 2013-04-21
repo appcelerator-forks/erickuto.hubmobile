@@ -1,26 +1,21 @@
-var utilities = require("ui/common/utilities");
-var util = new utilities();
-var hsf = util.height_scale_factor;
-var wsf = util.width_scale_factor;
-var margin_offset = (util.app_width-350*wsf)/2;
-var all_activity_offset = 0; 
-var select_activity_offset = 30; 
-var user = Ti.App.user; 
-
 function EventsView(_authToken){
 
 	var appWindow = require("ui/common/UserView");
     win = new appWindow();
 
+	hub = require("hub");
+	var hsf = hub.API.hsf;
+	var wsf = hub.API.wsf;
+	
 	var self = Ti.UI.createView({
-		backgroundColor:util.customBgColor,
+		backgroundColor:hub.API.customBgColor,
 	});
 	
 	
 	var allActivities = Ti.UI.createLabel({
 		top:105,
 		text: "Events Page", 
-		color: util.customTextColor,
+		color: hub.API.customTextColor,
 		height: 40,
 		font: {
 			fontSize: 28

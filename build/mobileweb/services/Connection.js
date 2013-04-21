@@ -1,10 +1,10 @@
 hub = require("hub");
 
-connectHub = function(o, url, postParams, method, tries, getParams){
+connectHub = function(o, url, postParams, method, getParams){
 	var loginReq = Titanium.Network.createHTTPClient();
-	var urlText = "api/" + url + ".json"; 
+	var urlText = "api/mobile/" + url + ".json"; 
 	if (url.substring(0,9) === "activities"){
-		ulrText = urlText.replace("api/", "");
+		ulrText = urlText.replace("api/mobile", "");
 	}
 	 
 	var getArgs = "";
@@ -30,26 +30,12 @@ connectHub = function(o, url, postParams, method, tries, getParams){
 	}
 
 	var url = hub.API.getRemoteURL(urlText);
-	Ti.API.info("Fetching from: [" + url + "]");
-	
-	tries = tries || 0; 			
+	Ti.API.info("Fetching from: [" + url + "]");			
 	
 	loginReq.open(method,url);
 	loginReq.onload = function(e)
 	{	
 		var json = this.responseText;
-		
-		if (loginReq === null || json === null){
-			if (tries < 3){
-				tries++;
-				connectHub(o, _username, _password, tries);
-				return;
-			}
-			else{
-				if (o.error){ o.error();}
-				return;
-			}
-		}
 		
 		var response = JSON.parse(json);
 		//Ti.API.info(JSON.stringify(response));

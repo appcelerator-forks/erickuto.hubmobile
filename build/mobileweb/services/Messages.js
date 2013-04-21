@@ -7,42 +7,9 @@ var hasMore = false;
 var page = 0; 
 ResultsClient = require('services/Results'); 
 
-Ti.App.addEventListener("Messages", function(){
-	var resultsClient = new ResultsClient({
-		
-		start: function() { },
-		error: function() { Ti.API.info("ERROR!! while getting messages for " + category);},
-		success: function(_json){
-			page = _json.page;
-			
-			if (page == 0){
-				results = []; 
-			}
-			if (_json.hasMore == true){
-				hasMore = true; 
-			}
-			else{
-				hasMore = false; 
-			}
-			if (category === "mobile/message_threads/count"){
-				counts = _json;
-				Ti.App.fireEvent('showMessagePage');
-			}
-			else{
-				_results = _json.results; 
-				for (i = 0; i < _results.length; i++){
-					results.push(_results[i]);
-				}
-				Ti.App.fireEvent('showMessages');
-			}
-			isReady = true; 
-		}
-	}, category, params);
-});
-
 function Messages(_category, _params){
 	
-	category = "mobile/" + _category; 
+	category = _category; 
 	params = _params; 
 	
 	this.getMessageThreads = function(_results){
@@ -118,6 +85,39 @@ function Messages(_category, _params){
 	this.changeReadyState = function(state){
 		isReady = state; 
 	}
+	Ti.App.addEventListener("Messages", function(){
+		var resultsClient = new ResultsClient({
+			
+			start: function() { },
+			error: function() { Ti.API.info("ERROR!! while getting messages for " + category);},
+			success: function(_json){
+				page = _json.page;
+				
+				if (page == 0){
+					results = []; 
+				}
+				if (_json.hasMore == true){
+					hasMore = true; 
+				}
+				else{
+					hasMore = false; 
+				}
+				if (category === "mobile/message_threads/count"){
+					counts = _json;
+					Ti.App.fireEvent('showMessagePage');
+				}
+				else{
+					_results = _json.results; 
+					for (i = 0; i < _results.length; i++){
+						results.push(_results[i]);
+					}
+					Ti.App.fireEvent('showMessages');
+				}
+				isReady = true; 
+				
+			}
+		}, category, params);
+	});
 }
 
 module.exports = Messages; 

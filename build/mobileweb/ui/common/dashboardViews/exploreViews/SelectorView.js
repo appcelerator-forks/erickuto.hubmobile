@@ -1,12 +1,13 @@
 function SelectorView(_category, _explorer) {
 	var appWindow = require("ui/common/UserView");
-    win = new appWindow();
+    win = new appWindow("Explore");
+    hub = require("hub");
     
     var choices = [];
     _explorer.getChoices(_category, choices); 
     var self = Ti.UI.createView();
     
-    var user = hubAPI.user; 
+    var user = hub.API.user; 
 	var selection = user.getSelectedOptions(_category);
 	
 	if (_category == "free"){

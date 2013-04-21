@@ -3,14 +3,9 @@ exports.NavigationController = function() {
 };
 
 exports.NavigationController.prototype.open = function(/*Ti.UI.Window*/windowToOpen) {
+	Ti.API.info("Adding a window to " + this.windowStack.length.toString() + " Windows.");
 	//add the window to the stack of windows managed by the controller
 	this.windowStack.push(windowToOpen);
-
-	//grab a copy of the current nav controller for use in the callback
-	var that = this;
-	windowToOpen.addEventListener('close', function() {
-		that.windowStack.pop();
-	});
 	
 	//hack - setting this property ensures the window is "heavyweight" (associated with an Android activity)
 	windowToOpen.navBarHidden = windowToOpen.navBarHidden || false;
@@ -57,15 +52,19 @@ exports.NavigationController.prototype.close = function(){
 	var windows = this.windowStack.concat([]);
 	windowToClose = windows[windows.length-1];
 	(this.navGroup) ? this.navGroup.close(windowToClose) : windowToClose.close(); 
-	
+	this.windowStack.pop();
 }
 
 //go back to the initial window of the NavigationController
 exports.NavigationController.prototype.home = function() {
-	//store a copy of all the current windows on the stack
-	var windows = this.windowStack.concat([]);
-	for(var i = 1, l = windows.length; i < l; i++) {
-		(this.navGroup) ? this.navGroup.close(windows[i]) : windows[i].close();
+
+	for(var i = this.windowStack.length; i > 2; i--) {
+		Ti.API.info("There are " + this.windowStack.length.toString() + " windows on Iteration: " + i.toString()); 
+		var windows = this.windowStack.concat([]);
+		windowToClose = windows[windows.length-1];
+		(this.navGroup) ? this.navGroup.close(windowToClose) : windowToClose.close(); 
+		this.windowStack.pop();
+		Ti.API.info("After Removing, there are now " + this.windowStack.length.toString());
 	}
-	this.windowStack = [this.windowStack[0]]; //reset stack
+	//this.windowStack = [this.windowStack[0]]; //reset stack
 };

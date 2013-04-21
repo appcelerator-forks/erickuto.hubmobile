@@ -1,3 +1,4 @@
+hub = require("hub");
 var first_name = "Eric";
 var last_name = "Kuto"; 
 var followed_people = [];
@@ -50,7 +51,7 @@ userFunction = function(){
 
 			if (thisArray.length > 0){
 				var options = [];
-				hubAPI.explorer.getChoices(data[k], options); 
+				hub.API.explorer.getChoices(data[k], options); 
 				for (var j = 0; j < thisArray.length; j++){
 					var resultArray = {}
 					keyText = "key"+resultIndex;

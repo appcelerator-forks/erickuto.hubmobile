@@ -6,6 +6,7 @@ hubAPI.util = util;
 hubAPI.hsf = util.height_scale_factor;
 hubAPI.wsf = util.width_scale_factor;
 hubAPI.app_width = util.app_width; 
+hubAPI.app_height = util.app_height; 
 hubAPI.margin_offset = (util.app_width-350*util.wsf)/2;
 hubAPI.customBgColor = util.customBgColor;
 hubAPI.customTextColor = util.customTextColor;
@@ -13,6 +14,15 @@ hubAPI.imagePath = function(imagePath){
 	return util.imagePath(imagePath);	
 }
 hubAPI.osname = util.osname; 
+
+/*Adds a key value index to an array
+*/
+function addVariable(_array, _index, _key, _value){
+	var additions = {}
+	additions["key" + _index] = _key;
+	additions["value" + _index] = _value;
+	_array.push(additions);
+}
 
 //require the UI components necessary to drive the test
 var NavigationController = require('NavigationController').NavigationController;
@@ -30,6 +40,12 @@ hubAPI.closeWindow = function(){
 	hubAPI.controller.close(); 
 }
 
+//Closes the current window
+hubAPI.homeWindow = function(){
+	hubAPI.controller.home(); 
+	Ti.API.info("Closed all Pages. "); 
+	return true; 
+}
 hubAPI.indicate = function(indicatorMessage){
 	var ActivityIndicator = require("ui/common/ActivityIndicator");	
 	var activityIndicator = new ActivityIndicator();
@@ -45,6 +61,7 @@ hubAPI.indicate = function(indicatorMessage){
 		 	stopAnimation();
 		 }
 		 timeElapsed += intervalLength; 
+		 Ti.API.info(timeElapsed/1000);
 	}
 	
 	function stopAnimation(){
@@ -82,6 +99,16 @@ hubAPI.getRemoteURL = function(_path, site){
 	//var mainURL = "http://greenhub-mobile.herokuapp.com/";
 	return mainURL + _path;
 }
+
+hubAPI.fetchProfileInfo = function(o){
+	var  arguments = []; 
+	addVariable(arguments, arguments.length, "auth_token", hubAPI.user.getAuthToken());
+	Connection = require('services/Connection');
+	Ti.API.info("Connecting now.");
+    var response = new Connection(o, "users" , [], "GET", arguments);
+}
+
+hubAPI.userTypes = ["Team?", "Fellow", "Ashoka Support Network", "Ashoka Team", "Changemaker", "Changeleader"]; 
 
 hubAPI.fetchMessages = function(category, page){
 	var results = [];

@@ -1,7 +1,6 @@
 hub = require("hub");
 
 authenticateUser = function(o, _username, _password){
-	var tries = 3; 	
 	var params = {
 		email: _username,
 		password: _password
@@ -29,6 +28,6 @@ authenticateUser = function(o, _username, _password){
 					if (o.failure){o.failure()}
 				}
 			}
-	}, "mobile/tokens", params, "POST", tries);
+	}, "tokens", params, "POST");
 }
 module.exports = authenticateUser;

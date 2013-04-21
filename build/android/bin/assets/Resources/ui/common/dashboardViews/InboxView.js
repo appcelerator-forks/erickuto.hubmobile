@@ -1,13 +1,16 @@
 
 
 function InboxView (_authToken){
-	var iconWidth = hubAPI.app_width/3.7; 
-	var margin_offset = (hubAPI.app_width-350*hubAPI.wsf)/2;
+	hub = require("hub");
+	var hsf = hub.API.hsf;
+	var wsf = hub.API.wsf;
 	
-	var user = hubAPI.user; 
-	var selectedIconColor = '275378'; 
-	var unselectedIconColor = 'f1f2f6'; 
-	var explorer = null; 
+	var iconWidth = hub.API.app_width/3.7; 
+	var margin_offset = (hub.API.app_width-350*wsf)/2;
+	
+	var user = hub.API.user; 
+	var selectedIconColor = '#275378'; 
+	var unselectedIconColor = '#f1f2f6'; 
 	
 	var icons = []; 
 	
@@ -19,16 +22,14 @@ function InboxView (_authToken){
 	var loadTable = function(_data, _category){
 		
 		if (_category === "indicator"){
-			
-			displayView = Ti.UI.createView(); 
-			hubAPI.indicate('Messages', displayView);
+			hub.API.showIndicator("Loading Messages");
 			populateTableHolder(displayView);
 		}
 		else{
 			var table = Ti.UI.createTableView({
 				top:0,
 				separatorColor: 'transparent',
-				backgroundColor: hubAPI.customBgColor,
+				backgroundColor: hub.API.customBgColor,
 			});
 			
 			var tableRows = [];
@@ -38,13 +39,12 @@ function InboxView (_authToken){
 			}
 			
 			table.addEventListener('click', function(e){
-				var message = hubAPI.messages.getMessages(e.index);
+				var message = hub.API.messages.getMessages(e.index);
 				if (message)
 				{
 					MessageView = require("ui/common/dashboardViews/exploreViews/MessageView");
 					var messageView = new MessageView(message); 
-					Ti.App.globalWindow = messageView;
-					Ti.App.fireEvent('openWindow',{});
+					hub.API.openWindow(messageView);
 				}
 			});	
 			table.setData(tableRows);
@@ -108,10 +108,10 @@ function InboxView (_authToken){
 		
 		//Change the results
 		//Start the activity indicator
+		inbox_win.showIndicator("Loading " + _category + "...");
 		
-		loadTable([], "indicator");
 		//Call the method for fetching functions. 
-		hubAPI.fetchMessages(_category.toLowerCase(), 0);
+		hub.API.fetchMessages(_category.toLowerCase(), 0);
 		
 		Ti.App.fireEvent("Messages");
 		
@@ -119,21 +119,18 @@ function InboxView (_authToken){
 		Ti.App.addEventListener('showMessages', function (){
 			var sResults = [];
 			var data = []; 
-			hubAPI.messages.getMessageThreads(sResults); 
+			hub.API.messages.getMessageThreads(sResults); 
 			for (i = 0; i < sResults.length; i++){
 				data.push(sResults[i]);
 				
 	 		}
-	 		if (hubAPI.messages.hasMore()){
+	 		if (hub.API.messages.hasMore()){
 	 			data.push("has_more");
 	 		}
 	 		
 	 		loadTable(data, _category);
+	 		inbox_win.hideIndicator();
 		});
-		
-		//Display the results. 
-		
-		//self.children[1].backgroundColor = 'blue'; 
 	}; 
 	
 	var createSearchIcon = function(_status, _iconName, _amount){
@@ -214,10 +211,10 @@ function InboxView (_authToken){
 		});
 		
 		var titleView = Ti.UI.createView({
-			backgroundColor: 'e5eaf0',
+			backgroundColor: '#e5eaf0',
 			bottom: 1,
 			height: 70,
-			width: (hubAPI.app_width - 2),
+			width: (hub.API.app_width - 2),
 			right: 1, 
 			left: 0,
 			borderColor:'#e0e0e0',
@@ -226,11 +223,11 @@ function InboxView (_authToken){
 		});
 		
 		if (item === "has_more"){
-			titleView.backgroundColor = "003a5f";
+			titleView.backgroundColor = "#003a5f";
 			titleImage = Ti.UI.createImageView({
 				top: 5, 
 				width: 250, 
-				image: hubAPI.imagePath('more.png'),
+				image: hub.API.imagePath('more.png'),
 			});
 			titleView.add(titleImage);
 			tableRow.addEventListener('click', function(e) {
@@ -238,10 +235,10 @@ function InboxView (_authToken){
 				//Start the activity indicator
 				loadTable([], "indicator");
 				if (_category === "people"){
-					hubAPI.fetchResults("users", "most_recent", (hubAPI.searchResults.getPage() + 1));
+					hub.API.fetchResults("users", "most_recent", (hub.API.searchResults.getPage() + 1));
 				}
 				else{
-					hubAPI.fetchResults(_category, "most_recent", (hubAPI.searchResults.getPage() + 1));
+					hub.API.fetchResults(_category, "most_recent", (hub.API.searchResults.getPage() + 1));
 				}
 				Ti.App.fireEvent("Results");
 			});
@@ -330,7 +327,7 @@ function InboxView (_authToken){
 		var tablerow = Ti.UI.createTableViewRow({
 			hasChild: false,
 			touchEnabled: false,
-			selectionStyle:Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE, 
+			//selectionStyle:Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE, 
 			focusable:false,
 		});
 	
@@ -339,10 +336,10 @@ function InboxView (_authToken){
 		return tablerow;
 	};
 	
-	function buildInboxView(){
+	function buildInboxView(_category){
 		
 		var self = Ti.UI.createView({
-			backgroundColor:hubAPI.customBgColor,
+			backgroundColor:hub.API.customBgColor,
 			layout: 'vertical', 
 		});
 			
@@ -355,18 +352,18 @@ function InboxView (_authToken){
 		var iconsView = Ti.UI.createView({
 			top:0,
 			height: 50, 
-			backgroundColor: hubAPI.customBgColor, 
+			backgroundColor: hub.API.customBgColor, 
 			layout:'horizontal'
 		});
 		
 		var iconNames = ['Inbox', 'Sent', 'Archived'];
 		icons = []; 
 		for (var i = 0; i < iconNames.length; i++){
-			icons.push(createSearchIcon('unselected', iconNames[i], hubAPI.messages.getCounts(iconNames[i])));
+			icons.push(createSearchIcon('unselected', iconNames[i], hub.API.messages.getCounts(iconNames[i])));
 			iconsView.add(icons[i]);
 		}
 		var newMessageButton = Ti.UI.createImageView({
-			image: hubAPI.imagePath("new_message_icon.png"),
+			image: hub.API.imagePath("new_message_icon.png"),
 			height: 35, 
 			width: 40, 
 			left: 7, 
@@ -377,21 +374,24 @@ function InboxView (_authToken){
 		self.add(nonScrollView);
 		
 		nonScrollView.add(iconsView);
-		var views = [];
 		
 		self.add(tableHolder); 
-		loadResults("Inbox");
+		loadResults(_category);
 		return(self);
 	}
 
 	var appWindow = require("ui/common/UserView");
     inbox_win = new appWindow();
 	
-	if (!hubAPI.messages.isReady()){
+	self = buildInboxView("Inbox"); 
+	inbox_win.addContent(self);
+	
+	/*
+	if (!hub.API.messages.isReady()){
 		//Wait on Results. 
 		inbox_win.clearCanvas(); 
 		displayView = Ti.UI.createView(); 
-		hubAPI.indicate('Messages', displayView);
+		hub.API.indicate('Messages', displayView);
 		inbox_win.addContent(displayView);
 	}
 	else{
@@ -405,14 +405,8 @@ function InboxView (_authToken){
 		Ti.App.fireEvent("stopIndicator");
 		self = buildInboxView(); 
 		inbox_win.addContent(self);
-	})
-	/*Ti.App.addEventListener("refreshSearchResults", function(){
-		Ti.API.info("Refreshing. ");
-		win.close();  
-		inbox_win.clearCanvas(); 
-		self = buildInboxView(); 
-		inbox_win.addContent(self);
-	});*/
+	})*/
+
 	thisWindow = inbox_win.appwin;
 	return thisWindow;
 	}

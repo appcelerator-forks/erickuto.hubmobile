@@ -69,7 +69,7 @@ function FirstTimeView(){
 					showError("Unknown error while confirming your account please contact hub@ashoka.org.");
 				}
 			}
-		}, "mobile/confirmations", params, "POST", 3, {});
+		}, "confirmations", params, "POST", 3, {});
 
 	};
 	var errorPane = Ti.UI.createLabel({
