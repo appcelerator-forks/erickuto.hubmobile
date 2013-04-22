@@ -1,45 +1,8 @@
 
-
 function SearchView (_authToken){
 	hub = require("hub");
 	var iconWidth = hub.API.app_width/5.1; 
 	var margin_offset = (hub.API.app_width-350*hub.API.wsf)/2;
-
-	var loadTable = function(_data, _category){
-		
-		if (_category === "indicator"){
-			
-			displayView = Ti.UI.createView(); 
-			hub.API.indicate('Results', displayView);
-		}
-		else{
-			var table = Ti.UI.createTableView({
-				top:0,
-				separatorColor: 'transparent',
-				backgroundColor: hub.API.customBgColor,
-			});
-			
-			var tableRows = [];
-		
-			for (var i = 0; i < _data.length; i++) {
-				tableRows.push(createMenuRow(_data[i], _category));
-			}
-			
-			table.addEventListener('click', function(e){
-				var neon = hub.API.searchResults.getNeon(e.index);
-				if (neon)
-				{
-					NeonView = require("ui/common/dashboardViews/exploreViews/NeonView");
-					var neonView = new NeonView(neon); 
-					Ti.App.globalWindow = neonView;
-					Ti.App.fireEvent('openWindow',{});
-				}
-			});	
-			table.setData(tableRows);
-		}
-			
-		
-	}; 
 	
 	var loadResults = function(_category){
 		var o = {
@@ -54,7 +17,6 @@ function SearchView (_authToken){
 				win.hideIndicator();
 				ListNeonsView = require("ui/common/dashboardViews/exploreViews/ListNeonsView");
 				var listNeonsView = new ListNeonsView(_category); 
-				Ti.API.info("Opening the list view. ");
 				hub.API.openWindow(listNeonsView);
 			}
 		}; 
@@ -65,111 +27,7 @@ function SearchView (_authToken){
 		else{
 			hub.API.fetchResults(_category, "most_recent", 0, o);
 		}
-
-		/*
-		//Fetch the returned results 
-		Ti.App.addEventListener('showFetchResults', function (){
-			var sResults = [];
-			var data = []; 
-			hub.API.searchResults.getResults(sResults); 
-			for (i = 0; i < sResults.length; i++){
-				if (sResults[i].neonTitle){
-					data.push(sResults[i].neonTitle);
-				}
-				else{
-					data.push(sResults[i].displayName);
-				}
-	 			
-	 		}
-	 		if (hub.API.searchResults.hasMore()){
-	 			data.push("has_more");
-	 		}
-	 		loadTable(data, _category);
-		});
-		*/
-		//Display the results. 
-		
-		//self.children[1].backgroundColor = 'blue'; 
 	}; 
-
-	var createMenuRow = function(item, _category) {
-		var category = item;
-		var tableHasChild = true; 
-		if (item === "has_more"){tableHasChild = false; }
-		var tableRow = Ti.UI.createTableViewRow({
-			className: 'itemRow',
-			category: category,
-			hasChild: tableHasChild, 
-		});
-		
-		var titleView = Ti.UI.createView({
-			backgroundColor: 'e5eaf0',
-			bottom: 5,
-			height: 50,
-			width: (hub.API.app_width - 10),
-			right: 5, 
-			left: 5,
-			borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
-			borderColor:'#e0e0e0',
-			borderRadius:5,
-			borderWidth:1,
-			layout:'horizontal'
-		});
-		
-		if (item === "has_more"){
-			titleView.backgroundColor = "003a5f";
-			titleImage = Ti.UI.createImageView({
-				top: 5, 
-				width: 250, 
-				image: hub.API.imagePath('more.png'),
-			});
-			titleView.add(titleImage);
-			tableRow.addEventListener('click', function(e) {
-				
-				//Start the activity indicator
-				loadTable([], "indicator");
-				if (_category === "people"){
-					hub.API.fetchResults("users", "most_recent", (hub.API.searchResults.getPage() + 1));
-				}
-				else{
-					hub.API.fetchResults(_category, "most_recent", (hub.API.searchResults.getPage() + 1));
-				}
-				Ti.App.fireEvent("Results");
-			});
-		}
-		else{
-			
-			var titleLabel = Ti.UI.createLabel({
-				text: item,
-				width: 'auto',
-				color: '#5e656a',
-				left: 5,
-				top: 10,
-				font: {
-					fontSize: 16
-				},
-				
-			});
-			
-			titleView.add(titleLabel);
-	
-		}
-		tableRow.add(titleView);
-		return tableRow;
-	};
-	
-	var addRowView = function(_view) {
-		var tablerow = Ti.UI.createTableViewRow({
-			hasChild: false,
-			touchEnabled: false,
-			selectionStyle:Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE, 
-			focusable:false,
-		});
-	
-		tablerow.add(_view);
-		
-		return tablerow;
-	};
 	
 	var createOptionRow = function(item, count) {
 		var selectedSize = count; 
@@ -274,7 +132,7 @@ function SearchView (_authToken){
 			backgroundColor:hub.API.customBgColor,
 		});
 
-		var data = ['people', 'offers', 'needs', 'events', 'ideas'];
+		var data = ['people', 'offers', 'needs', 'events', 'news', 'ideas'];
 
 		var rows = [];
 		
@@ -296,13 +154,6 @@ function SearchView (_authToken){
 	self = buildSearchView(); 
 	search_win.addContent(self);
 
-	/*Ti.App.addEventListener("refreshSearchResults", function(){
-		Ti.API.info("Refreshing. ");
-		win.close();  
-		search_win.clearCanvas(); 
-		self = buildSearchView(); 
-		search_win.addContent(self);
-	});*/
 	thisWindow = search_win.appwin;
 	return thisWindow;
 	}

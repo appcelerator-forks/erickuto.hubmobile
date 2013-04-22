@@ -1,3 +1,5 @@
+hub = require("hub");
+
 var createMenuRow = function(item, className) {
 	var tableRow = Ti.UI.createTableViewRow({
 		className: className,
@@ -27,12 +29,12 @@ var createMenuRow = function(item, className) {
 function clearData(_className){
 	switch(_className){ 
 		case "communities": 
-			return hubAPI.user.clearGroupOptions();
+			return hub.API.user.clearGroupOptions();
 		case "regions": 
-			hubAPI.user.clearSubLocationsOptions();
-			return hubAPI.user.clearCountriesOptions();
+			hub.API.user.clearSubLocationsOptions();
+			return hub.API.user.clearCountriesOptions();
 		case "countries":
-			return hubAPI.user.clearSubLocationsOptions();
+			return hub.API.user.clearSubLocationsOptions();
 		default: 
 			return; 
 		}

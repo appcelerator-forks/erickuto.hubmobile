@@ -17,7 +17,7 @@ hubAPI.osname = util.osname;
 
 /*Adds a key value index to an array
 */
-function addVariable(_array, _index, _key, _value){
+var addVariable = function (_array, _index, _key, _value){
 	var additions = {}
 	additions["key" + _index] = _key;
 	additions["value" + _index] = _value;
@@ -46,6 +46,8 @@ hubAPI.homeWindow = function(){
 	Ti.API.info("Closed all Pages. "); 
 	return true; 
 }
+
+
 hubAPI.indicate = function(indicatorMessage){
 	var ActivityIndicator = require("ui/common/ActivityIndicator");	
 	var activityIndicator = new ActivityIndicator();
@@ -77,8 +79,41 @@ hubAPI.indicate = function(indicatorMessage){
 	}
 }
 
+hubAPI.addVariable = addVariable; 
 
-hubAPI.fetchResults = function(category, order, page){
+hubAPI.fetchNeon = function(neonPath, o){
+	var params = [];
+	addVariable(params, params.length, "auth_token", hubAPI.user.getAuthToken());
+	
+	Connection = require('services/Connection');
+
+	var response = new Connection({
+		start: function() {
+			if (o.start) { o.start(); }
+			},
+			
+		error: function() {
+			if (o.error) { o.error(); }
+			},
+		
+		success: function(_json){
+				o.success(_json);
+			}
+	}, neonPath.slice(1) , [], "GET", params);
+}
+
+hubAPI.showNeon = function(neon){
+	NeonView = require("ui/common/dashboardViews/exploreViews/NeonView");
+	var neonView = new NeonView(neon); 
+	hub.API.openWindow(neonView);
+}
+
+hubAPI.showUser = function(user){
+	UserView = require("ui/common/dashboardViews/exploreViews/UserProfileView");
+	var userView = new UserView(user); 
+	hub.API.openWindow(userView);
+}
+hubAPI.fetchResults = function(category, order, page, o){
 	var results = [];
 	hubAPI.user.getAll(results);
 	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
@@ -86,7 +121,7 @@ hubAPI.fetchResults = function(category, order, page){
 	addVariable(results, results.length, "order", order);
 	
 	SearchResults = require("services/SearchResults");
-	hubAPI.searchResults = new SearchResults(category, results);
+	hubAPI.searchResults = new SearchResults(category, results, o);
 	
 }
 
@@ -104,7 +139,6 @@ hubAPI.fetchProfileInfo = function(o){
 	var  arguments = []; 
 	addVariable(arguments, arguments.length, "auth_token", hubAPI.user.getAuthToken());
 	Connection = require('services/Connection');
-	Ti.API.info("Connecting now.");
     var response = new Connection(o, "users" , [], "GET", arguments);
 }
 

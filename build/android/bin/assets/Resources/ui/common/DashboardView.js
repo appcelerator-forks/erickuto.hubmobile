@@ -1,4 +1,26 @@
-function DashboardView(){
+function DashboardView(_authToken){
+	hub = require("hub");
+	var hsf = hub.API.hsf;
+	var wsf = hub.API.wsf;
+	var margin_offset = (hub.API.app_width-350*wsf)/2;
+
+	var appWindow = require("ui/common/UserView");
+    win = new appWindow();
+
+	var self = Ti.UI.createView({
+		backgroundColor:hub.API.customBgColor,
+	});
+	
+	
+	win.addContent(self);
+	thisWindow = win.appwin;
+	return thisWindow;
+	}	
+module.exports = DashboardView;
+
+
+
+/*function DashboardView(){
 	hub = require("hub");
 	var hsf = hub.API.hsf;
 	var wsf = hub.API.wsf;
@@ -151,7 +173,7 @@ function DashboardView(){
 	canvas.add(bottomNavigationBarHolder); 
 
 	var openPage = function(_page){
-		closed_pages = hub.API.homeWindow();
+		//closed_pages = hub.API.homeWindow();
 		var pageURL = 'ui/common/dashboardViews/' + _page;
 		PageView = require(pageURL);
 	    pageView = new PageView();
@@ -180,7 +202,22 @@ function DashboardView(){
 				});
 			}	
 		}else if(icon_name === "Inbox"){
-			
+			icon_event = function(){
+				hub.API.fetchMessages({
+					start: function(){
+						showIndicator("Fetching Messages ...");
+					},
+					error: function(){
+						Ti.API.info("Error Fetching information");
+						hideIndicator(); 
+					},
+					success: function(response){
+						hub.API.user.profile = response
+						hideIndicator();
+						openPage("ExploreView");
+					}
+				});
+			}	
 		}
 		
 		return icon_event; 
@@ -320,7 +357,7 @@ function DashboardView(){
 	    pageView = new PageView();
 		hub.API.openWindow(pageView);
 	}
-	
+
 	var searchImage = Ti.UI.createImageView({
 		top:5*hsf,
 		width:90*wsf,
@@ -459,4 +496,4 @@ function DashboardView(){
 	return win;
 
 }	
-module.exports = DashboardView;
+module.exports = DashboardView;*/

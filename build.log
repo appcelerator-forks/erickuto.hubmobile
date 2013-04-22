@@ -6,12 +6,12 @@ Logfile initialized
 [DEBUG] Waiting for device to be ready ...
 [TRACE] adb devices returned 1 devices/emulators
 [DEBUG] Device connected... (waited 0 seconds)
-[DEBUG] waited 0.049288 seconds on emulator to get ready
+[DEBUG] waited 0.021902 seconds on emulator to get ready
 [DEBUG] com.ashoka.hubmobile installed? True
 [INFO] Fastdev server running, deploying in Fastdev mode
 [INFO] Copying CommonJS modules...
 [INFO] Copying project resources..
-[TRACE] COPYING MODIFIED FILE: /Users/ekuto/titanium/hubmobile/Resources/ui/common/DashboardView.js => /Users/ekuto/titanium/hubmobile/build/android/bin/assets/Resources/ui/common/DashboardView.js
+[TRACE] COPYING MODIFIED FILE: /Users/ekuto/titanium/hubmobile/Resources/ui/common/dashboardViews/exploreViews/SearchView.js => /Users/ekuto/titanium/hubmobile/build/android/bin/assets/Resources/ui/common/dashboardViews/exploreViews/SearchView.js
 [INFO] Tiapp.xml unchanged, skipping class generation
 [DEBUG] Processing Android resource drawables
 [DEBUG] found drawable-long-land-hdpi splash screen at /Users/ekuto/titanium/hubmobile/Resources/android/images/res-long-land-hdpi/default.png

@@ -1,9 +1,10 @@
-var hsf = hubAPI.hsf;
-var wsf = hubAPI.wsf;
-var margin_offset = (hubAPI.app_width-350*wsf)/2;
+hub = require("hub");
+var hsf = hub.API.hsf;
+var wsf = hub.API.wsf;
+var margin_offset = (hub.API.app_width-350*wsf)/2;
 var all_activity_offset = 0; 
 var select_activity_offset = 30; 
-var user = hubAPI.user; 
+var user = hub.API.user; 
 
 var selectedRadio = Titanium.UI.createButton({
 	top:0, 
@@ -13,7 +14,7 @@ var selectedRadio = Titanium.UI.createButton({
 	borderRadius:1,
 	action:'unselect',
 	activity:'all',
-	backgroundImage:hubAPI.imagePath('radio_selected.png'),
+	backgroundImage:hub.API.imagePath('radio_selected.png'),
 });
 
 var radioAction = function(e){
@@ -46,7 +47,7 @@ var unselectedRadio = Titanium.UI.createButton({
 	borderRadius:1,
 	action:'select',
 	activity: 'select',
-	backgroundImage:hubAPI.imagePath('radio_unselected.png'),
+	backgroundImage:hub.API.imagePath('radio_unselected.png'),
 });
 
 unselectedRadio.addEventListener('click', radioAction);
@@ -65,7 +66,7 @@ var createMenuRow = function(item) {
 		backgroundColor: 'e5eaf0',
 		bottom: 5,
 		height: 40,
-		width: (hubAPI.app_width - 10),
+		width: (hub.API.app_width - 10),
 		right: 5, 
 		left: 5,
 		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
@@ -148,29 +149,15 @@ function selectActivity(_activity){
 function buildExploreWindow(){
 	var self = Ti.UI.createView({
 		top: 0, 
-		backgroundColor:hubAPI.customBgColor,
+		backgroundColor:hub.API.customBgColor,
 		width: '100%',
 		layout: "vertical", 
 	});
 	
 	self.addEventListener('filterExploration', function(e){
 		SelectorView = require("ui/common/dashboardViews/exploreViews/SelectorView");
-		var selectorView = new SelectorView(e.category, hubAPI.explorer); 
-		Ti.App.globalWindow = selectorView;
-		Ti.App.fireEvent('openWindow',{});
-	});
-	
-	self.addEventListener('searchResults', function(e){
-		//Search For the counts. 
-		hubAPI.fetchResults("activities/count", "most_recent", 0);
-		Ti.App.fireEvent("Results");
-		if (hubAPI.searchResults.isReady()){
-			hubAPI.searchResults.changeReadyState(false);
-		}
-		SearchView = require("ui/common/dashboardViews/exploreViews/SearchView");
-		var searchView = new SearchView; 
-		Ti.App.globalWindow = searchView;
-		Ti.App.fireEvent('openWindow',{});
+		var selectorView = new SelectorView(e.category, hub.API.explorer); 
+		hub.API.openWindow(selectorView);
 	});
 	
 	var nonScrollView = Ti.UI.createView({
@@ -222,7 +209,7 @@ function buildExploreWindow(){
 	var allActivities = Ti.UI.createLabel({
 		top:5,
 		text: "All Activity", 
-		color: hubAPI.customTextColor,
+		color: hub.API.customTextColor,
 		height: 30,
 		font: {
 			fontSize: 18
@@ -233,7 +220,7 @@ function buildExploreWindow(){
 	var selectActivities = Ti.UI.createLabel({
 		top:35,
 		text: "Activity I follow", 
-		color: hubAPI.customTextColor,
+		color: hub.API.customTextColor,
 		height: 30,
 		font: {
 			fontSize: 18
@@ -244,7 +231,7 @@ function buildExploreWindow(){
 	var filterBy = Ti.UI.createLabel({
 		top:75,
 		text: "Filter by:", 
-		color: hubAPI.customTextColor,
+		color: hub.API.customTextColor,
 		height: 30,
 		font: {
 			fontWeight: 'bold',
@@ -259,11 +246,30 @@ function buildExploreWindow(){
 		height:75*hsf,
 		right:10,
 		borderRadius:1,
-		backgroundImage:hubAPI.imagePath('search_button.png'),
+		backgroundImage:hub.API.imagePath('search_button.png'),
 	});
 	
 	searchBtn.addEventListener('click', function(e) {
-		searchBtn.fireEvent('searchResults');
+		//Search For the counts. 
+		var o = {
+			start: function(){
+				win.showIndicator("Fetching Search Results ...");
+			},
+			error: function(){
+				Ti.API.info("Error Search Results");
+				win.hideIndicator(); 
+			},
+			success: function(){
+				win.hideIndicator();
+				SearchView = require("ui/common/dashboardViews/exploreViews/SearchView");
+				var searchView = new SearchView(); 
+				hub.API.openWindow(searchView);
+			}
+		}; 
+		
+		hub.API.fetchResults("activities/count", "most_recent", 0, o);
+		
+		
 	});
 	staticView.add(allActivities);
 	staticView.add(filterBy);
@@ -275,7 +281,7 @@ function buildExploreWindow(){
 	var table = Ti.UI.createTableView({
 		top:0,
 		separatorColor: 'transparent',
-		backgroundColor:hubAPI.customBgColor,
+		backgroundColor:hub.API.customBgColor,
 	});
 
 	var data = [];
@@ -310,7 +316,6 @@ function buildExploreWindow(){
 	};
 	Ti.App.addEventListener('updateSizes', function(){
 			updateSizes();
-			win.close();
 		});
 	updateSizes();
 	self.add(table);
@@ -319,28 +324,9 @@ function buildExploreWindow(){
 function ExploreView(_authToken){
 
 	var appWindow = require("ui/common/UserView");
-    win = new appWindow();
-
-	if (!hubAPI.explorer.isReady())
-	{
-		win.clearCanvas(); 
-		displayView = Ti.UI.createView(); 
-		Ti.App.fireEvent("Explore");
-		hubAPI.indicate('Explore', displayView);
-		win.addContent(displayView);
-	}
-	else{
-		win.clearCanvas(); 
-		self = buildExploreWindow(); 
-		win.addContent(self);
-	}
-	Ti.App.addEventListener('openExplorerPage', function(){
-		win.clearCanvas(); 
-		Ti.App.fireEvent("stopIndicator");
-		self = buildExploreWindow(); 
-		win.addContent(self);
-	});
-
+    win = new appWindow("Explore");
+	self = buildExploreWindow(); 
+	win.addContent(self);
 	thisWindow = win.appwin;
 	return thisWindow;
 	

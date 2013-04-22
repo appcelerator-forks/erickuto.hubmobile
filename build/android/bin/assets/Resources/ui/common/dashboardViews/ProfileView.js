@@ -5,7 +5,7 @@ function ProfileView(_authToken){
 	var margin_offset = (hub.API.app_width-350*wsf)/2;
 
 	var appWindow = require("ui/common/UserView");
-    win = new appWindow();
+    win = new appWindow("Profile");
 
 	var profile = hub.API.user.profile.user;
 	var self = Ti.UI.createView({
@@ -22,7 +22,7 @@ function ProfileView(_authToken){
 		top:5*hsf,
 		width:100,
 		left:5*wsf, 
-		image:hub.API.imagePath("einstein.jpg")
+		image:hub.API.imagePath("einstein.png")
 	});
 	
 	var summary = Ti.UI.createView({

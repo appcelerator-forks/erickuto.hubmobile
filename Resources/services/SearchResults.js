@@ -48,8 +48,15 @@ function SearchResults(_category, _params, o){
 				_results.push(results[i]);
 			}
 	};
-	this.getNeon = function(index){
-		return results[index]; 
+	this.getNeonPath = function(index){
+		neon = results[index];
+		if (neon.activityType === "Person"){
+			return neon.userUrl; 
+		}
+		return neon.neonUrl;  
+	}
+	this.getNeonType = function(index){
+		return results[index].activityType; 
 	}
 	this.getCounts = function(_category){
 		return counts[_category]; 

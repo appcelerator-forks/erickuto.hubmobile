@@ -65,7 +65,7 @@ function userView(_page_name){
 				
 		topRightButton.addEventListener('click', function()
 		{	
-			hub.API.closeWindow()
+			hub.API.homeWindow()
 		});
 		canvas.add(topNavigationBarHolder);
 	}
@@ -134,10 +134,10 @@ function userView(_page_name){
 	canvas.add(bottomNavigationBarHolder); 
 
 	var openPage = function(_page){
-		closed_pages = hub.API.homeWindow();
+		/*closed_pages = hub.API.homeWindow();
 		while(!closed_pages){
 			hub.API.homeWindow();
-		}
+		}*/
 		var pageURL = 'ui/common/dashboardViews/' + _page;
 		PageView = require(pageURL);
 	    pageView = new PageView();
@@ -165,6 +165,32 @@ function userView(_page_name){
 					}
 				});
 			}	
+		}else if(icon_name === "Activity"){
+			var icon_event = function(){
+				openPage("ActivityView");
+			}; 
+		}else if(icon_name === "Explore"){
+			icon_event = function(){
+				Exploration = require("services/Exploration");
+				hub.API.explorer = new Exploration({
+					start: function(){
+						showIndicator("Fetching Exploration data ...");
+					},
+					error: function(){
+						Ti.API.info("Error Fetching Exploration data");
+						hideIndicator(); 
+					},
+					success: function(response){
+						//hub.API.user.profile = response
+						hideIndicator();
+						openPage("ExploreView");
+					}
+				});
+			}	
+		}else if(icon_name === "Create"){
+			var icon_event = function(){
+				openPage("CreateView");
+			};
 		}else if(icon_name === "Inbox"){
 			
 		}
@@ -204,7 +230,6 @@ function userView(_page_name){
 		}
 		else{
 			iconHolder.backgroundColor = "#BDBDBD"; 
-			Ti.API.info("skipped " + nav_icons[i]); 
 		}
 		
 		
@@ -332,7 +357,16 @@ function userView(_page_name){
 	this.showNavBar = showNavBar; 
 	this.hideNavBar = hideNavBar; 
 	this.showIndicator = showIndicator; 
-	
+	this.clearCanvas = function(){
+		for (i = 0; i < contentWrapper.children.length; i++){
+			contentWrapper.remove(contentWrapper.children[i]);
+		}
+	}
+	this.addOnCloseEvent = function(_action){
+		win.addEventListener('close', function(){
+			Ti.App.fireEvent(_action);
+		});
+	} 
 	userView.prototype.appwin = win; 
 }
 

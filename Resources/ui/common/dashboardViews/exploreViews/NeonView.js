@@ -1,6 +1,8 @@
-function buildNeonView(neon){
+hub = require("hub");
+
+function buildNeonView(neonData){
 	var self = Ti.UI.createView({
-		backgroundColor:hubAPI.customBgColor,
+		backgroundColor:hub.API.customBgColor,
 		layout: 'vertical', 
 		table: null
 	});
@@ -11,7 +13,7 @@ function buildNeonView(neon){
 	});
 	
 	var neonImage = Ti.UI.createImageView({
-		image: neon.avatarUrl,
+		image: neonData.neon.avatarUrl,
 		height: 100, 
 		width: 100, 
 		left: 1,
@@ -32,33 +34,21 @@ function buildNeonView(neon){
 		height: 20,  
 		left: 0, 
 		font: {fontSize: 14},
-		text: neon.activityType, 
+		text: neonData.neon.activityType, 
 	});
-	neon_name = ""; 
-	detail_category = "";
+
+	
 	detail_location = ""; 
-	neon_title_location = ""; 	
-	var neonDetailHtml = ""; 
-	if (neon.activityType === "Person"){
-		neon_name = neon.displayName;
-		neon_title_location = "Location"; 
-		detail_category = neon.userType; 
-		detail_location = neon.country; 
-		neonDetailHtml = neon.truncatedDescriptionFormatted; 
-	}
-	else{
-		neon_name = neon.neonTitle; 
-		neon_title_location = "Expires: ";  
-		detail_category = neon.creatorDisplayName + " (" + neon.creatorUserType + ", " + neon.creatorCountry + ")"; 
-		detail_location = neon.expiresAt; 
-		neonDetailHtml = neon.truncatedNeonDescriptionFormatted; 
-	}
+	var neonDetailHtml = neonData.formattedDescription;
+
+	detail_category = neonData.neon.creatorDisplayName + " (" + neonData.neon.creatorUserType + ", " + neonData.neon.creatorCountry + ")"; 
+	
 	var neonName = Ti.UI.createLabel({
 		top: 0, 
 		height: 40, 
 		left: 0, 
 		font: {fontSize: 14},
-		text: neon_name, 
+		text: neonData.neon.neonTitle, 
 	});
 	
 	var neonDetailCategory = Ti.UI.createLabel({
@@ -86,13 +76,13 @@ function buildNeonView(neon){
 		top: 0, 
 		left: 5, 
 		font: {fontSize: 14},
-		text: neon_title_location, 
+		text: "Expires :", 
 	});
 	var neonDetailLocation = Ti.UI.createLabel({
 		top: 0, 
 		left: 5, 
 		font: {fontSize: 14},
-		text: detail_location, 
+		text: neonData.neon.expiresAt, 
 	});
 	
 	contentLocation.add(neonTitleLocation, neonDetailLocation);
@@ -107,19 +97,21 @@ function buildNeonView(neon){
 			top: 0, 
 			html: neonDetailHtml, 
 		});
-	neonContentHolder.add(contentLocation, neonDetailSummary);
+		
+	if (neonData.neon.showExpiryDate){
+		neonContentHolder.add(contentLocation); 
+	}
+	neonContentHolder.add(neonDetailSummary);
 	
 	self.add(neonBanner, neonContentHolder);
 	
 	return self; 
 }
-function neonView(neon){
+function neonView(neonData){
 	var appWindow = require("ui/common/UserView");
-    win = new appWindow();
-    self = buildNeonView(neon); 
-	Ti.API.info(neon);
+    win = new appWindow("Explore");
+    self = buildNeonView(neonData); 
 	win.addContent(self);
-	win.addOnCloseEvent('refreshSearchResults');
 	thisWindow = win.appwin;
 	return thisWindow;
 }
