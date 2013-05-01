@@ -48,7 +48,7 @@ function SearchView (_neonClass){
 				width: 'auto',
 				color: '#5e656a',
 				left: 5,
-				top: 10,
+				top: 20,
 				font: {
 					fontSize: 14
 				},
@@ -91,10 +91,10 @@ function SearchView (_neonClass){
 		}; 
 
 		if (_category === "people"){
-			hub.API.fetchResults("users", "most_recent", (hub.API.searchResults.getPage() + 1), o);
+			hub.API.fetchResults("users", hub.API.user.getFilterCriterion(), (hub.API.searchResults.getPage() + 1), o);
 		}
 		else{
-			hub.API.fetchResults(_category, "most_recent", (hub.API.searchResults.getPage() + 1), o);
+			hub.API.fetchResults(_category, hub.API.user.getFilterCriterion(), (hub.API.searchResults.getPage() + 1), o);
 		}
 	}; 
 	

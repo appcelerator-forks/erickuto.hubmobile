@@ -1,0 +1,1 @@
+Ti.version<1.8?alert("Sorry - this application template requires Titanium Mobile SDK 1.8 or later"):function(){hub=require("hub"),LoginView=require("ui/common/LoginView");var e=new LoginView;User=require("services/User"),hub.API.user=new User,hub.API.openWindow(e)}()

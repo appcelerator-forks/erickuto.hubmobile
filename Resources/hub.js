@@ -10,6 +10,7 @@ hubAPI.app_height = util.app_height;
 hubAPI.margin_offset = (util.app_width-350*util.wsf)/2;
 hubAPI.customBgColor = util.customBgColor;
 hubAPI.customTextColor = util.customTextColor;
+hubAPI.hubDarkBlue = "#013a5f";
 hubAPI.imagePath = function(imagePath){
 	return util.imagePath(imagePath);	
 }
@@ -119,6 +120,8 @@ hubAPI.fetchResults = function(category, order, page, o){
 	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
 	addVariable(results, results.length, "page", page);
 	addVariable(results, results.length, "order", order);
+	addVariable(results, results.length, "query", hubAPI.user.getFilterQuery());
+	addVariable(results, results.length, "content", hubAPI.user.getFilterContent())
 	
 	SearchResults = require("services/SearchResults");
 	hubAPI.searchResults = new SearchResults(category, results, o);
@@ -126,12 +129,12 @@ hubAPI.fetchResults = function(category, order, page, o){
 }
 
 hubAPI.getRemoteURL = function(_path, site){
-	var localhost = "localhost"
+	/*var localhost = "localhost"
 	if (hubAPI.osname === "android"){
 		localhost = "10.0.2.2";
 	}
-	var mainURL = "http://" + localhost + ":3000/";
-	//var mainURL = "http://greenhub-mobile.herokuapp.com/";
+	var mainURL = "http://" + localhost + ":3000/";*/
+	var mainURL = "http://greenhub-mobile.herokuapp.com/";
 	return mainURL + _path;
 }
 
@@ -142,9 +145,15 @@ hubAPI.fetchProfileInfo = function(o){
     var response = new Connection(o, "users" , [], "GET", arguments);
 }
 
+hubAPI.newMessage = function(recepient){
+	NewMessageView = require("ui/common/dashboardViews/messageViews/NewMessageView");
+	var newMessageView = new NewMessageView(); 
+	hub.API.openWindow(newMessageView);
+}
+
 hubAPI.userTypes = ["Team?", "Fellow", "Ashoka Support Network", "Ashoka Team", "Changemaker", "Changeleader"]; 
 
-hubAPI.fetchMessages = function(category, page){
+hubAPI.fetchMessages = function(category, page, o){
 	var results = [];
 	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
 	addVariable(results, results.length, "page", page);
@@ -155,7 +164,7 @@ hubAPI.fetchMessages = function(category, page){
 	}else{
 		category = "message_threads/" + category; 
 	}
-	hubAPI.messages = new Messages(category, results);
+	hubAPI.messages = new Messages(category, results, o);
 	
 }
 

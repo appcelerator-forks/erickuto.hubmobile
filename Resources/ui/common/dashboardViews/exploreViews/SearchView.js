@@ -22,10 +22,10 @@ function SearchView (_authToken){
 		}; 
 
 		if (_category === "people"){
-			hub.API.fetchResults("users", "most_recent", 0, o);
+			hub.API.fetchResults("users", hub.API.user.getFilterCriterion(), 0, o);
 		}
 		else{
-			hub.API.fetchResults(_category, "most_recent", 0, o);
+			hub.API.fetchResults(_category, hub.API.user.getFilterCriterion(), 0, o);
 		}
 	}; 
 	

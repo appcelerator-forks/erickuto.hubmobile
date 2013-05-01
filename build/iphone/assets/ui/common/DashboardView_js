@@ -1,0 +1,1 @@
+function DashboardView(e){hub=require("hub");var t=hub.API.hsf,n=hub.API.wsf,r=(hub.API.app_width-350*n)/2,i=require("ui/common/UserView");win=new i;var s=Ti.UI.createView({backgroundColor:hub.API.customBgColor});return win.addContent(s),thisWindow=win.appwin,thisWindow}module.exports=DashboardView

@@ -1,5 +1,9 @@
 eclipse.preferences.version=1
-provisioning_profiles/adhoc/ED786537-05D0-4CCB-AA73-51ECD6C6D20F/appid=*
-provisioning_profiles/adhoc/ED786537-05D0-4CCB-AA73-51ECD6C6D20F/filepath=/Users/ekuto/Library/MobileDevice/Provisioning Profiles/ED786537-05D0-4CCB-AA73-51ECD6C6D20F.mobileprovision
-provisioning_profiles/adhoc/ED786537-05D0-4CCB-AA73-51ECD6C6D20F/name=HubMobileDistributionProfile
-provisioning_profiles/adhoc/ED786537-05D0-4CCB-AA73-51ECD6C6D20F/uuid=ED786537-05D0-4CCB-AA73-51ECD6C6D20F
+provisioning_profiles/development/C837AECB-10A6-408D-83F8-217014FB3866/appid=*
+provisioning_profiles/development/C837AECB-10A6-408D-83F8-217014FB3866/filepath=/Users/ekuto/Library/MobileDevice/Provisioning Profiles/C837AECB-10A6-408D-83F8-217014FB3866.mobileprovision
+provisioning_profiles/development/C837AECB-10A6-408D-83F8-217014FB3866/name=HubMobileTest
+provisioning_profiles/development/C837AECB-10A6-408D-83F8-217014FB3866/uuid=C837AECB-10A6-408D-83F8-217014FB3866
+provisioning_profiles/distribution/C837AECB-10A6-408D-83F8-217014FB3866/appid=*
+provisioning_profiles/distribution/C837AECB-10A6-408D-83F8-217014FB3866/filepath=/Users/ekuto/Library/MobileDevice/Provisioning Profiles/C837AECB-10A6-408D-83F8-217014FB3866.mobileprovision
+provisioning_profiles/distribution/C837AECB-10A6-408D-83F8-217014FB3866/name=HubMobileTest
+provisioning_profiles/distribution/C837AECB-10A6-408D-83F8-217014FB3866/uuid=C837AECB-10A6-408D-83F8-217014FB3866

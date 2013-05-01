@@ -7,7 +7,8 @@ function AboutView(_authToken){
 	var appWindow = require("ui/common/UserView");
     win = new appWindow();
 
-	var profile = hub.API.user.profile.user;
+	var profile = hub.API.user.profile;
+	
 	var self = Ti.UI.createView({
 		backgroundColor:hub.API.customBgColor,
 	});
@@ -104,8 +105,8 @@ function AboutView(_authToken){
 			image:hub.API.imagePath(image_name)
 		});
 		profile_link = {
-			change_makers: profile.changemakers_profile_url,//profile.change_makers_profile_url, 
-			linked_in: profile.linkedin_profile_url,//"http://m.linkedin.com",
+			change_makers: profile.changemakers_profile_url,
+			linked_in: profile.linkedin_profile_url,
 			youtube: profile.profile_video_url,
 			skype: '"skype:"skypeName', 
 		};

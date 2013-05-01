@@ -11,6 +11,9 @@ var followed_fields = [];
 var followed_free_tags = [];
 var followed_cities = []; 
 var authToken = null; 
+var filter_criterion = ""; 
+var filter_query = ""; 
+var filter_content = ""; 
 
 function getArray(category){
 	switch (category){
@@ -103,8 +106,26 @@ userFunction = function(){
 	this.getAuthToken = function(){
 		return authToken;
 	}
+	this.getFilterCriterion = function(){
+		return filter_criterion; 
+	}
+	this.setFilterCriterion = function(_criterion){
+		filter_criterion = _criterion; 
+	}
+	this.getFilterContent = function(){
+		return filter_content; 
+	}
+	this.setFilterContent = function(_content){
+		filter_content = _content; 
+	}
 	this.getSelectedSize = function(category){
 		return getArray(category).length;
+	}
+	this.getFilterQuery = function(){
+		return filter_query.replace(" ", "+"); 
+	}
+	this.setFilterQuery = function(_query){
+		filter_query = _query; 
 	}
 }; 
 module.exports = userFunction; 

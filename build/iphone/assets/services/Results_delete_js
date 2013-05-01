@@ -1,0 +1,1 @@
+fetchTags=function(e,t,n){Connection=require("services/Connection");var r=new Connection({start:function(){e.start&&e.start()},error:function(){e.error&&e.error()},success:function(t){e.success&&e.success(t)}},t,[],"GET",n)},module.exports=fetchTags

@@ -243,7 +243,6 @@ function LoginView(){
 	function grantEntrance(){
     	DashboardView = require('ui/common/DashboardView');
     	dashboardView = new DashboardView();
-    	Ti.API.info("Opening dashboard");
     	openWindow(dashboardView);
     	
     };
