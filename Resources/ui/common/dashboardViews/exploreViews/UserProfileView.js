@@ -199,11 +199,11 @@ function buildUserView(user){
 	}));
 	
 	
-	follow_button_text = user.userMetaData.followWidget.text; 
+	follow_button_text = user.userMetaData.followWidget.text + " " + user.userData.first_name; 
 	
 	var followBtn = Titanium.UI.createView({
 		top:5,
-		width: 150*wsf,
+		width: 200*wsf,
 		layout:"horizontal",
 		height:50*hsf,
 		left:10,
@@ -212,17 +212,18 @@ function buildUserView(user){
 		backgroundColor:hub.API.hubDarkBlue
 	});
 	
+	var followIconPath = 'little_' + user.userMetaData.followWidget.text + '_star.png'; 
 	followBtn.add(Ti.UI.createImageView({
 		top: 5, 
 		left: 5,
 		width: 40*wsf, 
-		image: hub.API.imagePath('little_follow_star.png'),
+		image: hub.API.imagePath(followIconPath),
 	}));
 	
 	followBtn.add(Ti.UI.createLabel({
 		top:5,
 		left: 5,
-		font: { fontSize: 14, },
+		font: { fontSize: 13, },
 		text:follow_button_text,
 		color: "#FFFFFF",
 	}));
@@ -230,11 +231,13 @@ function buildUserView(user){
 	tagsView = Ti.UI.createView({
 		layout: "horizontal",
 		height: "auto",
+		left: 5
 	});
 	
 	var userTags = user.userMetaData.allTagsData; 
 	
-	var createTag = function(tagText){
+	var createTag = function(tag){
+		tagText = tag.name; 
 		var maxWidth = 200; 
 		
 		var tagView = Ti.UI.createView({
@@ -254,13 +257,14 @@ function buildUserView(user){
 			width: 30, 
 			height: 30,
 		});
-		var tagX = Ti.UI.createImageView({
-			top:0,
-			height: 20, 
-			width: 20, 
-			image:hub.API.imagePath('delete.png'),
+		var followIconPath = 'little_' + tag.followWidget.text + '_star.png'; 
+		followStar = Ti.UI.createImageView({
+			top: 5, 
+			left: 5,
+			width: 40*wsf, 
+			image: hub.API.imagePath(followIconPath),
 		});
-		tagHolder.add(tagX);
+		tagHolder.add(followStar);
 		tagHolder.addEventListener('click', function(e){
 			Ti.API.info(tagText);
 		})
@@ -268,7 +272,7 @@ function buildUserView(user){
 			left: 3, 
 			text: tagText, 
 			font: {
-				fontSize: 15,
+				fontSize: 13,
 			},
 			width: 'auto',
 			color: "#FFFFFF",
@@ -282,19 +286,47 @@ function buildUserView(user){
 		tagTextLabel.width = ttlWidth; 
 		
 		tagView.width =  ttlWidth + tagHolder.toImage().width + 10; 
-		tagView.add(tagTextLabel, tagHolder);
+		tagView.add(tagHolder,tagTextLabel);
 		return tagView; 
 	}
 	
 	
 	for (var i = 0; i < userTags.length; i++){
-		tagsView.add(createTag(userTags[i].name)); 
+		tagsView.add(createTag(userTags[i])); 
 	}
 	
+	var about_text = "About " + user.userData.first_name; 
+	var aboutTitle = Ti.UI.createLabel({
+		top: 0, 
+		left: 5, 
+		color: hub.API.customTextColor,
+		height: 20,
+		font: {
+			fontWeight: 'bold',
+			fontSize: 15,
+		},
+		text: about_text,
+	});
+	
+	var tag_title_text = user.userData.first_name + "'s Tags: "; 
+	var tagTitleText = Ti.UI.createLabel({
+		top: 0, 
+		left: 5, 
+		color: hub.API.customTextColor,
+		height: 20,
+		font: {
+			fontWeight: 'bold',
+			fontSize: 15,
+		},
+		text: tag_title_text,
+	});
+	
 	rows.push(addRowView(userBanner));
+	rows.push(addRowView(aboutTitle));
 	rows.push(addRowView(userContentHolder));
 	rows.push(addRowView(sendMessageBtn));
 	rows.push(addRowView(followBtn));
+	rows.push(addRowView(tagTitleText));
 	rows.push(addRowView(tagsView));
 	
 	
