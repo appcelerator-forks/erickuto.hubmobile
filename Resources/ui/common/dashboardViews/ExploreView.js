@@ -276,7 +276,6 @@ function buildExploreWindow(){
 	mostRecent.addEventListener('click', function(e){
 		mostRecent.color = filter_selected_color; 
 		mostFollowed.color = hub.API.customTextColor;
-		Ti.API.info("Clicked");
 		hub.API.user.setFilterCriterion("most_recent");   
 	});
 	

@@ -5,12 +5,46 @@ var results = [];
 var counts = {}; 
 var hasMore = false; 
 var page = 0; 
-ResultsClient = require('services/Results'); 
 
-function Messages(_category, _params){
+function Messages(_category, _params, o){
 	
 	category = _category; 
 	params = _params; 
+	Connection = require('services/Connection');
+	
+	var response = new Connection({
+		start: function() {
+			if (o.start) { o.start(); }
+			},
+			
+		error: function() {
+			if (o.error) { o.error(); }
+			},
+		
+		success: function(_json){
+				page = _json.page;
+				if (page == 0){
+					results = []; 
+				}
+				if (_json.hasMore == true){
+					hasMore = true; 
+				}
+				else{
+					hasMore = false; 
+				}
+				if (category === "message_threads/count"){
+					counts = _json;
+					o.success();
+				}
+				else{
+					_results = _json.results; 
+					for (i = 0; i < _results.length; i++){
+						results.push(_results[i]);
+					}
+					o.success();
+				}
+			}
+	}, _category , [], "GET", _params);
 	
 	this.getMessageThreads = function(_results){
 			for (i = 0; i < results.length; i++){
@@ -71,7 +105,7 @@ function Messages(_category, _params){
 		return message_thread;
 	}
 	this.getCounts = function(_category){
-		return counts[_category]; 
+		return counts[_category];  
 	};
 	this.isReady = function(){
 		return isReady; 
@@ -85,39 +119,7 @@ function Messages(_category, _params){
 	this.changeReadyState = function(state){
 		isReady = state; 
 	}
-	Ti.App.addEventListener("Messages", function(){
-		var resultsClient = new ResultsClient({
-			
-			start: function() { },
-			error: function() { Ti.API.info("ERROR!! while getting messages for " + category);},
-			success: function(_json){
-				page = _json.page;
-				
-				if (page == 0){
-					results = []; 
-				}
-				if (_json.hasMore == true){
-					hasMore = true; 
-				}
-				else{
-					hasMore = false; 
-				}
-				if (category === "mobile/message_threads/count"){
-					counts = _json;
-					Ti.App.fireEvent('showMessagePage');
-				}
-				else{
-					_results = _json.results; 
-					for (i = 0; i < _results.length; i++){
-						results.push(_results[i]);
-					}
-					Ti.App.fireEvent('showMessages');
-				}
-				isReady = true; 
-				
-			}
-		}, category, params);
-	});
+	
 }
 
 module.exports = Messages; 

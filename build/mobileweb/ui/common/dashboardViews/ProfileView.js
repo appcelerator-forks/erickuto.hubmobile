@@ -1,13 +1,14 @@
-function ProfileView(_authToken){
+function ProfileView(_profile){
 	hub = require("hub");
 	var hsf = hub.API.hsf;
 	var wsf = hub.API.wsf;
 	var margin_offset = (hub.API.app_width-350*wsf)/2;
-
+	
 	var appWindow = require("ui/common/UserView");
     win = new appWindow("Profile");
 
-	var profile = hub.API.user.profile.user;
+	var profile = hub.API.user.profile;
+	
 	var self = Ti.UI.createView({
 		backgroundColor:hub.API.customBgColor,
 	});

@@ -10,8 +10,10 @@ hubAPI.app_height = util.app_height;
 hubAPI.margin_offset = (util.app_width-350*util.wsf)/2;
 hubAPI.customBgColor = util.customBgColor;
 hubAPI.customTextColor = util.customTextColor;
-hubAPI.imagePath = function(imagePath){
-	return util.imagePath(imagePath);	
+hubAPI.hubDarkBlue = "#013a5f";
+hubAPI.menuRowBlue = "#e5eaf0";
+hubAPI.imagePath = function(imagePath, _level){
+	return util.imagePath(imagePath, _level);	
 }
 hubAPI.osname = util.osname; 
 
@@ -34,6 +36,21 @@ hubAPI.controller = new NavigationController();
 hubAPI.openWindow = function(windowToOpen){
 	hubAPI.controller.open(windowToOpen);
 }
+hubAPI.getTouchEnabled = function(){
+	
+	if (hubAPI.osname == "iphone" || hubAPI.osname == "ipad"){
+		return false;
+	}
+	return true; 
+}
+
+hubAPI.getSelectionStyle = function(){
+	
+	if (hubAPI.osname == "iphone" || hubAPI.osname == "ipad"){
+		return Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE;
+	}
+	return true; 
+}
 
 //Closes the current window
 hubAPI.closeWindow = function(){
@@ -46,6 +63,13 @@ hubAPI.homeWindow = function(){
 	Ti.API.info("Closed all Pages. "); 
 	return true; 
 }
+
+//Strips Html tags
+hubAPI.stripHtml = function(html){
+	var regex = /(<([^>]+)>)/ig;
+	return html.replace(regex, "");
+}
+
 hubAPI.indicate = function(indicatorMessage){
 	var ActivityIndicator = require("ui/common/ActivityIndicator");	
 	var activityIndicator = new ActivityIndicator();
@@ -79,16 +103,93 @@ hubAPI.indicate = function(indicatorMessage){
 
 hubAPI.addVariable = addVariable; 
 
+hubAPI.fetchNeon = function(neonPath, o){
+	var params = [];
+	addVariable(params, params.length, "auth_token", hubAPI.user.getAuthToken());
+	
+	Connection = require('services/Connection');
+
+	var response = new Connection({
+		start: function() {
+			if (o.start) { o.start(); }
+			},
+			
+		error: function() {
+			if (o.error) { o.error(); }
+			},
+		
+		success: function(_json){
+				o.success(_json);
+			}
+	}, neonPath.slice(1) , [], "GET", params);
+}
+
+hubAPI.showNeon = function(neon, _requestType){
+	
+	NeonView = require("ui/common/dashboardViews/exploreViews/NeonView");
+	var neonView = new NeonView(neon, _requestType); 
+	hubAPI.openWindow(neonView);
+}
+
+hubAPI.showUser = function(user, _requestType){
+	UserView = require("ui/common/dashboardViews/exploreViews/UserProfileView");
+	var userView = new UserView(user, _requestType); 
+	hub.API.openWindow(userView);
+}
 hubAPI.fetchResults = function(category, order, page, o){
 	var results = [];
 	hubAPI.user.getAll(results);
 	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
 	addVariable(results, results.length, "page", page);
 	addVariable(results, results.length, "order", order);
+	addVariable(results, results.length, "query", hubAPI.user.getFilterQuery());
+	addVariable(results, results.length, "content", hubAPI.user.getFilterContent())
 	
 	SearchResults = require("services/SearchResults");
 	hubAPI.searchResults = new SearchResults(category, results, o);
 	
+}
+
+hubAPI.fetchActivity = function(category, page, o){
+	
+	var results = [];
+	hubAPI.user.getAll(results);
+	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
+	addVariable(results, results.length, "page", page);
+	addVariable(results, results.length, "content", "followed")
+	
+	SearchResults = require("services/SearchResults");
+	Ti.API.info("In hub sending request to search results"); 
+	hubAPI.searchResults = new SearchResults(category, results, o);
+	Ti.API.info("Search Results returned"); 
+}
+
+hubAPI.followItem = function(action, url, o){
+	
+	method = "POST"; 
+	if (action == "Unfollow"){
+		method = "DELETE"; 
+	}
+	url += "/follow"; 
+	Connection = require('services/Connection');
+	var params = {
+		email: "_username",
+		password: "_password"
+	};
+    var response = new Connection(o, url , params, "POST");
+	/*var response = new Connection({
+		start: function() {
+			if (o.start) { o.start(); }
+			},
+			
+		error: function() {
+			if (o.error) { o.error(); }
+			},
+		success: function(_response){
+			if (o.success){ o.success();}
+			}
+	}, url, [], method);
+	*/
 }
 
 hubAPI.getRemoteURL = function(_path, site){
@@ -108,9 +209,15 @@ hubAPI.fetchProfileInfo = function(o){
     var response = new Connection(o, "users" , [], "GET", arguments);
 }
 
+hubAPI.newMessage = function(recepient){
+	NewMessageView = require("ui/common/dashboardViews/messageViews/NewMessageView");
+	var newMessageView = new NewMessageView(); 
+	hub.API.openWindow(newMessageView);
+}
+
 hubAPI.userTypes = ["Team?", "Fellow", "Ashoka Support Network", "Ashoka Team", "Changemaker", "Changeleader"]; 
 
-hubAPI.fetchMessages = function(category, page){
+hubAPI.fetchMessages = function(category, page, o){
 	var results = [];
 	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
 	addVariable(results, results.length, "page", page);
@@ -121,7 +228,7 @@ hubAPI.fetchMessages = function(category, page){
 	}else{
 		category = "message_threads/" + category; 
 	}
-	hubAPI.messages = new Messages(category, results);
+	hubAPI.messages = new Messages(category, results, o);
 	
 }
 

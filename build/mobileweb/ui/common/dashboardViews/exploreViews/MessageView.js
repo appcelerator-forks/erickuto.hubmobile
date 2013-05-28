@@ -1,12 +1,11 @@
 
 function messageView(message_thread){
+	hub = require("hub");
 	
 	var margin_offset = (hub.API.app_width-350*hub.API.wsf)/2;
 	
-	var user = hub.API.user; 
-
 	var tableHolder = Ti.UI.createScrollView({
-			top: 0, 
+			top: 5, 
 			layout: 'vertical',
 		});
 	var loadTable = function(_data){
@@ -136,7 +135,7 @@ function messageView(message_thread){
 
 		var messageHolder = Ti.UI.createView({
 			layout: 'horizontal', 
-			top: 0,
+			top: 3,
 			left: 0,
 		});
 		
@@ -148,7 +147,7 @@ function messageView(message_thread){
 		});
 
 		var messageTitle = Ti.UI.createView({
-			top: 0, 
+			top: 3, 
 			left: 2, 
 			height: 10,
 		});
@@ -237,15 +236,6 @@ function messageView(message_thread){
 			backgroundColor:hub.API.customBgColor,
 			layout: 'vertical', 
 		});
-			
-		var nonScrollView = Ti.UI.createView({
-			top: 3,
-			height: 60, 
-			layout:'vertical'
-		});
-
-		
-		self.add(nonScrollView);
 		
 		var views = [];
 		
@@ -256,9 +246,12 @@ function messageView(message_thread){
 	var appWindow = require("ui/common/UserView");
     win = new appWindow();
     self = buildMessageView(message_thread); 
-	
 	win.addContent(self);
-	//win.addOnCloseEvent('refreshSearchResults');
+
+	var newMessageEvent = function(){
+		hub.API.newMessage();
+	}
+	win.changeRightButtonEvent(newMessageEvent, "new"); 
 	thisWindow = win.appwin;
 	return thisWindow;
 }

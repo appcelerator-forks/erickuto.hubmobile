@@ -16,8 +16,8 @@ function userView(_page_name){
 		width: hub.API.app_width, 
 		layout: "vertical"
 	});
-	var topLeftButton; 
-	var topRightButton; 
+	var tl_button; 
+	var helpButton; 
 
 	if (hub.API.osname === "mobileweb"){
 		var topNavigationBarHolder = Ti.UI.createView({
@@ -27,7 +27,7 @@ function userView(_page_name){
 			backgroundImage: hub.API.imagePath("navbar_background.png"),
 		});
 		
-		topLeftButton = Ti.UI.createImageView({
+		tl_button = Ti.UI.createImageView({
 			left: 5, 
 			top: 6,
 			width: 100*wsf,
@@ -35,7 +35,7 @@ function userView(_page_name){
 			backgroundColor: '#d0ddef',
 			});
 				
-		topRightButton = Ti.UI.createImageView({
+		helpButton = Ti.UI.createImageView({
 			right: 5, 
 			top: 6,
 			width: 100*wsf,
@@ -48,25 +48,16 @@ function userView(_page_name){
 			width: 250*wsf,
 			image: hub.API.imagePath("ashoka_logo_navbar.png"),
 		});
-		topRightButton.addEventListener('click', function()
+		helpButton.addEventListener('click', function()
 		{	
 			Ti.App.globalWindow = win;
 			Ti.App.fireEvent('closeWindow',{});
 		});
 		
-		topNavigationBarHolder.add(topLeftButton);
-		topNavigationBarHolder.add(topRightButton);
+		topNavigationBarHolder.add(tl_button);
+		topNavigationBarHolder.add(helpButton);
 		topNavigationBarHolder.add(ashoka_logo);
-		topLeftButton.addEventListener('click', function()
-		{	
-			hub.API.closeWindow()
-		});
-		
-				
-		topRightButton.addEventListener('click', function()
-		{	
-			hub.API.homeWindow()
-		});
+
 		canvas.add(topNavigationBarHolder);
 	}
 	
@@ -75,16 +66,13 @@ function userView(_page_name){
 		win.titleImage = hub.API.imagePath("ashoka_iphone_logo_navbar.png");
 		win.barColor = '#d0ddef';
 
-		var topLeftButton = Ti.UI.createButtonBar({
+		var tl_button = Ti.UI.createButtonBar({
 			labels: [{title:'Sign Out', image:hub.API.imagePath("back_nav_btn.png")}],
 			backgroundColor: '#d0ddef',
 			width:60,
 		});
 
-		topLeftButton.addEventListener('click', function()
-		{	
-			hub.API.closeWindow()
-		});
+		
 
 		var helpButton = Ti.UI.createButtonBar({
 		//backgroundImage: hub.API.imagePath("home_nav_btn.png"),
@@ -92,13 +80,8 @@ function userView(_page_name){
 			backgroundColor: '#d0ddef',
 			width:60,
 		});
-
-		helpButton.addEventListener('click', function()
-		{	
-			hub.API.homeWindow();
-		});
 		
-		win.leftNavButton = topLeftButton;
+		win.leftNavButton = tl_button;
 		win.rightNavButton = helpButton;
 	}
 	else {
@@ -118,6 +101,23 @@ function userView(_page_name){
 		canvas.add(topNavigationBarHolder);
 	}
 
+	if (tl_button){
+		tl_button.addEventListener('click', function()
+		{	
+			hub.API.closeWindow()
+		});
+	}
+	
+	
+	helpEvent = function()
+	{	
+		hub.API.homeWindow();
+	}	
+	if (helpButton){
+		helpButton.addEventListener('click', helpEvent);
+	}
+	
+	
 	var contentWrapper = Ti.UI.createView({
 	    width: hub.API.app_width,
 	    height: hub.API.app_height - 220*hsf, 
@@ -150,7 +150,7 @@ function userView(_page_name){
 		
 		if (icon_name === "Profile"){
 			icon_event = function(){
-				hub.API.fetchProfileInfo({
+				hub.API.fetchNeon("/users/4139", {
 					start: function(){
 						showIndicator("Fetching profile information ...");
 					},
@@ -159,16 +159,48 @@ function userView(_page_name){
 						hideIndicator(); 
 					},
 					success: function(response){
-						hub.API.user.profile = response
+						hub.API.user.profile = response.userData;
 						hideIndicator();
 						openPage("ProfileView");
 					}
 				});
 			}	
-		}else if(icon_name === "Activity"){
+		}else if (icon_name == "Inbox"){
+			icon_event = function(){
+				hub.API.fetchMessages("count", 0, {
+					start: function(){
+						showIndicator("Fetching Messages ...");
+					},
+					error: function(){
+						Ti.API.info("Error Fetching Messages");
+						hideIndicator(); 
+					},
+					success: function(){
+						hideIndicator();
+						openPage("MessageView");
+					}
+				});
+			}
+		}
+		else if(icon_name === "Activity"){
 			var icon_event = function(){
-				openPage("ActivityView");
-			}; 
+				var o = {
+					start: function(){
+						showIndicator("Fetching Search Results ...");
+					},
+					error: function(){
+						Ti.API.info("Error Search Results");
+						hideIndicator(); 
+					},
+					success: function(){
+						hideIndicator();
+						openPage("ActivityView");
+					}
+				}; 
+				
+				hub.API.fetchActivity("activities/count", 0, o);
+				
+			} 
 		}else if(icon_name === "Explore"){
 			icon_event = function(){
 				Exploration = require("services/Exploration");
@@ -200,7 +232,6 @@ function userView(_page_name){
 
 	var nav_icons = ["Activity", "Explore", "Create", "Profile", "Inbox"];
 	var icon_width = ((hub.API.app_width/(nav_icons.length)) - 1); 
-	
 	
 	for (var i = 0; i < nav_icons.length; i++){
 		iconImageHeight = 70*hsf; 
@@ -357,10 +388,11 @@ function userView(_page_name){
 	this.showNavBar = showNavBar; 
 	this.hideNavBar = hideNavBar; 
 	this.showIndicator = showIndicator; 
-	this.clearCanvas = function(){
-		for (i = 0; i < contentWrapper.children.length; i++){
-			contentWrapper.remove(contentWrapper.children[i]);
-		}
+	this.changeRightButtonEvent = function(_action, _image){
+		helpButton.removeEventListener('click', helpEvent); 
+		helpButton.addEventListener('click', _action);
+		image_text = _image + "_nav_btn.png";
+		helpButton.labels = [{title:_image, image:hub.API.imagePath(image_text)}]
 	}
 	this.addOnCloseEvent = function(_action){
 		win.addEventListener('close', function(){

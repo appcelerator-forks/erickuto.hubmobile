@@ -49,14 +49,15 @@ function SearchResults(_category, _params, o){
 			}
 	};
 	this.getNeonPath = function(index){
-		neon = results[index];
+		neon = results[index/2];
+		
 		if (neon.activityType === "Person"){
 			return neon.userUrl; 
 		}
 		return neon.neonUrl;  
 	}
 	this.getNeonType = function(index){
-		return results[index].activityType; 
+		return results[index/2].activityType; 
 	}
 	this.getCounts = function(_category){
 		return counts[_category]; 

@@ -7,12 +7,12 @@
 #define _QUOTEME(x) #x
 #define STRING(x) _QUOTEME(x)
 
-NSString * const TI_APPLICATION_DEPLOYTYPE = @"production";
+NSString * const TI_APPLICATION_DEPLOYTYPE = @"development";
 NSString * const TI_APPLICATION_ID = @"com.ashoka.hubmobile";
 NSString * const TI_APPLICATION_PUBLISHER = @"ekuto";
 NSString * const TI_APPLICATION_URL = @"http://hub.ashoka.org";
 NSString * const TI_APPLICATION_NAME = @"hubmobile";
-NSString * const TI_APPLICATION_VERSION = @"1.0";
+NSString * const TI_APPLICATION_VERSION = @"1.1";
 NSString * const TI_APPLICATION_DESCRIPTION = @"not specified";
 NSString * const TI_APPLICATION_COPYRIGHT = @"2012 by ekuto";
 NSString * const TI_APPLICATION_GUID = @"ed80b8b0-ebb3-48a2-9243-dd0f64b7bfbb";

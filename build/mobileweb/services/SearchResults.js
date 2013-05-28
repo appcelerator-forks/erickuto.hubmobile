@@ -33,8 +33,9 @@ function SearchResults(_category, _params, o){
 					counts = _json; 
 				}
 				else{
-					for (i = 0; i < _json.length; i++){
-						results.push(_json[i]);
+					_results = _json.results; 
+					for (i = 0; i < _results.length; i++){
+						results.push(_results[i]);
 					}
 				}
 
@@ -47,8 +48,15 @@ function SearchResults(_category, _params, o){
 				_results.push(results[i]);
 			}
 	};
-	this.getNeon = function(index){
-		return results[index]; 
+	this.getNeonPath = function(index){
+		neon = results[index];
+		if (neon.activityType === "Person"){
+			return neon.userUrl; 
+		}
+		return neon.neonUrl;  
+	}
+	this.getNeonType = function(index){
+		return results[index].activityType; 
 	}
 	this.getCounts = function(_category){
 		return counts[_category]; 

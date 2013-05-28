@@ -3,13 +3,10 @@ function SearchView (_authToken){
 	hub = require("hub");
 	var iconWidth = hub.API.app_width/5.1; 
 	var margin_offset = (hub.API.app_width-350*hub.API.wsf)/2;
+	var hsf = hub.API.hsf;
+	var wsf = hub.API.wsf;
 	
-	var appWindow = require("ui/common/UserView");
-    search_win = new appWindow("Explore");
-	self = buildSearchView(); 
-	search_win.addContent(self);
-	
-	var loadResults = function(_category){
+	var loadResults = function(_category, win){
 		var o = {
 			start: function(){
 				win.showIndicator("Fetching " + _category + "...");
@@ -21,31 +18,45 @@ function SearchView (_authToken){
 			success: function(){
 				win.hideIndicator();
 				ListNeonsView = require("ui/common/dashboardViews/exploreViews/ListNeonsView");
-				var listNeonsView = new ListNeonsView(_category); 
+				var listNeonsView = new ListNeonsView(_category, "Explore"); 
 				hub.API.openWindow(listNeonsView);
 			}
 		}; 
 
 		if (_category === "people"){
-			hub.API.fetchResults("users", "most_recent", 0, o);
+			hub.API.fetchResults("users", hub.API.user.getFilterCriterion(), 0, o);
 		}
 		else{
-			hub.API.fetchResults(_category, "most_recent", 0, o);
+			hub.API.fetchResults(_category, hub.API.user.getFilterCriterion(), 0, o);
 		}
 	}; 
 	
-	var createOptionRow = function(item, count) {
+	var addRowView = function(_view) {
+		var tablerow = Ti.UI.createTableViewRow({
+			hasChild: false,
+			touchEnabled: false,
+			selectionStyle:Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE, 
+			focusable:false,
+		});
+	
+		tablerow.add(_view);
+		
+		return tablerow;
+	};
+	
+	var createOptionRow = function(item, count, win) {
 		var selectedSize = count; 
 		var tableRow = Ti.UI.createTableViewRow({
 			className: 'itemRow',
+			backgroundColor: hub.API.menuRowBlue,
 			hasChild: true, 
 		});
 	
 		var titleView = Ti.UI.createView({
-			backgroundColor: 'e5eaf0',
+			backgroundColor: hub.API.menuRowBlue,
 			bottom: 5,
 			height: 60,
-			width: (hub.API.app_width - 10),
+			width: "100%",
 			right: 5, 
 			left: 5,
 			borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
@@ -60,7 +71,7 @@ function SearchView (_authToken){
 			image: hub.API.imagePath('search_' + item + '_unselected.png'),
 			height: 30, 
 			width: 30, 
-			left: 7,
+			left: 0, 
 			top: 20,
 		});
 		
@@ -69,10 +80,9 @@ function SearchView (_authToken){
 			text: labelText,
 			width: 'auto',
 			color: '#5e656a',
-			left: 10,
 			top: 20,
 			font: {
-				fontSize: 16
+				fontSize: 18*hsf
 			},
 			
 		});
@@ -88,7 +98,7 @@ function SearchView (_authToken){
 			left: 5,
 			top: 20,
 			font: {
-				fontSize: 16
+				fontSize: 18*hsf
 			},
 		});
 		
@@ -98,12 +108,12 @@ function SearchView (_authToken){
 		titleView.add(sizeLabel);
 		tableRow.add(titleView);
 		tableRow.addEventListener('click', function(e) {
-			loadResults(item); 
+			loadResults(item, win); 
 		});
 		return tableRow;
 	};
 	
-	function buildSearchView(){
+	function buildSearchView(win){
 		
 		var self = Ti.UI.createView({
 			backgroundColor:hub.API.customBgColor,
@@ -153,6 +163,11 @@ function SearchView (_authToken){
 		
 		return(self);
 	}
+
+	var appWindow = require("ui/common/UserView");
+    search_win = new appWindow("Explore");
+	self = buildSearchView(search_win); 
+	search_win.addContent(self);
 
 	thisWindow = search_win.appwin;
 	return thisWindow;

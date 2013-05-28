@@ -10,8 +10,10 @@ hubAPI.app_height = util.app_height;
 hubAPI.margin_offset = (util.app_width-350*util.wsf)/2;
 hubAPI.customBgColor = util.customBgColor;
 hubAPI.customTextColor = util.customTextColor;
-hubAPI.imagePath = function(imagePath){
-	return util.imagePath(imagePath);	
+hubAPI.hubDarkBlue = "#013a5f";
+hubAPI.menuRowBlue = "#e5eaf0";
+hubAPI.imagePath = function(imagePath, _level){
+	return util.imagePath(imagePath, _level);	
 }
 hubAPI.osname = util.osname; 
 
@@ -47,6 +49,11 @@ hubAPI.homeWindow = function(){
 	return true; 
 }
 
+//Strips Html tags
+hubAPI.stripHtml = function(html){
+	var regex = /(<([^>]+)>)/ig;
+	return html.replace(regex, "");
+}
 
 hubAPI.indicate = function(indicatorMessage){
 	var ActivityIndicator = require("ui/common/ActivityIndicator");	
@@ -102,15 +109,16 @@ hubAPI.fetchNeon = function(neonPath, o){
 	}, neonPath.slice(1) , [], "GET", params);
 }
 
-hubAPI.showNeon = function(neon){
+hubAPI.showNeon = function(neon, _requestType){
+	
 	NeonView = require("ui/common/dashboardViews/exploreViews/NeonView");
-	var neonView = new NeonView(neon); 
-	hub.API.openWindow(neonView);
+	var neonView = new NeonView(neon, _requestType); 
+	hubAPI.openWindow(neonView);
 }
 
-hubAPI.showUser = function(user){
+hubAPI.showUser = function(user, _requestType){
 	UserView = require("ui/common/dashboardViews/exploreViews/UserProfileView");
-	var userView = new UserView(user); 
+	var userView = new UserView(user, _requestType); 
 	hub.API.openWindow(userView);
 }
 hubAPI.fetchResults = function(category, order, page, o){
@@ -119,9 +127,50 @@ hubAPI.fetchResults = function(category, order, page, o){
 	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
 	addVariable(results, results.length, "page", page);
 	addVariable(results, results.length, "order", order);
+	addVariable(results, results.length, "query", hubAPI.user.getFilterQuery());
+	addVariable(results, results.length, "content", hubAPI.user.getFilterContent())
 	
 	SearchResults = require("services/SearchResults");
 	hubAPI.searchResults = new SearchResults(category, results, o);
+	
+}
+
+hubAPI.fetchActivity = function(category, page, o){
+	
+	var results = [];
+	hubAPI.user.getAll(results);
+	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
+	addVariable(results, results.length, "page", page);
+	addVariable(results, results.length, "content", "followed")
+	
+	SearchResults = require("services/SearchResults");
+	Ti.API.info("In hub sending request to search results"); 
+	hubAPI.searchResults = new SearchResults(category, results, o);
+	Ti.API.info("Search Results returned"); 
+}
+
+hubAPI.followItem = function(action, url, o){
+	
+	method = "POST"; 
+	if (action == "Unfollow"){
+		method = "DELETE"; 
+	}
+	Connection = require('services/Connection');
+	var response = new Connection({
+		start: function() {
+			if (o.start) { o.start(); }
+			},
+			
+		error: function() {
+			if (o.error) { o.error(); }
+			},
+		success: function(_response){
+			Ti.API.info(JSON.stringify(_response)); 
+			if (o.success){
+				o.success();
+			}
+			}
+	}, (url+ "/follow"), [], method);
 	
 }
 
@@ -142,9 +191,15 @@ hubAPI.fetchProfileInfo = function(o){
     var response = new Connection(o, "users" , [], "GET", arguments);
 }
 
+hubAPI.newMessage = function(recepient){
+	NewMessageView = require("ui/common/dashboardViews/messageViews/NewMessageView");
+	var newMessageView = new NewMessageView(); 
+	hub.API.openWindow(newMessageView);
+}
+
 hubAPI.userTypes = ["Team?", "Fellow", "Ashoka Support Network", "Ashoka Team", "Changemaker", "Changeleader"]; 
 
-hubAPI.fetchMessages = function(category, page){
+hubAPI.fetchMessages = function(category, page, o){
 	var results = [];
 	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
 	addVariable(results, results.length, "page", page);
@@ -155,7 +210,7 @@ hubAPI.fetchMessages = function(category, page){
 	}else{
 		category = "message_threads/" + category; 
 	}
-	hubAPI.messages = new Messages(category, results);
+	hubAPI.messages = new Messages(category, results, o);
 	
 }
 

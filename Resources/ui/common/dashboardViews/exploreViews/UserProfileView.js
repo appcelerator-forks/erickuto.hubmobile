@@ -2,7 +2,7 @@ hub = require("hub");
 var hsf = hub.API.hsf;
 var wsf = hub.API.wsf;
 
-function buildUserView(user){
+function buildUserView(user, _requestType){
 	var self = Ti.UI.createView({
 		backgroundColor:hub.API.customBgColor,
 		layout: 'vertical', 
@@ -21,6 +21,53 @@ function buildUserView(user){
 		return tablerow;
 	};
 	
+	var addMenuRow = function(user, _title, _size){
+
+		var tableRow = Ti.UI.createTableViewRow({
+			hasChild: true, 
+		});
+		
+		var titleView = Ti.UI.createView({
+			backgroundColor: 'e5eaf0',
+			bottom: 5,
+			height: 50*hsf,
+			width: (hub.API.app_width - 10),
+			right: 5, 
+			left: 5,
+			borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
+			borderColor:'#e0e0e0',
+			borderRadius:5,
+			borderWidth:1,
+			layout:'horizontal'
+		});
+		
+		var titleText = _title; 
+		if (_size){
+			titleText += " (" + _size + ")"; 
+		}
+		var titleLabel = Ti.UI.createLabel({
+			text: titleText,
+			width: 'auto',
+			color: '#5e656a',
+			left: 5,
+			top: 10,
+			font: {
+				fontSize: 22*hsf
+			},
+			
+		});
+		
+		titleView.add(titleLabel);
+
+		tableRow.add(titleView);
+		
+		tableRow.addEventListener('click', function(e){
+			UserDetailsView = require("ui/common/dashboardViews/exploreViews/UserDetailsView");
+			var UserDetailsView = new UserDetailsView(user, _title, _requestType); 
+			hub.API.openWindow(UserDetailsView);
+		});	
+		return tableRow;
+	}
 	var table = Ti.UI.createTableView({
 		top:0,
 		separatorColor: 'transparent',
@@ -28,8 +75,7 @@ function buildUserView(user){
 	});
 	
 	var rows = []; 
-	
-	
+
 	var userBanner = Ti.UI.createView({
 		top: 0, 
 		height: 100, 
@@ -47,7 +93,7 @@ function buildUserView(user){
 	var userDetailHolder = Ti.UI.createView({
 		top: 0, 
 		left: 5, 
-		height: 100, 
+		//height: 100, 
 		layout: "vertical"
 	});
 
@@ -77,11 +123,25 @@ function buildUserView(user){
 		text: user.userData.designation, 
 	});
 	
-	userDetailHolder.add(userName, userType, userDesignation);
+	var electionDate = Ti.UI.createLabel({
+		top: 0, 
+		height: 20, 
+		left: 0, 
+		font: {fontSize: 14},
+		text: user.userData.election_date, 
+	});
+	userDetailHolder.add(userName, userType);
+	
+	if (user.userData.designation != "" && user.userData.designation != null){
+		userDetailHolder.add(userDesignation);
+	}
+	if (user.userData.election_date != "" && user.userData.election_date != null){
+		electionDate.text = "Since " + user.userData.election_date; 
+		userDetailHolder.add(electionDate);
+	}
 	
 	var userContentHolder = Ti.UI.createView({
 		top: 0, 
-		height: 300*hsf,
 		layout: "vertical",
 	});
 	
@@ -149,39 +209,23 @@ function buildUserView(user){
 	});
 	
 	contentLanguages.add(userTitleLanguages, userDetailLanguages);
-	if (user_languages != ""){
+	if (user_languages != "" && user_languages != null){
 		userDetailHolder.add(contentLanguages);
 	}
-	if (user_location != ""){
+	if (user_location != "" && user_location != null){
 		userDetailHolder.add(contentLocation);
 	}
-	var userDetailHtml = user.userData.about; 
-	
-	if (userDetailHtml && userDetailHtml != "<p></p>"){
-		userDetailHtml = "<div style = \"font-size:14px\">" + userDetailHtml + "</div>"
-	}else{
-		userDetailHtml = "<p></p>"; 
-	}
-	
-	var userDetailSummary = Ti.UI.createWebView({
-			top: 0, 
-			html: userDetailHtml, 
-		});
-		
-	userContentHolder.add(userDetailSummary);
-	
+
 	var sendMessageBtn = Titanium.UI.createView({
 		top:5,
-		height:60*hsf,
-		width: 250*wsf,
+		height:50*hsf,
+		width: 140*wsf,
 		left:10,
 		borderRadius:8,
 		borderWidth:1,
 		layout:"horizontal",
 		backgroundColor:hub.API.hubDarkBlue,
 	});
-	
-	send_message_text = "Send " + user.userData.first_name + " a message";
 	
 	sendMessageBtn.add(Ti.UI.createImageView({
 		top: 5, 
@@ -192,144 +236,54 @@ function buildUserView(user){
 	
 	sendMessageBtn.add(Ti.UI.createLabel({
 		top:5,
-		left: 5,
+		left: 0,
 		font: { fontSize: 13, },
-		text:send_message_text,
+		text:"Message",
 		color: "#FFFFFF",
 	}));
 	
-	
-	follow_button_text = user.userMetaData.followWidget.text + " " + user.userData.first_name; 
-	
-	var followBtn = Titanium.UI.createView({
-		top:5,
-		width: 200*wsf,
-		layout:"horizontal",
-		height:50*hsf,
-		left:10,
-		borderRadius:8,
-		borderWidth:1,
-		backgroundColor:hub.API.hubDarkBlue
+	var followBtn = hub.API.createFollowBtn(user.userMetaData); 
+
+	rows.push(addRowView(userBanner));
+
+	var userTopBar = Ti.UI.createView({
+		top: 0, 
+		height: 60*hsf,
+		width: hub.API.app_width - 10, 
 	});
 	
-	var followIconPath = 'little_' + user.userMetaData.followWidget.text + '_star.png'; 
-	followBtn.add(Ti.UI.createImageView({
-		top: 5, 
-		left: 5,
-		width: 40*wsf, 
-		image: hub.API.imagePath(followIconPath),
-	}));
-	
-	followBtn.add(Ti.UI.createLabel({
-		top:5,
-		left: 5,
-		font: { fontSize: 13, },
-		text:follow_button_text,
-		color: "#FFFFFF",
-	}));
-	
-	tagsView = Ti.UI.createView({
-		layout: "horizontal",
-		height: "auto",
-		left: 5
+	var separatorView = Ti.UI.createView({
+		height: 5*hsf, 
+		backgroundColor:hub.API.customBgColor,
 	});
+	
+	userTopBar.add(sendMessageBtn, followBtn);
+	
+	rows.push(addRowView(userTopBar));
+	
+	rows.push(addRowView(separatorView));
+	
+	var menuRowOptions = ["About Me","Offers", "Needs", "Events", "News"]; 
+	
+	for (var i = 0; i < menuRowOptions.length; i++){
+		rows.push(addMenuRow(user, menuRowOptions[i]));
+	}
+	 
+	var userTags = user.userMetaData.allTagsData; 
+		
+	if (userTags.length > 0){
+		rows.push(addRowView(separatorView));
+		rows.push(addMenuRow(user, "Tags", userTags.length)); 
+	}
 	
 	var userTags = user.userMetaData.allTagsData; 
-	
-	var createTag = function(tag){
-		tagText = tag.name; 
-		var maxWidth = 200; 
 		
-		var tagView = Ti.UI.createView({
-			left: 5,  
-			top: 3, 
-			width: 1,
-			height: 30,  
-			backgroundColor: hub.API.hubDarkBlue, 
-			borderWidth: 1,
-			borderColor: '#2E2E2E',  
-			borderRadius: 5, 
-			layout: "horizontal"
-		});
-		var tagHolder = Ti.UI.createView({
-			left: 3, 
-			top: 0, 
-			width: 30, 
-			height: 30,
-		});
-		var followIconPath = 'little_' + tag.followWidget.text + '_star.png'; 
-		followStar = Ti.UI.createImageView({
-			top: 5, 
-			left: 5,
-			width: 40*wsf, 
-			image: hub.API.imagePath(followIconPath),
-		});
-		tagHolder.add(followStar);
-		tagHolder.addEventListener('click', function(e){
-			Ti.API.info(tagText);
-		})
-		var tagTextLabel = Ti.UI.createLabel({
-			left: 3, 
-			text: tagText, 
-			font: {
-				fontSize: 13,
-			},
-			width: 'auto',
-			color: "#FFFFFF",
-			height: 30,
-		});
-		ttlWidth = tagTextLabel.toImage().width; 
-		
-		if (ttlWidth > maxWidth){
-			ttlWidth = maxWidth; 
-		}
-		tagTextLabel.width = ttlWidth; 
-		
-		tagView.width =  ttlWidth + tagHolder.toImage().width + 10; 
-		tagView.add(tagHolder,tagTextLabel);
-		return tagView; 
+	if (userTags.length > 0){
+		rows.push(addRowView(separatorView));
+		rows.push(addMenuRow(user.userMetaData, "Tags", userTags.length)); 
+		rows.push(addRowView(separatorView));
 	}
-	
-	
-	for (var i = 0; i < userTags.length; i++){
-		tagsView.add(createTag(userTags[i])); 
-	}
-	
-	var about_text = "About " + user.userData.first_name; 
-	var aboutTitle = Ti.UI.createLabel({
-		top: 0, 
-		left: 5, 
-		color: hub.API.customTextColor,
-		height: 20,
-		font: {
-			fontWeight: 'bold',
-			fontSize: 15,
-		},
-		text: about_text,
-	});
-	
-	var tag_title_text = user.userData.first_name + "'s Tags: "; 
-	var tagTitleText = Ti.UI.createLabel({
-		top: 0, 
-		left: 5, 
-		color: hub.API.customTextColor,
-		height: 20,
-		font: {
-			fontWeight: 'bold',
-			fontSize: 15,
-		},
-		text: tag_title_text,
-	});
-	
-	rows.push(addRowView(userBanner));
-	rows.push(addRowView(aboutTitle));
-	rows.push(addRowView(userContentHolder));
-	rows.push(addRowView(sendMessageBtn));
-	rows.push(addRowView(followBtn));
-	rows.push(addRowView(tagTitleText));
-	rows.push(addRowView(tagsView));
-	
-	
+
 	table.setData(rows);
 	
 	self.add(table);
@@ -337,10 +291,10 @@ function buildUserView(user){
 	return self; 
 }
 
-function userView(user){
+function userView(user, _requestType){
 	var appWindow = require("ui/common/UserView");
-    win = new appWindow("Explore");
-    self = buildUserView(user); 
+    win = new appWindow(_requestType);
+    self = buildUserView(user, _requestType); 
 	win.addContent(self);
 	thisWindow = win.appwin;
 	return thisWindow;

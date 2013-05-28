@@ -5,6 +5,7 @@ var margin_offset = (hub.API.app_width-350*wsf)/2;
 var all_activity_offset = 0; 
 var select_activity_offset = 30; 
 var user = hub.API.user; 
+var filter_selected_color = "#5882FA"; 
 
 var selectedRadio = Titanium.UI.createButton({
 	top:0, 
@@ -136,12 +137,14 @@ function selectActivity(_activity){
 		unselectedRadio.top = select_activity_offset;
 		selectedRadio.activity = "all";
 		unselectedRadio.activity = "select";
+		hub.API.user.setFilterContent("");
 	}
 	else{
 		selectedRadio.top = select_activity_offset;
 		unselectedRadio.top = all_activity_offset;
 		selectedRadio.activity = "select";
 		unselectedRadio.activity = "all";
+		hub.API.user.setFilterContent("followed");
 	}
 	staticView.add(selectedRadio);
 	staticView.add(unselectedRadio);
@@ -182,20 +185,19 @@ function buildExploreWindow(){
 	var searchBar = Ti.UI.createSearchBar({
 		top:0,
 		left: 0, 
-		hintText:"Enter Free Tags",
+		hintText:"Explore Hub",
 		barColor: '#f6f6f6',
 		width: 260,
 		value: "", 
-		//showCancel:true,
-		//width:350*wsf,
 	});
+	
 	var cancelButton = Titanium.UI.createButton({
 			top:8,
 			borderRadius:1,
 			width: 50, 
 			height: 25,
 			right:3,
-			title: "Cancel",
+			title: "Done",
 			font: {fontSize: 12, }
 		});
 	searchBarHolder.add(searchBar);
@@ -203,6 +205,7 @@ function buildExploreWindow(){
 	nonScrollView.add(searchBarHolder);
 	cancelButton.addEventListener('click', function(e){
 		searchBar.blur();
+		hub.API.user.setFilterQuery(searchBar.value);
 	});
 	self.add(nonScrollView);
 	
@@ -228,8 +231,15 @@ function buildExploreWindow(){
 		left: 35,
 	});
 	
-	var filterBy = Ti.UI.createLabel({
+	var filterView = Ti.UI.createView({
 		top:75,
+		left:5,
+		layout: "horizontal",
+		height:35,
+	});
+	
+	var filterBy = Ti.UI.createLabel({
+		top:0,
 		text: "Filter by:", 
 		color: hub.API.customTextColor,
 		height: 30,
@@ -237,8 +247,58 @@ function buildExploreWindow(){
 			fontWeight: 'bold',
 			fontSize: 18,
 		},
+	});
+	
+	var criterion = "most_recent";
+	
+	var mostRecent = Ti.UI.createLabel({
+		top:0,
+		text: "Most Recent", 
+		color: hub.API.customTextColor,
+		height: 30,
+		font: {
+			fontSize: 15,
+		},
 		left: 5,
 	});
+
+	var mostFollowed = Ti.UI.createLabel({
+		top:0,
+		text: "Most Followed", 
+		color: hub.API.customTextColor,
+		height: 30,
+		font: {
+			fontSize: 15,
+		},
+		left: 5,
+	});
+	
+	mostRecent.addEventListener('click', function(e){
+		mostRecent.color = filter_selected_color; 
+		mostFollowed.color = hub.API.customTextColor;
+		hub.API.user.setFilterCriterion("most_recent");   
+	});
+	
+	mostFollowed.addEventListener('click', function(e){
+		mostFollowed.color = filter_selected_color; 
+		mostRecent.color = hub.API.customTextColor;
+		hub.API.user.setFilterCriterion("most_followed");  
+	});
+	
+	filterView.add(filterBy);
+	filterView.add(mostRecent); 
+	filterView.add(Ti.UI.createLabel({
+		top:0,
+		text: "|", 
+		color: hub.API.customTextColor,
+		height: 30,
+		font: {
+			fontSize: 20,
+			fontWeight: "bold",
+		},
+		left: 5,
+	}));
+	filterView.add(mostFollowed); 
 	
 	var searchBtn = Titanium.UI.createButton({
 		top:5,
@@ -248,6 +308,8 @@ function buildExploreWindow(){
 		borderRadius:1,
 		backgroundImage:hub.API.imagePath('search_button.png'),
 	});
+	
+	 
 	
 	searchBtn.addEventListener('click', function(e) {
 		//Search For the counts. 
@@ -267,14 +329,13 @@ function buildExploreWindow(){
 			}
 		}; 
 		
-		hub.API.fetchResults("activities/count", "most_recent", 0, o);
-		
-		
+		hub.API.fetchResults("activities/count", hub.API.user.getFilterCriterion(), 0, o);
 	});
+	
 	staticView.add(allActivities);
-	staticView.add(filterBy);
+	staticView.add(filterView);
 	staticView.add(selectActivities);
-	selectActivity("select");
+	selectActivity("all");
 	
 	var views = [];
 	

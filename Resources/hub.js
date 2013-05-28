@@ -11,8 +11,9 @@ hubAPI.margin_offset = (util.app_width-350*util.wsf)/2;
 hubAPI.customBgColor = util.customBgColor;
 hubAPI.customTextColor = util.customTextColor;
 hubAPI.hubDarkBlue = "#013a5f";
-hubAPI.imagePath = function(imagePath){
-	return util.imagePath(imagePath);	
+hubAPI.menuRowBlue = "#e5eaf0";
+hubAPI.imagePath = function(imagePath, _level){
+	return util.imagePath(imagePath, _level);	
 }
 hubAPI.osname = util.osname; 
 
@@ -35,6 +36,22 @@ hubAPI.controller = new NavigationController();
 hubAPI.openWindow = function(windowToOpen){
 	hubAPI.controller.open(windowToOpen);
 }
+hubAPI.getTouchEnabled = function(){
+	
+	if (hubAPI.osname == "iphone" || hubAPI.osname == "ipad"){
+		return false;
+	}
+	return true; 
+}
+
+
+hubAPI.getSelectionStyle = function(){
+	
+	if (hubAPI.osname == "iphone" || hubAPI.osname == "ipad"){
+		return Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE;
+	}
+	return true; 
+}
 
 //Closes the current window
 hubAPI.closeWindow = function(){
@@ -48,6 +65,11 @@ hubAPI.homeWindow = function(){
 	return true; 
 }
 
+//Strips Html tags
+hubAPI.stripHtml = function(html){
+	var regex = /(<([^>]+)>)/ig;
+	return html.replace(regex, "");
+}
 
 hubAPI.indicate = function(indicatorMessage){
 	var ActivityIndicator = require("ui/common/ActivityIndicator");	
@@ -103,16 +125,17 @@ hubAPI.fetchNeon = function(neonPath, o){
 	}, neonPath.slice(1) , [], "GET", params);
 }
 
-hubAPI.showNeon = function(neon){
+hubAPI.showNeon = function(neon, _requestType){
+	
 	NeonView = require("ui/common/dashboardViews/exploreViews/NeonView");
-	var neonView = new NeonView(neon); 
-	hub.API.openWindow(neonView);
+	var neonView = new NeonView(neon, _requestType); 
+	hubAPI.openWindow(neonView);
 }
 
-hubAPI.showUser = function(user){
+hubAPI.showUser = function(user, _requestType){
 	UserView = require("ui/common/dashboardViews/exploreViews/UserProfileView");
-	var userView = new UserView(user); 
-	hub.API.openWindow(userView);
+	var userView = new UserView(user, _requestType); 
+	hubAPI.openWindow(userView);
 }
 hubAPI.fetchResults = function(category, order, page, o){
 	var results = [];
@@ -128,13 +151,142 @@ hubAPI.fetchResults = function(category, order, page, o){
 	
 }
 
+hubAPI.createFollowBtn = function(neon){
+	
+	var followIconPath = 'little_' + neon.followWidget.text + '_star.png';
+
+	var followBtn = Titanium.UI.createView({
+		top:5,
+		width: 140*hubAPI.wsf,
+		height:50*hubAPI.hsf,
+		right: 5,
+		borderRadius:1,
+		neon: neon, 
+		star: "", 
+		label: "", 
+		borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
+		borderColor:'#e0e0e0',
+		borderRadius:5,
+		borderWidth:1,
+		backgroundColor:hubAPI.hubDarkBlue, 
+		layout: "horizontal", 
+	});
+	
+	followStar = Ti.UI.createImageView({
+		top: 5, 
+		left: 5,
+		width: 40*hubAPI.wsf, 
+		touchEnabled: false,
+		image: hubAPI.imagePath(followIconPath, 2),
+	});
+	
+	followLabel = Ti.UI.createLabel({
+		top:5,
+		left: 5,
+		font: { fontSize: 22*hubAPI.hsf },
+		touchEnabled: false,
+		text: neon.followWidget.text, 
+		color: "#FFFFFF",
+	});
+	followBtn.star = followStar; 
+	followBtn.label = followLabel; 
+	
+	followBtn.add(followStar);
+	followBtn.add(followLabel);
+	
+	
+	followBtn.addEventListener('click', function(e){
+		var neon = e.source.neon;
+		if (neon.activityType){
+			var neonAnnouncement = neon.followWidget.text + "ing " + neon.activityType + "..."; 
+		}else{
+			var neonAnnouncement = neon.followWidget.text + "ing..."; 
+		}
+		
+		var followWidget = {
+			start: function(){
+				win.showIndicator(neonAnnouncement);
+			},
+			error: function(){
+				Ti.API.info("Error " + neonAnnouncement);
+				win.hideIndicator(); 
+			},
+			success: function(neon){
+				win.hideIndicator();
+				neon = e.source.neon; 
+				status = neon.followWidget.state;
+				newStatus = status.charAt(0).toUpperCase() + status.slice(1); 
+				
+				text = neon.followWidget.text; 
+				newText = text.charAt(0).toLowerCase() + text.slice(1);
+				
+				neon.followWidget.text = newStatus; 
+				neon.followWidget.state = newText; 
+				
+				e.source.neon = neon; 
+				followIconPath = 'little_' + newStatus + '_star.png';
+				e.source.label.text = newStatus; 
+				e.source.star.image = hubAPI.imagePath(followIconPath, 2);
+			}
+		}; 
+		if (neon.neonUrl){
+			hubAPI.followItem(neon.followWidget.text, neon.neonUrl, followWidget);
+		}
+		else{
+			hubAPI.followItem(neon.followWidget.text, neon.userUrl, followWidget);
+		}
+		
+	});
+	return followBtn; 
+}
+	
+hubAPI.fetchActivity = function(category, page, o){
+	
+	var results = [];
+	hubAPI.user.getAll(results);
+	addVariable(results, results.length, "auth_token", hubAPI.user.getAuthToken());
+	addVariable(results, results.length, "page", page);
+	addVariable(results, results.length, "content", "followed")
+	
+	SearchResults = require("services/SearchResults");
+	Ti.API.info("In hub sending request to search results"); 
+	hubAPI.searchResults = new SearchResults(category, results, o);
+	Ti.API.info("Search Results returned"); 
+}
+
+hubAPI.followItem = function(action, url, o){
+
+	method = "POST"; 
+	if (action == "Unfollow"){
+		method = "DELETE"; 
+	}
+	url += "/follow"; 
+	Connection = require('services/Connection');
+
+	Ti.API.info(method + ", " + action);
+    var response = new Connection(o, url, [], method);
+	/*var response = new Connection({
+		start: function() {
+			if (o.start) { o.start(); }
+			},
+			
+		error: function() {
+			if (o.error) { o.error(); }
+			},
+		success: function(_response){
+			if (o.success){ o.success();}
+			}
+	}, url, [], method);
+	*/
+}
+
 hubAPI.getRemoteURL = function(_path, site){
-	/*var localhost = "localhost"
+	var localhost = "localhost"
 	if (hubAPI.osname === "android"){
 		localhost = "10.0.2.2";
 	}
-	var mainURL = "http://" + localhost + ":3000/";*/
-	var mainURL = "http://greenhub-mobile.herokuapp.com/";
+	var mainURL = "http://" + localhost + ":3000/";
+	//var mainURL = "http://greenhub-mobile.herokuapp.com/";
 	return mainURL + _path;
 }
 
@@ -148,7 +300,7 @@ hubAPI.fetchProfileInfo = function(o){
 hubAPI.newMessage = function(recepient){
 	NewMessageView = require("ui/common/dashboardViews/messageViews/NewMessageView");
 	var newMessageView = new NewMessageView(); 
-	hub.API.openWindow(newMessageView);
+	hubAPI.openWindow(newMessageView);
 }
 
 hubAPI.userTypes = ["Team?", "Fellow", "Ashoka Support Network", "Ashoka Team", "Changemaker", "Changeleader"]; 

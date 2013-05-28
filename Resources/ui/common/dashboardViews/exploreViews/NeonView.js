@@ -2,7 +2,7 @@ hub = require("hub");
 var hsf = hub.API.hsf;
 var wsf = hub.API.wsf;
 
-function buildNeonView(neonData){
+function buildNeonView(neonData, _requestType, win){
 	var self = Ti.UI.createView({
 		backgroundColor:hub.API.customBgColor,
 		layout: 'vertical', 
@@ -12,8 +12,8 @@ function buildNeonView(neonData){
 	var addRowView = function(_view) {
 		var tablerow = Ti.UI.createTableViewRow({
 			hasChild: false,
-			touchEnabled: false,
-			selectionStyle:Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE, 
+			touchEnabled: hub.API.getTouchEnabled(),
+			selectionStyle: hub.API.getSelectionStyle(), 
 			focusable:false,
 		});
 	
@@ -22,6 +22,54 @@ function buildNeonView(neonData){
 		return tablerow;
 	};
 	
+	var addMenuRow = function(neon, _title, _size){
+
+		var tableRow = Ti.UI.createTableViewRow({
+			hasChild: true, 
+		});
+		
+		var titleView = Ti.UI.createView({
+			backgroundColor: 'e5eaf0',
+			bottom: 5,
+			height: 50*hsf,
+			width: (hub.API.app_width - 10),
+			right: 5, 
+			left: 5,
+			borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
+			borderColor:'#e0e0e0',
+			borderRadius:5,
+			borderWidth:1,
+			layout:'horizontal'
+		});
+		
+		var titleText = _title; 
+		if (_size){
+			titleText += " (" + _size + ")"; 
+		}
+		var titleLabel = Ti.UI.createLabel({
+			text: titleText,
+			width: 'auto',
+			color: '#5e656a',
+			left: 5,
+			top: 10,
+			font: {
+				fontSize: 22*hsf
+			},
+			
+		});
+		
+		titleView.add(titleLabel);
+
+		tableRow.add(titleView);
+		
+		tableRow.addEventListener('click', function(e){
+			NeonView = require("ui/common/dashboardViews/exploreViews/NeonDetailsView");
+			var neonView = new NeonView(neon, _title, _requestType); 
+			hub.API.openWindow(neonView);
+		});	
+		return tableRow;
+	}
+	
 	var table = Ti.UI.createTableView({
 		top:0,
 		separatorColor: 'transparent',
@@ -29,6 +77,29 @@ function buildNeonView(neonData){
 	});
 	
 	var rows = []; 
+	
+	var neonTopBar = Ti.UI.createView({
+		top: 0, 
+		height: 60*hsf,
+		width: hub.API.app_width - 10, 
+	});
+	
+	var neonType = Ti.UI.createLabel({
+		top: 0,
+		height: 40*hsf,  
+		left: 10, 
+		font: {fontSize: 23*hsf},
+		text: neonData.neon.activityType, 
+	});
+	
+	neonTopBar.add(neonType);
+	
+	rows.push(addRowView(neonTopBar));
+	
+
+	var followButton = hub.API.createFollowBtn(neonData.neon); 
+	neonTopBar.add(followButton);
+
 	
 	var neonBanner = Ti.UI.createView({
 		top: 0, 
@@ -53,17 +124,7 @@ function buildNeonView(neonData){
 	
 	neonBanner.add(neonImage, neonDetailHolder);
 	
-	var neonType = Ti.UI.createLabel({
-		top: 0,
-		height: 20,  
-		left: 0, 
-		font: {fontSize: 14},
-		text: neonData.neon.activityType, 
-	});
-
-	
 	detail_location = ""; 
-	var neonDetailHtml = neonData.formattedDescription;
 
 	detail_category = neonData.neon.creatorDisplayName + " (" + neonData.neon.creatorUserType + ", " + neonData.neon.creatorCountry + ")"; 
 	
@@ -77,18 +138,15 @@ function buildNeonView(neonData){
 	
 	var neonDetailCategory = Ti.UI.createLabel({
 		top: 0, 
-		height: 30, 
+		height: 40, 
 		left: 0, 
 		font: {fontSize: 14},
 		text: detail_category, 
 	});
 	
-	neonDetailHolder.add(neonType, neonName, neonDetailCategory);
+	neonDetailHolder.add(neonName, neonDetailCategory);
 	
-	var neonContentHolder = Ti.UI.createView({
-		top: 0, 
-		layout: "vertical"
-	});
+	rows.push(addRowView(neonBanner));
 	
 	var contentLocation = Ti.UI.createView({
 		top: 0, 
@@ -110,118 +168,45 @@ function buildNeonView(neonData){
 	});
 	
 	contentLocation.add(neonTitleLocation, neonDetailLocation);
-	
-	if (neonDetailHtml && neonDetailHtml != "<p></p>"){
-		neonDetailHtml = "<div style = \"font-size:14px\">" + neonDetailHtml + "</div>"
-	}else{
-		neonDetailHtml = "<p></p>"; 
-	}
-	
-	var neonDetailSummary = Ti.UI.createWebView({
-			top: 0, 
-			html: neonDetailHtml, 
-		});
 		
 	if (neonData.neon.showExpiryDate){
-		neonContentHolder.add(contentLocation); 
+		rows.push(addRowView(contentLocation)); 
 	}
-	neonContentHolder.add(neonDetailSummary);
 	
-	tagsView = Ti.UI.createView({
-		layout: "horizontal",
-		height: "auto",
-		left: 5
+	var separatorView = Ti.UI.createView({
+		height: 5*hsf, 
+		backgroundColor:hub.API.customBgColor,
 	});
 	
-	var neonTags = neon.allTagsData; 
+	rows.push(addRowView(separatorView));
 	
-	var createTag = function(tag){
-		tagText = tag.name; 
-		var maxWidth = 200; 
+	rows.push(addMenuRow(neonData, "Details")); 
+	
+	
+	
+	var neonTags = neonData.neon.allTagsData; 
+	var neonComments = neonData.neon.commentsData; 
 		
-		var tagView = Ti.UI.createView({
-			left: 5,  
-			top: 3, 
-			width: 1,
-			height: 30,  
-			backgroundColor: hub.API.hubDarkBlue, 
-			borderWidth: 1,
-			borderColor: '#2E2E2E',  
-			borderRadius: 5, 
-			layout: "horizontal"
-		});
-		var tagHolder = Ti.UI.createView({
-			left: 3, 
-			top: 0, 
-			width: 30, 
-			height: 30,
-		});
-		var followIconPath = 'little_' + tag.followWidget.text + '_star.png'; 
-		followStar = Ti.UI.createImageView({
-			top: 5, 
-			left: 5,
-			width: 40*wsf, 
-			image: hub.API.imagePath(followIconPath),
-		});
-		tagHolder.add(followStar);
-		tagHolder.addEventListener('click', function(e){
-			Ti.API.info(tagText);
-		})
-		var tagTextLabel = Ti.UI.createLabel({
-			left: 3, 
-			text: tagText, 
-			font: {
-				fontSize: 13,
-			},
-			width: 'auto',
-			color: "#FFFFFF",
-			height: 30,
-		});
-		ttlWidth = tagTextLabel.toImage().width; 
-		
-		if (ttlWidth > maxWidth){
-			ttlWidth = maxWidth; 
-		}
-		tagTextLabel.width = ttlWidth; 
-		
-		tagView.width =  ttlWidth + tagHolder.toImage().width + 10; 
-		tagView.add(tagHolder,tagTextLabel);
-		return tagView; 
+	if (neonTags.length > 0){
+		rows.push(addRowView(separatorView));
+		rows.push(addMenuRow(neonData, "Tags", neonTags.length)); 
 	}
 	
-	
-	for (var i = 0; i < neonTags.length; i++){
-		tagsView.add(createTag(neonTags[i])); 
+	if (neonComments.length > 0){
+		rows.push(addRowView(separatorView));
+		rows.push(addMenuRow(neonData, "Comments", neonComments.length)); 
 	}
-	
-	var tag_title_text = "Tags: "; 
-	var tagTitleText = Ti.UI.createLabel({
-		top: 0, 
-		left: 5, 
-		color: hub.API.customTextColor,
-		height: 20,
-		font: {
-			fontWeight: 'bold',
-			fontSize: 15,
-		},
-		text: tag_title_text,
-	});
-	
-	rows.push(addRowView(neonBanner));
-	rows.push(addRowView(neonContentHolder));
-	rows.push(addRowView(tagTitleText));
-	rows.push(addRowView(tagsView));
-	
+
 	table.setData(rows);
-	
 	self.add(table);
 	
 	return self; 
 }
-function neonView(neonData){
+function neonView(neonData, _requestType){
 	var appWindow = require("ui/common/UserView");
-    win = new appWindow("Explore");
-    self = buildNeonView(neonData); 
+    win = new appWindow(_requestType);
+
+    self = buildNeonView(neonData, _requestType, win); 
 	win.addContent(self);
 	thisWindow = win.appwin;
 	return thisWindow;

@@ -1,4 +1,4 @@
-ts	1366402132000
+ts	1369685834000
 .DS_Store	12292
 Default-Landscape.jpg	36232
 Default-Portrait.jpg	28479
@@ -15,7 +15,7 @@ apple-touch-icon-precomposed.png	6790
 controllers
 	LoginController.js	1254
 favicon.ico	0
-hub.js	3631
+hub.js	6477
 images
 	.DS_Store	15364
 	1_Login.jpg	183284
@@ -27,17 +27,23 @@ images
 	ashoka_logo.png	27467
 	ashoka_logo_navbar.png	21505
 	ashoka_tree.png	12339
-	back_nav_btn.png	2713
+	back_nav_btn.png	2309
 	change_makers.png	4369
+	comment_button.png	6797
 	delete.png	766
 	einstein.png	96834
 	einstein_delete_this.jpg	8417
 	events.png	4996
 	help.png	8426
-	help_nav_btn.png	2910
+	help_nav_btn.png	3516
 	home.png	9796
 	inbox.png	5090
 	linked_in.png	6002
+	little_Follow_star.png	3241
+	little_Unfollow_star.png	4013
+	message_archived_unselected.png	1259
+	message_inbox_unselected.png	5374
+	message_sent_unselected.png	990
 	more.png	1099
 	my_About.png	8138
 	my_Activity.png	8314
@@ -51,13 +57,14 @@ images
 	navbar_background.png	4491
 	navigation_icons
 		.DS_Store	6148
-		Activity.png	8073
-		Create.png	10367
-		Explore.png	6864
-		Inbox.png	7312
-		Profile.png	5881
+		Activity.png	18983
+		Create.png	21314
+		Explore.png	19775
+		Inbox.png	20555
+		Profile.png	21335
 	needs.png	5072
 	new_message_icon.png	10520
+	new_nav_btn.png	1292
 	offers.png	5413
 	people.png	4788
 	profile.png	5142
@@ -74,14 +81,17 @@ images
 	search_ideas_unselected.png	1749
 	search_needs_selected.png	435
 	search_needs_unselected.png	2016
+	search_news_unselected.png	5374
 	search_offers_selected.png	317
 	search_offers_unselected.png	1259
 	search_people_selected.png	316
 	search_people_unselected.png	990
+	send.png	12724
 	settings.png	6135
 	sign_out.png	10938
 	skype.png	9546
-	spinner
+	small_messages_icon.png	650
+	spinner_delete
 		0.jpg	1403
 		1.jpg	1435
 		2.jpg	1374
@@ -112,11 +122,11 @@ services
 	Connection.js	1246
 	Exploration.js	4572
 	Logout.js	1157
-	Messages.js	2956
+	Messages.js	2837
 	Results_delete.js	450
-	SearchResults.js	1209
+	SearchResults.js	1422
 	Tags_delete.js	691
-	User.js	2678
+	User.js	3206
 themes
 	common.css	7479
 	default
@@ -274,7 +284,7 @@ titanium
 	dependencies.json	10937
 	package.json	660
 titanium.css	37837
-titanium.js	492840
+titanium.js	492842
 ui
 	common
 		ActivityIndicator.js	1747
@@ -283,28 +293,34 @@ ui
 		DetailView.js	349
 		FirstTimeView.js	4462
 		ForgotView.js	4566
-		LoginView.js	8160
+		LoginView.js	8121
 		MasterView.js	1290
-		UserView.js	9229
+		UserView.js	9967
 		dashboardViews
-			ActivityView.js	800
+			ActivityView.js	3898
 			CreateView.js	796
 			EventsView.js	565
-			ExploreView.js	7122
-			InboxView.js	9530
+			ExploreView.js	8413
+			MessageView.js	2975
 			NeedsView.js	768
 			OffersView.js	771
 			PeopleView.js	771
-			ProfileView.js	3091
+			ProfileView.js	3087
 			SettingsView.js	777
 			exploreViews
 				AutoCompleteView.js	5273
-				MessageView.js	5611
-				NeonView.js	2818
-				SearchView.js	9021
+				ListNeonsView.js	5024
+				MessageView.js	5543
+				NeonDetailsView.js	7511
+				NeonView.js	6291
+				SearchView.js	3818
 				SelectorView.js	1695
+				UserProfileView.js	7384
+			messageViews
+				MessageListView.js	4869
+				NewMessageView.js	2779
 			profileViews
-				About.js	2896
+				About.js	2830
 				Activity.js	563
 				Events.js	561
 				Followers.js	564
@@ -314,7 +330,7 @@ ui
 				Offers.js	561
 				Tags.js	559
 		tableViewMultiSelectRows.js	2308
-		utilities.js	1365
+		utilities.js	1487
 	handheld_delete
 		android
 			ApplicationWindow.js	610

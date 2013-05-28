@@ -14,11 +14,17 @@ function addVariable(_array, _index, _key, _value){
 var osname = Ti.Platform.osname;
 
 /*Different ways to load images depending on platform. */
-var imagePath = function(_path){
+var imagePath = function(_path, _level){
 	image_path = "";
 	
 	if (osname === 'android') {
-		image_path = "../../images/" + _path;
+		if(_level){
+			for (var i = 0; i < _level; i++){
+				image_path += "../"; 
+			}
+		}
+		image_path += "../../images/" + _path;
+		Ti.API.info(image_path);
 	}
 	else {
 		image_path = "images/" + _path;

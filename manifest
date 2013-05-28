@@ -1,8 +1,8 @@
-#appname: hubmobile
-#publisher: ekuto
-#url: http://hub.ashoka.org
-#image: appicon.png
-#appid: com.ashoka.hubmobile
-#desc: undefined
-#type: ipad
-#guid: ed80b8b0-ebb3-48a2-9243-dd0f64b7bfbb
+#appname:hubmobile
+#publisher:ekuto
+#url:http://hub.ashoka.org
+#image:appicon.png
+#appid:com.ashoka.hubmobile
+#desc:not specified
+#type:ipad
+#guid:ed80b8b0-ebb3-48a2-9243-dd0f64b7bfbb

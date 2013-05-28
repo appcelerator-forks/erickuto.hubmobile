@@ -1,8 +1,9 @@
-function SearchView (_neonClass){
+function SearchView (_neonClass, _requestType){
 	hub = require("hub");
 	var iconWidth = hub.API.app_width/5.1; 
 	var margin_offset = (hub.API.app_width-350*hub.API.wsf)/2;
-	
+	var hsf = hub.API.hsf;
+	var wsf = hub.API.wsf;
 
 	var createMenuRow = function(item, _category, table) {
 		var category = item;
@@ -10,21 +11,20 @@ function SearchView (_neonClass){
 		if (item === "has_more"){tableHasChild = false; }
 		var tableRow = Ti.UI.createTableViewRow({
 			className: 'itemRow',
-			category: category,
-			hasChild: tableHasChild, 
-		});
-		
-		var titleView = Ti.UI.createView({
-			backgroundColor: 'e5eaf0',
-			bottom: 5,
-			height: 50,
-			width: (hub.API.app_width - 10),
-			right: 5, 
-			left: 5,
+			backgroundColor: hub.API.menuRowBlue,
+			hasChild: true, 
 			borderStyle:Titanium.UI.INPUT_BORDERSTYLE_ROUNDED, 
 			borderColor:'#e0e0e0',
 			borderRadius:5,
 			borderWidth:1,
+		});
+	
+		var titleView = Ti.UI.createView({
+			bottom: 5,
+			height: 50,
+			width: "100%",
+			right: 5, 
+			left: 5,
 			layout:'horizontal'
 		});
 		
@@ -50,7 +50,7 @@ function SearchView (_neonClass){
 				left: 5,
 				top: 20,
 				font: {
-					fontSize: 14
+					fontSize: 20*hsf,
 				},
 				
 			});
@@ -66,7 +66,6 @@ function SearchView (_neonClass){
 		var tablerow = Ti.UI.createTableViewRow({
 			hasChild: false,
 			touchEnabled: false,
-			selectionStyle:Titanium.UI.iPhone.TableViewCellSelectionStyle.NONE, 
 			focusable:false,
 		});
 	
@@ -91,10 +90,21 @@ function SearchView (_neonClass){
 		}; 
 
 		if (_category === "people"){
-			hub.API.fetchResults("users", hub.API.user.getFilterCriterion(), (hub.API.searchResults.getPage() + 1), o);
+			if (_requestType == "Activity"){
+				hub.API.fetchActivity("users", (hub.API.searchResults.getPage() + 1), o);
+			}else{
+				hub.API.fetchResults("users", hub.API.user.getFilterCriterion(), (hub.API.searchResults.getPage() + 1), o);
+			}
+			
 		}
 		else{
-			hub.API.fetchResults(_category, hub.API.user.getFilterCriterion(), (hub.API.searchResults.getPage() + 1), o);
+			if (_requestType == "Activity"){
+				hub.API.fetchActivity(_category,(hub.API.searchResults.getPage() + 1), o);
+				
+			}
+			else{
+				hub.API.fetchResults(_category, hub.API.user.getFilterCriterion(), (hub.API.searchResults.getPage() + 1), o);
+			}
 		}
 	}; 
 	
@@ -116,15 +126,20 @@ function SearchView (_neonClass){
  		}
  		
  		var tableRows = [];
-	
+		var separatorView = Ti.UI.createView({
+			height: 5, 
+			backgroundColor:hub.API.customBgColor,
+		});
+		
 		for (var i = 0; i < data.length; i++) {
 			tableRows.push(createMenuRow(data[i], _neonClass, table));
+			tableRows.push(addRowView(separatorView)); 
 		}
 		
 		table.setData(tableRows); 
 	}
 	
-	function buildSearchView(){
+	function buildSearchView(_requestType, win){
 		
 		var self = Ti.UI.createView({
 			backgroundColor:hub.API.customBgColor,
@@ -133,20 +148,24 @@ function SearchView (_neonClass){
 			
 		var nonScrollView = Ti.UI.createView({
 			top: 3,
-			height: 30, 
+			height: 60*hsf, 
 			layout:'vertical'
 		});
 		
+		tlText = "Search Results"; 
+		if (_requestType == "Activity"){
+			tlText = "My Activity"
+		}
+			
 		var titleLabel = Ti.UI.createLabel({
-
 			layout:'horizontal', 
 			top:3,
 			text: "Search Results", 
 			color: hub.API.customTextColor,
-			height: 20,
+			height: 60*hsf,
 			font: {
 				fontWeight: 'bold',
-				fontSize: 18,
+				fontSize: 25*hsf,
 			},
 			left: 5,
 		});
@@ -159,10 +178,10 @@ function SearchView (_neonClass){
 		});
 		
 		populateTable(table); 
-		
 		table.addEventListener('click', function(e){
 			var neonPath = hub.API.searchResults.getNeonPath(e.index);
 			var neonType = hub.API.searchResults.getNeonType(e.index);
+
 			if (neonPath)
 			{
 				var o = {
@@ -174,11 +193,12 @@ function SearchView (_neonClass){
 						win.hideIndicator(); 
 					},
 					success: function(neon){
+						
 						win.hideIndicator();
 						if (neonType === "Person"){
-							hub.API.showUser(neon);
+							hub.API.showUser(neon, _requestType);
 						}else{
-							hub.API.showNeon(neon);
+							hub.API.showNeon(neon, _requestType);
 						}
 						
 					}
@@ -196,8 +216,8 @@ function SearchView (_neonClass){
 	}
 
 	var appWindow = require("ui/common/UserView");
-    search_win = new appWindow("Explore");
-	self = buildSearchView(); 
+    search_win = new appWindow(_requestType);
+	self = buildSearchView(_requestType, search_win); 
 	search_win.addContent(self);
 
 	thisWindow = search_win.appwin;

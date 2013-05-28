@@ -101,16 +101,22 @@ function userView(_page_name){
 		canvas.add(topNavigationBarHolder);
 	}
 
-	tl_button.addEventListener('click', function()
-	{	
-		hub.API.closeWindow()
-	});
+	if (tl_button){
+		tl_button.addEventListener('click', function()
+		{	
+			hub.API.closeWindow()
+		});
+	}
+	
 	
 	helpEvent = function()
 	{	
 		hub.API.homeWindow();
 	}	
-	helpButton.addEventListener('click', helpEvent);
+	if (helpButton){
+		helpButton.addEventListener('click', helpEvent);
+	}
+	
 	
 	var contentWrapper = Ti.UI.createView({
 	    width: hub.API.app_width,
@@ -178,7 +184,22 @@ function userView(_page_name){
 		}
 		else if(icon_name === "Activity"){
 			var icon_event = function(){
-				openPage("ActivityView");
+				var o = {
+					start: function(){
+						showIndicator("Fetching Search Results ...");
+					},
+					error: function(){
+						Ti.API.info("Error Search Results");
+						hideIndicator(); 
+					},
+					success: function(){
+						hideIndicator();
+						openPage("ActivityView");
+					}
+				}; 
+				
+				hub.API.fetchActivity("activities/count", 0, o);
+				
 			} 
 		}else if(icon_name === "Explore"){
 			icon_event = function(){
